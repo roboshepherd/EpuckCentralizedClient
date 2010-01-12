@@ -2,8 +2,9 @@ import subprocess
 import re
 import time
 import math
+
 from data_manager import *
-from RILCommonModules import *
+from RILCommonModules.RILSetup import *
 
 # Device status alias
 DEVICE_NOT_RESPONDING = 0
@@ -40,7 +41,7 @@ class DeviceController():
         self.l2ping_ok = False
         self.task_selected = False
         self.task_is_rw = False
-        self.task_started = Fasle
+        self.task_started = False
         self.task_pending = False
         self.task_done = False
         self.task_timedout = False

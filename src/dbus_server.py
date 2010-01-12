@@ -3,7 +3,9 @@ import time, os, sys, sched, subprocess, re, signal, traceback
 import gobject
 import dbus, dbus.service, dbus.mainloop.glib 
 import multiprocessing,  logging
-from RILCommonModules import *
+
+from RILCommonModules.RILSetup import *
+from RILCommonModules.pose import *
 
 schedule = sched.scheduler(time.time, time.sleep)
 pose = Pose(x=700,  y=500,  theta=2.5).info

@@ -3,7 +3,7 @@ import gobject
 import dbus, dbus.service, dbus.mainloop.glib 
 import multiprocessing,  logging,  logging.config,  logging.handlers
 
-from RILCommonModules import *
+from RILCommonModules.RILSetup import *
 from data_manager import *
 
 logging.config.fileConfig("logging.conf")
@@ -82,7 +82,7 @@ def main_loop():
         pass
         sys.exit(0)
 
-def clistener_main(data_mgr,  dbus_if1= DBUS_IFACE_TRACKER,\
+def listener_main(data_mgr,  dbus_if1= DBUS_IFACE_TRACKER,\
             dbus_path1 = DBUS_PATH_BASE,\
             dbus_if2= DBUS_IFACE_TASK_SERVER, \
             dbus_path2 = DBUS_PATH_TASK_SERVER,\

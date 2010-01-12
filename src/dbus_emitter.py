@@ -4,7 +4,7 @@ import gobject
 import dbus, dbus.service, dbus.mainloop.glib 
 import multiprocessing,  logging
 
-from RILCommonModules import *
+from RILCommonModules.RILSetup import *
 from data_manager import *
 from utils import *
 
