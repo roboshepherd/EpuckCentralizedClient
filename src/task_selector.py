@@ -1,12 +1,17 @@
 import math,  time,  random, gobject
 import logging,  logging.config,  logging.handlers
 
-from RILCommonModules import *
+from RILCommonModules.RILSetup import *
+from RILCommonModules.LiveGraph import *
 from data_manager import *
 from ril_robot import *
 
 logging.config.fileConfig("logging.conf")
 logger = logging.getLogger("EpcLogger")
+
+LOG_TYPE_STIMULUS = "stimulus"
+LOG_TYPE_DIST = "dist"
+LOG_TYPE_SENSITIZATION = "sensitization"
 
 class TaskProbRange():
     def __init__(self,  id):
@@ -17,13 +22,22 @@ class TaskProbRange():
 class TaskSelector():
     def __init__(self, dm,  robot): # taskinfo as recvd from dbus signal
         self.datamgr = dm
-        self.robot =  robot
+        self.robot =  robot # ril_robot
         self.taskinfo = dm.mTaskInfo
         self.stimulus = []
         self.probabilities = []
         self.taskranges = [] # put inst. of TaskProbRange()s
         self.selectedTaskid = -1 
         self.deltadist = DELTA_DISTANCE
+        # live graph data writer objects
+        self.step = 0
+        self.selected_task = -1
+        self.data_ctx = None
+        self.stimuli_writer = None
+        self.dist_writer = None
+        self.sensitization_writer = None
+        self.pose_writer = None
+        
 
     def  CalculateDist(self,  rp,  tx,  ty):
         if USE_NORMALIZED_POSE is True:
@@ -134,23 +148,91 @@ class TaskSelector():
         #print self.datamgr.mSelectedTask[SELECTED_TASK_INFO]
         self.datamgr.mSelectedTaskAvailable.set()
         self.robot.UpdateTaskRecords(self.selectedTaskid)
+
+    def InitLogFiles(self):
+        # -- Init Stimuli writer --
+        name = "RobotStimulus"
+        now = time.strftime("%Y%b%H%M%S", time.gmtime()) 
+        desc = "logged in centralized communication mode from: " + now
+        # prepare label
+        label = "TimeStamp;StepCounter;SelectedTask"
+        for x in xrange(MAX_SHOPTASK+1):
+            label += "; "
+            label += "Task"
+            label += str(x)
+        label += "\n"
+        # Data context
+        self.data_ctx = DataCtx(name, label, desc)
+        ctx = self.data_ctx 
+        id = self.robot.id
+        self.stimuli_writer = DataWriter("Robot", id, ctx, now )
+        # -- Init dist writer -- 
+        ctx.name = "DistanceToTasks"
+        self.dist_writer = DataWriter("Robot", id, ctx, now )
+        # Init sensitization writer
+        ctx.name = "Sensitizations"
+        self.dist_writer = DataWriter("Robot", id, ctx, now )
+        # raw pose  
+        ctx.name = "RobotPose"
+        ctx.label = "TimeStamp;StepCounter;X;Y;Theta"
+        self.dist_writer = DataWriter("Robot", id, ctx, now )
+    
+    def GetCommonHeader(self):
+        ts = time.strftime("%H%M%S", time.gmtime())
+        sep = self.data_ctx.sep
+        header = ts + sep + self.step + sep + self.selected_task
+        return header
+
+    def GetTaskLog(self, log_type):
+        log = self.GetCommonHeader()
+        sep = self.data_ctx.sep
+        taskrec = self.robot.taskrec
+        for i in range(len(taskrec)):
+            log += sep
+            if log_type == LOG_TYPE_STIMULUS:
+                log += str(taskrec[i].stimuli)
+            elif log_type == LOG_TYPE_DIST:                
+                log += str(taskrec[i].dist)
+            elif log_type == LOG_TYPE_SENSITIZATION:
+                log += str(taskrec[i].sensitization)
+        return log
+    
+    def AppendTaskLogs(self):
+        try:
+            self.stimuli_writer.AppendData(self.GetTaskLog(LOG_TYPE_STIMULI))
+            self.dist_writer.AppendData(self.GetTaskLog(LOG_TYPE_DIST))
+            self.dist_writer.AppendData(self.GetTaskLog(LOG_TYPE_SESITIZATION))
+        except:
+            print "Task logging failed"
+            
+    def AppendPoseLog(self):        
+        sep = self.data_ctx.sep
+        p= self.robot.pose
+        log = self.GetCommonHeader()\
+         + sep + str(p.x) + sep + str(p.y) + sep + str(p.theta)
+        try: 
+            self.pose_writer.AppendData(log)
+        except:
+            print "Pose logging failed"
     
     def SelectTask(self):
         self.CalculateProbabilities()
         self.ConvertProbbToRange()
         self.GetRandomSelection()
-        self.PostTaskSelection()
 
 # main process function
 def  selector_main(dataManager,  robot):
     #time.sleep(INIT_SLEEP)
     ts = TaskSelector(dataManager,  robot)
+    ts.InitLogFiles()
     ts.datamgr.mRobotPoseAvailable.wait()
     ts.datamgr.mTaskInfoAvailable.wait()
     for i in range(TASK_SELECTION_STEPS):
         logger.info("@TS  ----- [Step %d Start ] -----",  i)
         #logger.debug("@TS Robot pose %s:" ,dataManager.mRobotPose.items() )
         ts.SelectTask() # can be started delayed
-        #ts.PostTaskSelection()
+        ts.PostTaskSelection()
+        ts.AppendTaskLogs()
+        ts.AppendPoseLog()
         #time.sleep(60)
         dataManager.mTaskDoneOTO.wait() # task done or timedout
