@@ -3,8 +3,10 @@ import re
 import time
 import math
 
-from data_manager import *
+#from myro import *
 from RILCommonModules.RILSetup import *
+from data_manager import *
+from epuck_navigator import *
 
 # Device status alias
 DEVICE_NOT_RESPONDING = 0
@@ -32,7 +34,7 @@ def process_ping_output(output):
     _packet_loss = ''
 
 class DeviceController():
-    def __init__(self,  dm,  bdaddr,  task_period= TASK_PERIOD):
+    def __init__(self,  dm,  bdaddr = 0,  task_period = TASK_PERIOD):
         self.datamgr_proxy = dm
         self.bdaddr = bdaddr
         self.task_start = 0
@@ -49,7 +51,22 @@ class DeviceController():
         self.pose_available = False
         # Device status
         self.status = DEVICE_NOT_RESPONDING
+        # myro robot
+        self.robot = None
+        self.epuck_ready = False
+        # navigator
+        self.navigator = EpuckNavigator()
 
+    def EpuckReady(self):
+        try:
+            #self.robot = Epuck(self.datamgr_proxy.mRobotID)
+            self.epuck_ready = True
+        except:
+            self.epuck_ready = False
+            print "Failed to initialize Myro epuck robot"
+        return self.epuck_ready
+
+        
     def L2PingOK(self):
         # [CodeMakeup] Check if l2ping exits!
         cmd = "/usr/bin/l2ping -c " + " 1 " + self.bdaddr
@@ -96,13 +113,8 @@ class DeviceController():
         return self.task_timedout
 
     def ArrivedAtTask(self):
-        robot_x= self.datamgr_proxy.mRobotPose[ROBOT_POSE_X]
-        robot_y= self.datamgr_proxy.mRobotPose[ROBOT_POSE_Y]
-        st = self.datamgr_proxy.mSelectedTask[SELECTED_TASK_INFO]
-        print "Selected TaskInfo"
-        print st
-        task_x = st[TASK_INFO_X]
-        task_y = st[TASK_INFO_Y]
+        robot_x, robot_y, robot_theta = self.GetRobotPose()
+        task_x, task_y = self.GetTaskPoseXY()
         dx = math.fabs(robot_x - task_x)
         dy = math.fabs(robot_y - task_y)
         print "ArrivedAtTask(): xdist: %f ydist: %f" %(dx, dy)
@@ -112,15 +124,26 @@ class DeviceController():
             print "ArrivedAtTask(): Arrived within radius %.2f !\n" %pxdist
         return self.at_task
 
-
     def PoseAvailable(self):
         if len(self.datamgr_proxy.mRobotPose) > 0: # <<  Test >>
             self.pose_available = True
         return self.pose_available
 
+    def GetRobotPose(self):
+        x = self.datamgr_proxy.mRobotPose[ROBOT_POSE_X]
+        y = self.datamgr_proxy.mRobotPose[ROBOT_POSE_Y]
+        theta = self.datamgr_proxy.mRobotPose[ROBOT_POSE_THETA]
+        return x, y, theta
+
+    def GetTaskPoseXY(self):
+        st = self.datamgr_proxy.mSelectedTask[SELECTED_TASK_INFO]
+        x = st[TASK_INFO_X]
+        y= st[TASK_INFO_Y]
+        return x, y
+
     def RunDeviceUnavailableLoop(self):
         while self.status is DEVICE_NOT_RESPONDING:
-            if self.L2PingOK():
+            if self.EpuckReady():
                 self.status = DEVICE_AVAILABLE # out loop
                 #print "Switching to RunDeviceAvailableLoop()"
                 self.RunDeviceAvailableLoop()
@@ -137,7 +160,7 @@ class DeviceController():
                 self.status = DEVICE_MOVING
                 self.RunDeviceMovingLoop() # go out of this loop
                 break
-            elif (not self.L2PingOK()):
+            elif (not self.EpuckReady()):
                 self.status = DEVICE_NOT_RESPONDING
                 self.RunDeviceUnavailableLoop() # go out of this loop
                 break
@@ -156,6 +179,11 @@ class DeviceController():
             elif  self.task_is_rw:
                 self.status = DEVICE_MOVING # stay in-loop
                 # do random walking ...
+                maxtime = time.time() + self.task_period
+                try:
+                    self.navigator.GoForward(self.robot, maxtime)
+                except:
+                    print "Random walk failed"
             elif self.TaskPending():
                 if (not self.PoseAvailable()) or self.ArrivedAtTask():
                     self.status = DEVICE_IDLE # go out of loop
@@ -164,7 +192,15 @@ class DeviceController():
                 else :
                     self.status = DEVICE_MOVING # stay in-loop
                     # go to navigation routines for MoveToTarget
-            elif (not self.L2PingOK()):
+                    rx, ry, rtheta = self.GetRobotPose()
+                    task_x, task_y = self.GetTaskPoseXY()
+                    maxtime = time.time() + self.task_period
+                    try:
+                        self.navigator.GoTowardsTarget(self.robot,\
+                         rx, ry, rtheta, task_x, task_y, maxtime)
+                    except:
+                        print "Going towards target failed"
+            elif (not self.EpuckReady()):
                 self.status = DEVICE_NOT_RESPONDING # go out of loop
                 self.RunDeviceUnavailableLoop()
             else:
@@ -172,7 +208,7 @@ class DeviceController():
 
     def RunDeviceIdleLoop(self):
         while self.status is DEVICE_IDLE:
-            if not self.L2PingOK():
+            if not self.EpuckReady():
                 self.status = DEVICE_NOT_RESPONDING # go out of loop
                 self.RunDeviceUnavailabeLoop()
                 break
@@ -191,7 +227,7 @@ class DeviceController():
             else:
                 print "@RunDeviceIdleLoop: Unexpected situation "
 
-    def RunMainLoop(self):
+    def RunMainLoop(self):          
         while EXIT_COND:
             self.RunDeviceUnavailableLoop()
 

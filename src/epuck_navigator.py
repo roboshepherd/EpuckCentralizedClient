@@ -1,8 +1,14 @@
 import  time
 from math import fabs, atan2
 
-from RILCommonModules import *
+#from myro import *
+from RILCommonModules.RILSetup import *
+from RILCommonModules.pose import *
 from utils import *
+
+PROXIMITY_THRESHOLD = 200
+FORWARD_SPEED = 0.3
+FORWARD_STEP_TIME = 1
 
 class NavFunc :
     NOTSET = -1
@@ -33,16 +39,113 @@ class EpuckNavigator:
         self.mThetaDesired = 0.0
         self.mThetaLocal = 0.0
 
-    def SetupTaskLoc(self,  x,  y, radius = TASK_RADIUS, coneangle =  TASK_RADIUS):
+    
+    def GoForward(self, robot, timeout):
+        e = robot
+        threshold = PROXIMITY_THRESHOLD
+        while int(time.time()) < int(maxtime):
+            sensors = e.getProximity()
+            #print sensors
+            maxval = max(sensors)
+            if maxval > threshold:
+                mostActive = sensors.index(maxval)
+                allActive = [i for i in range(8) if sensors[i] > 200]
+                #print 'sensor %d activated' % mostActive
+                #print 'i feel sensors', allActive
+                # flash the closest LED
+                led = e.getLEDnumber(mostActive)
+                e.flashLED(led, 0.25)
+                # response
+                if allActive == [0, 7]:
+                    trans = e.getTranslate()
+                    rotate = e.getRotate()
+                    e.move(0, 0.7)
+                    wait(1)
+                    e.move(trans, rotate)
+                elif mostActive in (0, 7):
+                    e.move(-0.4, 0)
+                elif mostActive == 1:
+                    e.move(-0.3, 0.1)
+                elif mostActive == 6:
+                    e.move(-0.3, -0.1)
+                elif mostActive == 2:
+                    e.move(0.5, 0.2)
+                elif mostActive == 5:
+                    e.move(0.5, -0.2)
+                elif mostActive == 3:
+                    e.move(0.4, 0.2)
+                elif mostActive == 4:
+                    e.move(0.4, -0.2)
+            else:
+                # nothing detected
+                e.forward(0.3, FORWARD_STEP_TIME)
+                
+            wait(0.05)
+
+    def GoTowardsTarget(self, robot, rx, ry, rtheta, task_x, task_y, maxtime):
+        self.UpdateCurrentPose(rx, ry, rtheta)
+        self.SetupTaskLoc(task_x,  task_y)
+        self.UpdateTargetTaskAngle()
+        # update objective function
+        self.UpdateNavFunc()
+        print "GoTowardsTarget(): START:", time.ctime()
+        print "TaskPoseOrientation:%2f Cone:%2f\n"\
+            %(self.mTaskPose.theta, self. mTaskConeAngle)
+        GoActionSwitch = {"12" : self.GoQ12, "23": self.GoQ23,\
+            "34": self.GoQ34,  "41":  self.GoQ41,"1": self.GoQ1,\
+             "2": self.GoQ2, "3": self.GoQ3, "4": self.GoQ4 }
+        GoActionSwitch.get(str(self.mCurrentQuad),  self.GoErrHandler)()
+        # Roatation Calculator //TODO Fix long reverse
+        thetadiff = self.mRobotPose.theta - self.mThetaDesired
+        localangle = fabs(thetadiff)
+        if(localangle < self.mTaskConeAngle):
+          print "GoTowardsTarget(): [No Turning] localangle:%.2f\
+          < TaskConeAngle:%.2f" %(localangle, self.mTaskConeAngle)
+          #self.GoForward(robot, maxtime)
+        elif (thetadiff < 0):  # Right Turn
+            print "GoToTaskLoc(): ThetaDesired: %.2f Localangle %.2f"\
+            %(self.mThetaDesired, localangle)
+            print "=> TurnRight selected" 
+            if (localangle >= ANGLE180):
+                print "GoToTaskLoc(): Multi step turning needed \n"
+                localangle1 = ANGLE180
+                localangle2 = localangle - localangle1
+                print "GoToTaskLoc(): Local angle %.2f + %.2f " %(localangle1, localangle2)
+                # first turn
+                # TurnReverse(pc, p2d, FIX_VA);
+                # second turn
+                #if(localangle2 > mTaskConeAngle) #TurnRight(pc, p2d, localangle2, FIX_VA);
+                #else: #TurnRight(pc, p2d, localangle, FIX_VA);
+            elif (thetadiff > 0): #// Left Turn
+                  print "GoToTaskLoc(): ThetaDesired: %.2f Localangle %.2f"\
+                    %(self.mThetaDesired, localangle)
+                  print "=> TurnLeft selected"
+                  if (localangle >= ANGLE180) :
+                    print "GoToTaskLoc(): Multi step turning needed \n" 
+                    localangle1 = ANGLE180
+                    localangle2 = localangle - localangle1
+                    print "GoToTaskLoc(): Local angle %.2f + %.2f \n"\
+                     %(localangle1, localangle2)
+                    # first turn
+                    # TurnReverse(pc, p2d, FIX_VA);
+                    # second turn
+                    #if(localangle2 > mTaskConeAngle): TurnLeft(pc, p2d, localangle2, FIX_VA)
+                    #else: TurnLeft(pc, p2d, localangle, FIX_VA);
+
+
+
+    def SetupTaskLoc(self, x, y, r=TASK_RADIUS, ca=TASK_CONE_ANGLE):
         self.mTaskPose.x = x
         self.mTaskPose.y= y
-        self.mTaskRadius = radius
-        self.mTaskConeAngle = coneangle
+        self.mTaskRadius = r
+        self.mTaskConeAngle = ca
+        print "Updated TaskLoc: x= %f y= %f" %(x, y)
 
     def UpdateCurrentPose(self,  x,  y,  theta):
         self.mRobotPose.x = x
         self.mRobotPose.y = y
         self.mRobotPose.theta= theta
+        print "Updated RobotPose: x= %f y= %f  theta:%f" %(x, y, theta)
 
     def UpdateTargetTaskAngle(self):
         dx = fabs(self.mRobotPose.x - self.mTaskPose.x)
@@ -192,6 +295,7 @@ class EpuckNavigator:
     
     
     def Rotate(self):
+        print "Now Doing Rotattion\n"
         pass
 
     def ArrivedAtTaskLoc(self):
@@ -213,14 +317,16 @@ class EpuckNavigator:
         self.UpdateTargetTaskAngle()
         # update objective function
         self.UpdateNavFunc()
-        print ">>>>>>>>>>>>>>>>GoToTaskLoc(): START  at: %s \n"  %str (time.time())
-        print "TaskPoseOrientation:%2f Cone:%2f\n"  %(self.mTaskPose.theta, self. mTaskConeAngle)
+        print ">>>>>>>>>>>>>>>>GoToTaskLoc(): START  at:",  time.ctime()
+        print "TaskPoseOrientation:%2f Cone:%2f"  %(self.mTaskPose.theta, self. mTaskConeAngle)
         GoActionSwitch = { "12" : self.GoQ12, "23": self.GoQ23, "34": self.GoQ34,  "41":  self.GoQ41,
                                             "1": self.GoQ1, "2": self.GoQ2, "3": self.GoQ3, "4": self.GoQ4 }
         GoActionSwitch.get(str(self.mCurrentQuad),  self.GoErrHandler) ()
         # Roatation Calculator //TODO Fix long reverse
         thetadiff = self.mRobotPose.theta - self.mThetaDesired
-        localangle = trunc(fabs(thetadiff), 2)
+        localangle = fabs(thetadiff)
+        print "local angle: %f", localangle
+        
         if(localangle < self.mTaskConeAngle):
           printf("GoToTaskLoc(): <No Turning> localangle:%.2f < TaskConeAngle:%.2f\n",\
           localangle, mTaskConeAngle);
@@ -230,8 +336,8 @@ class EpuckNavigator:
             %(self.mThetaDesired, localangle)
             if (localangle >= ANGLE180):
                 print "GoToTaskLoc(): Multi step turning needed \n"
-                localangle1 = trunc(ANGLE180, 2)
-                localangle2 = trunc(localangle - localangle1, 2)
+                localangle1 = ANGLE180
+                localangle2 = localangle - localangle1
                 print "GoToTaskLoc(): Local angle %.2f + %.2f \n" %(localangle1, localangle2)
                 # first turn
                 # TurnReverse(pc, p2d, FIX_VA);
@@ -243,8 +349,8 @@ class EpuckNavigator:
                   %(self.mThetaDesired, localangle)
                   if (localangle >= ANGLE180) :
                     print "GoToTaskLoc(): Multi step turning needed \n" 
-                    localangle1 = trunc(ANGLE180, 2);
-                    localangle2 = trunc(localangle - localangle1, 2);
+                    localangle1 = ANGLE180
+                    localangle2 = localangle - localangle1
                     print "GoToTaskLoc(): Local angle %.2f + %.2f \n" %(localangle1, localangle2)
                     # first turn
                     # TurnReverse(pc, p2d, FIX_VA);
