@@ -7,7 +7,7 @@ from RILCommonModules.pose import *
 from utils import *
 
 PROXIMITY_THRESHOLD = 200
-FORWARD_SPEED = 0.3
+FORWARD_SPEED = 0.5
 FORWARD_STEP_TIME = 1
 
 class NavFunc :
@@ -40,8 +40,8 @@ class EpuckNavigator:
         self.mThetaLocal = 0.0
 
     
-    def GoForward(self, robot, timeout):
-        e = robot
+    def GoForward(self, epuck, timeout):
+        e = epuck
         threshold = PROXIMITY_THRESHOLD
         while int(time.time()) < int(maxtime):
             sensors = e.getProximity()
@@ -82,7 +82,7 @@ class EpuckNavigator:
                 
             wait(0.05)
 
-    def GoTowardsTarget(self, robot, rx, ry, rtheta, task_x, task_y, maxtime):
+    def GoTowardsTarget(self, epuck, rx, ry, rtheta, task_x, task_y, maxtime):
         self.UpdateCurrentPose(rx, ry, rtheta)
         self.SetupTaskLoc(task_x,  task_y)
         self.UpdateTargetTaskAngle()
@@ -96,12 +96,13 @@ class EpuckNavigator:
              "2": self.GoQ2, "3": self.GoQ3, "4": self.GoQ4 }
         GoActionSwitch.get(str(self.mCurrentQuad),  self.GoErrHandler)()
         # Roatation Calculator //TODO Fix long reverse
-        thetadiff = self.mRobotPose.theta - self.mThetaDesired
+        thetadiff = self.mRobotPose.theta - self.mThetaDesired 
+        # in tracker unit 0 to 6.28 rad
         localangle = fabs(thetadiff)
         if(localangle < self.mTaskConeAngle):
           print "GoTowardsTarget(): [No Turning] localangle:%.2f\
           < TaskConeAngle:%.2f" %(localangle, self.mTaskConeAngle)
-          #self.GoForward(robot, maxtime)
+          self.GoForward(epuck, maxtime)
         elif (thetadiff < 0):  # Right Turn
             print "GoToTaskLoc(): ThetaDesired: %.2f Localangle %.2f"\
             %(self.mThetaDesired, localangle)
@@ -310,53 +311,6 @@ class EpuckNavigator:
             print "ArrivedAtTaskLoc(): Arrived within radius %.2f !\n" %self.mTaskRadius
         return ret
 
-    def  GoToTaskLoc(self,  taskx,  tasky):
-        """After updating robot pose this func should be called"""
-        #  set task location and calculate current taskangle
-        self.SetupTaskLoc(taskx,  tasky)
-        self.UpdateTargetTaskAngle()
-        # update objective function
-        self.UpdateNavFunc()
-        print ">>>>>>>>>>>>>>>>GoToTaskLoc(): START  at:",  time.ctime()
-        print "TaskPoseOrientation:%2f Cone:%2f"  %(self.mTaskPose.theta, self. mTaskConeAngle)
-        GoActionSwitch = { "12" : self.GoQ12, "23": self.GoQ23, "34": self.GoQ34,  "41":  self.GoQ41,
-                                            "1": self.GoQ1, "2": self.GoQ2, "3": self.GoQ3, "4": self.GoQ4 }
-        GoActionSwitch.get(str(self.mCurrentQuad),  self.GoErrHandler) ()
-        # Roatation Calculator //TODO Fix long reverse
-        thetadiff = self.mRobotPose.theta - self.mThetaDesired
-        localangle = fabs(thetadiff)
-        print "local angle: %f", localangle
-        
-        if(localangle < self.mTaskConeAngle):
-          printf("GoToTaskLoc(): <No Turning> localangle:%.2f < TaskConeAngle:%.2f\n",\
-          localangle, mTaskConeAngle);
-          Translate()
-        elif (thetadiff < 0):  # Right Turn
-            print "GoToTaskLoc(): ThetaDesired: %.2f Localangle %.2f => TurnRight selected \n" \
-            %(self.mThetaDesired, localangle)
-            if (localangle >= ANGLE180):
-                print "GoToTaskLoc(): Multi step turning needed \n"
-                localangle1 = ANGLE180
-                localangle2 = localangle - localangle1
-                print "GoToTaskLoc(): Local angle %.2f + %.2f \n" %(localangle1, localangle2)
-                # first turn
-                # TurnReverse(pc, p2d, FIX_VA);
-                # second turn
-                #if(localangle2 > mTaskConeAngle) #TurnRight(pc, p2d, localangle2, FIX_VA);
-                #else: #TurnRight(pc, p2d, localangle, FIX_VA);
-            elif (thetadiff > 0): #// Left Turn
-                  print "GoToTaskLoc(): ThetaDesired: %.2f Localangle %.2f => TurnLeft selected \n"\
-                  %(self.mThetaDesired, localangle)
-                  if (localangle >= ANGLE180) :
-                    print "GoToTaskLoc(): Multi step turning needed \n" 
-                    localangle1 = ANGLE180
-                    localangle2 = localangle - localangle1
-                    print "GoToTaskLoc(): Local angle %.2f + %.2f \n" %(localangle1, localangle2)
-                    # first turn
-                    # TurnReverse(pc, p2d, FIX_VA);
-                    # second turn
-                    #if(localangle2 > mTaskConeAngle): TurnLeft(pc, p2d, localangle2, FIX_VA)
-                    #else: TurnLeft(pc, p2d, localangle, FIX_VA);
 
 
    

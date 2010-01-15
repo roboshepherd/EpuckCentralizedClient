@@ -26,7 +26,7 @@ def main():
         #taskselector.start()
         #dbus_emitter.start()
         # Ending....
-        time.sleep(10)
+        time.sleep(2)
         #dbus_server.join()
         dbus_listener.join()
         device_controller.join()
@@ -46,6 +46,13 @@ if __name__ == '__main__':
 	# setup processes
 	dbus_shared_path = DBUS_PATH_BASE + robotid
 	dm = DataManager(int(robotid))
+	#----------START TEST CODE ----#
+	dm.mSelectedTask[SELECTED_TASK_ID] = 1
+	dm.mSelectedTask[SELECTED_TASK_STATUS] = TASK_SELECTED
+	dm.mSelectedTask[SELECTED_TASK_INFO] = [1200000, 1530, 1488, 0.0, 0.5]
+	dm.mTaskInfo[1] = [1200000, 1530, 1488, 0.0, 0.5]
+	# -- END TEST CODE --------#
+	
 	robot = RILRobot(int(robotid))
 	robot.InitTaskRecords(MAX_SHOPTASK)
 	sig1 = SIG_ROBOT_POSE 

@@ -175,7 +175,7 @@ class TaskSelector():
         # raw pose  
         ctx.name = "RobotPose"
         ctx.label = "TimeStamp;StepCounter;X;Y;Theta"
-        self.dist_writer = DataWriter("Robot", id, ctx, now )
+        self.pose_writer = DataWriter("Robot", id, ctx, now )
     
     def GetCommonHeader(self):
         ts = time.strftime("%H%M%S", time.gmtime())
