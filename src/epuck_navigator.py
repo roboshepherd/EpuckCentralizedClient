@@ -7,8 +7,12 @@ from RILCommonModules.pose import *
 from utils import *
 
 PROXIMITY_THRESHOLD = 200
-FORWARD_SPEED = 0.5
-FORWARD_STEP_TIME = 1
+TRASNLATE_SPEED = 0.466
+ROTATE_SPEED = 0.644 
+STEP_DIST = 100 # pixel
+TRANSLATE_CONST = 40 # dividing desired px-dist by this gives time(translate) 
+ROTATE_CONST = 0.67 # mutiplying this with desired angle gives time(rotate)
+FORWARD_STEP_TIME = 2
 
 class NavFunc :
     NOTSET = -1
@@ -38,10 +42,13 @@ class EpuckNavigator:
         self.mCurrentQuad = Quad.Q0
         self.mThetaDesired = 0.0
         self.mThetaLocal = 0.0
+        # epuck
+        self.epuck = None
 
     
-    def GoForward(self, epuck, timeout):
-        e = epuck
+    def GoForward(self, timeout):
+        e = self.epuck
+        maxtime = time.time() + timeout
         threshold = PROXIMITY_THRESHOLD
         while int(time.time()) < int(maxtime):
             sensors = e.getProximity()
@@ -83,6 +90,7 @@ class EpuckNavigator:
             wait(0.05)
 
     def GoTowardsTarget(self, epuck, rx, ry, rtheta, task_x, task_y, maxtime):
+        self.epuck = epuck
         self.UpdateCurrentPose(rx, ry, rtheta)
         self.SetupTaskLoc(task_x,  task_y)
         self.UpdateTargetTaskAngle()
@@ -107,31 +115,6 @@ class EpuckNavigator:
             print "GoToTaskLoc(): ThetaDesired: %.2f Localangle %.2f"\
             %(self.mThetaDesired, localangle)
             print "=> TurnRight selected" 
-            if (localangle >= ANGLE180):
-                print "GoToTaskLoc(): Multi step turning needed \n"
-                localangle1 = ANGLE180
-                localangle2 = localangle - localangle1
-                print "GoToTaskLoc(): Local angle %.2f + %.2f " %(localangle1, localangle2)
-                # first turn
-                # TurnReverse(pc, p2d, FIX_VA);
-                # second turn
-                #if(localangle2 > mTaskConeAngle) #TurnRight(pc, p2d, localangle2, FIX_VA);
-                #else: #TurnRight(pc, p2d, localangle, FIX_VA);
-            elif (thetadiff > 0): #// Left Turn
-                  print "GoToTaskLoc(): ThetaDesired: %.2f Localangle %.2f"\
-                    %(self.mThetaDesired, localangle)
-                  print "=> TurnLeft selected"
-                  if (localangle >= ANGLE180) :
-                    print "GoToTaskLoc(): Multi step turning needed \n" 
-                    localangle1 = ANGLE180
-                    localangle2 = localangle - localangle1
-                    print "GoToTaskLoc(): Local angle %.2f + %.2f \n"\
-                     %(localangle1, localangle2)
-                    # first turn
-                    # TurnReverse(pc, p2d, FIX_VA);
-                    # second turn
-                    #if(localangle2 > mTaskConeAngle): TurnLeft(pc, p2d, localangle2, FIX_VA)
-                    #else: TurnLeft(pc, p2d, localangle, FIX_VA);
 
 
 
@@ -207,62 +190,29 @@ class EpuckNavigator:
             print "NavFunc set @Q4 \n"
         else:
             print "Unknown Quad \n"
+    
+    def MoveReverse(self):
+        turn_angle = ANGLE180
+        t1 = ROTATE_CONST * ANGLE180
+        self.TurnLeft(t1)
+        t2 = STEP_DIST / TRANSLATE_CONST
+        Translate(t2)
 
     def  GoQ12(self):
         self.mThetaDesired = ANGLE90
-        print "GoToTaskLoc(): **Quad %d**, called "  %self.mCurrentQuad
-        if((self.mRobotPose.theta > (ANGLE270 - DELTA_ANGLE0))  and\
-        (self.mRobotPose.theta < (ANGLE270 + DELTA_ANGLE0))):
-            printf("with TurnReverse \n");
-            #TurnReverse(pc, p2d, FIX_VA);
-            Translate()
-        elif ((self.mRobotPose.theta > (ANGLE270 - DELTA_ANGLE0))  and\
-        (self.mRobotPose.theta < (ANGLE270 + DELTA_ANGLE0))):
-             Translate()
-        else:
-            print "with rotation \n"
+        self.MoveReverse()
     
     def GoQ23(self):
         self.mThetaDesired = ANGLE180
-        print "GoToTaskLoc(): **Quad %d**, called "  %self.mCurrentQuad
-        if((self.mRobotPose.theta > (ANGLE360 - DELTA_ANGLE0))  or\
-        (self.mRobotPose.theta < (DELTA_ANGLE0))):
-            printf("with TurnReverse \n");
-            #TurnReverse(pc, p2d, FIX_VA);
-            Translate()
-        elif ((self.mRobotPose.theta > (ANGLE180 - DELTA_ANGLE0))  and\
-           (self.mRobotPose.theta < (ANGLE180 + DELTA_ANGLE0))):
-             Translate()
-        else:
-            print "with rotation \n"
+        self.MoveReverse()
     
     def GoQ34(self):
         self.mThetaDesired = ANGLE270
-        print "GoToTaskLoc(): **Quad %d**, called "  %self.mCurrentQuad
-        if((self.mRobotPose.theta > (ANGLE90 - DELTA_ANGLE0))  and\
-           (self.mRobotPose.theta < (ANGLE90 + DELTA_ANGLE0))):
-            printf("with TurnReverse \n");
-            #TurnReverse(pc, p2d, FIX_VA);
-            Translate()
-        elif ((self.mRobotPose.theta > (ANGLE90 - DELTA_ANGLE0))  and\
-           (self.mRobotPose.theta < (ANGLE90 + DELTA_ANGLE0))):
-             Translate()
-        else:
-            print "with rotation \n"
+        self.MoveReverse()
 
     def GoQ41(self):
         self.mThetaDesired = 0.0
-        print "GoToTaskLoc(): **Quad %d**, called "  %self.mCurrentQuad
-        if((self.mRobotPose.theta > (ANGLE180 - DELTA_ANGLE0))  and\
-        (self.mRobotPose.theta < (ANGLE180 + DELTA_ANGLE0))):
-            printf("with TurnReverse \n");
-            #TurnReverse(pc, p2d, FIX_VA);
-            Translate()
-        elif ((self.mRobotPose.theta > (ANGLE360 - DELTA_ANGLE0))  and\
-        (self.mRobotPose.theta < (DELTA_ANGLE0))):
-             Translate()
-        else:
-            print "with rotation \n"
+        self.MoveReverse()
     
     def GoQ1(self):
         self.mThetaDesired = self.mTaskPose.theta
@@ -285,19 +235,24 @@ class EpuckNavigator:
     
     def Translate(self):
         print "Now Doing Translation\n"
-        pass
-        #        if(!ArrivedAtTaskLoc()) {
-        #        #//p2d->SetSpeed(0.4,-0.26);
-        #       double gone = GoAhead(pc, p2d, ir, BASIC_VX);
-        #          Sleep(100);
-        #        } else {
-        #          Stop(pc, p2d);
-        #        }
+        try:
+            self.epuck.forward(TRANSLATE_SPEED, timeout)
+        except:
+            print "Translate failed"
     
+    def TurnLeft(self, timeout):
+        print "Now Doing Left Rotation\n"
+        try:
+            self.epuck.turnLeft(ROTATE_SPEED, timeout)
+        except:
+            print "TurnLeft failed"
     
-    def Rotate(self):
-        print "Now Doing Rotattion\n"
-        pass
+    def TurnRight(self, timeout):
+        print "Now Doing Right Rotation\n"
+        try:
+            self.epuck.turnRight(ROTATE_SPEED, timeout)
+        except:
+            print "TurnRight failed"
 
     def ArrivedAtTaskLoc(self):
         ret = False
