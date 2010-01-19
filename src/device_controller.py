@@ -23,7 +23,8 @@ DEVICE_IDLE = 3
 _packet_loss = ''
 EXIT_COND = True 
 # may be changed later to set as time duration 
-SMALL_DELAY = 1
+SMALL_DELAY = 3
+TASK_STEP_DURATION = 15
 
 def process_ping_output(output):
     global _packet_loss
@@ -40,12 +41,13 @@ def process_ping_output(output):
     _packet_loss = ''
 
 class DeviceController():
-    def __init__(self,  dm,  bdaddr = 0,  task_period = TASK_PERIOD):
+    def __init__(self,  dm,  bdaddr = 0,  task_period = TASK_STEP_DURATION):
         self.datamgr_proxy = dm
         self.robotid = dm.mRobotID
         self.pose = Pose()
         self.bdaddr = bdaddr
-        self.task_start = 0
+        self.task_start = 0 # time()
+        self.task_end = 0 # time()
         self.task_period = task_period
         # shared status
         #self.l2ping_ok = False
@@ -106,17 +108,8 @@ class DeviceController():
             print "Failed to initialize Myro epuck robot"
         return self.epuck_ready
 
-    #def L2PingOK(self):
-        ## [CodeMakeup] Check if l2ping exits!
-        #cmd = "/usr/bin/l2ping -c " + " 1 " + self.bdaddr
-        #subproc = subprocess.Popen([cmd, ],\
-            #stderr=subprocess.PIPE, stdout=subprocess.PIPE, shell=True)
-        #stdout_value = subproc.communicate()
-        ##print '\t got l2ping stdout_value:', stdout_value[0]
-        #self.l2ping_ok = process_ping_output(stdout_value[0])
-        #return self.l2ping_ok 
-
     def TaskSelected(self):
+        self.task_selected = False
         taskdict = self.datamgr_proxy.mSelectedTask
         taskid = eval(str(taskdict[SELECTED_TASK_ID]))
         status = str(taskdict[SELECTED_TASK_STATUS])
@@ -130,19 +123,8 @@ class DeviceController():
     def RandomWalkTask(self):
         return self.task_is_rw 
 
-    #def TaskPending(self):
-        #if self.task_selected and (not self.task_started):
-            #self.task_pending = True
-            #self.task_started = True
-            #return self.task_pending
-        #if  (not self.ArrivedAtTask()): # <<FixIt: RandomWalking case>>
-            #self.task_pending = True
-        #return self.task_pending
-
-    #def TaskDone(self):
-        #return self.task_done
-
     def TaskTimedOut(self):
+        self.task_timedout = False
         now = time.time()
         elasped = now - self.task_start
         if elasped > self.task_period:
@@ -150,6 +132,7 @@ class DeviceController():
         return self.task_timedout
 
     def ArrivedAtTask(self):
+        self.at_task = False
         robot_x, robot_y, robot_theta = self.GetUpdatedRobotPose()
         task_x, task_y = self.GetTaskPoseXY()
         dx = math.fabs(robot_x - task_x)
@@ -160,12 +143,6 @@ class DeviceController():
             self.at_task = True
             print "ArrivedAtTask(): Arrived within radius %.2f !\n" %pxdist
         return self.at_task
-
-    #def PoseAvailable(self):
-        #if self.pose.x: # <<  Test >>
-            #self.pose_available = True
-            #print "PoseAvailable Indicated"
-        #return self.pose_available
     
     def PoseUpdated(self):
         updated = False
@@ -178,7 +155,7 @@ class DeviceController():
         self.pose.UpdateFromList(self.datamgr_proxy.mRobotPose)
         x = self.pose.x
         y = self.pose.y
-        theta = self.pose.y
+        theta = self.pose.theta
         ts = self.pose.ts
         self.last_pose_ts = ts # used later, see PoseUpdated()
         return x, y, theta
@@ -189,20 +166,35 @@ class DeviceController():
         y= st[TASK_INFO_Y]
         return x, y
 
+    def DoRandomWalk(self):
+        maxtime = time.time() + self.task_period
+        try:
+            self.navigator.GoForward(self.epuck, maxtime)
+            logger.debug ("\tRandom walking")
+            time.sleep(self.task_period)
+        except:
+            logger.debug ("\tRandom walk failed")
+
+    def ResetTaskStats(self):
+        self.task_is_rw = False
+        self.task_timedout = False 
+        self.task_selected = False
+        
+
     def RunDeviceUnavailableLoop(self):
-        logger.debug ("Entering DEVICE_NOT_RESPONDING loop--->")
         while self.status is DEVICE_NOT_RESPONDING:
+            logger.debug ("Entering DEVICE_NOT_RESPONDING loop--->")
             if self.EpuckReady():
                 self.status = DEVICE_AVAILABLE # out loop
                 #self.RunDeviceAvailableLoop()
                 break
             else: 
                 self.status = DEVICE_NOT_RESPONDING # stay here in loop
-                #time.sleep(SMALL_DELAY)
+                time.sleep(SMALL_DELAY)
 
     def RunDeviceAvailableLoop(self):
-        logger.debug ("Entering DEVICE_AVAILABLE loop--->")
         while self.status is DEVICE_AVAILABLE:
+            logger.debug ("Entering DEVICE_AVAILABLE loop--->")
             if self.TaskSelected():
                 self.task_start = time.time()
                 self.status = DEVICE_MOVING
@@ -215,11 +207,11 @@ class DeviceController():
             else:
                self.status = DEVICE_AVAILABLE # stay in-loop
                print "@DEVICE_AVAILABLE loop"
-               #time.sleep(SMALL_DELAY)
+               time.sleep(SMALL_DELAY)
    
     def RunDeviceMovingLoop(self):
-        logger.debug ("Entering DEVICE_MOVING loop--->")
         while self.status is DEVICE_MOVING:
+            logger.debug ("Entering DEVICE_MOVING loop--->")
             if (not self.EpuckReady()):
                 self.status = DEVICE_NOT_RESPONDING # go out of loop
                 #self.RunDeviceUnavailableLoop()
@@ -228,20 +220,16 @@ class DeviceController():
             elif self.TaskTimedOut():
                 self.task_done = True
                 self.status = DEVICE_AVAILABLE # go out of loop
+                self.task_end = time.time()
                 #self.RunDeviceAvailableLoop()
                 logger.debug ("\tTimedout")
+                self.ResetTaskStats() # for next task
                 break 
-            # doing task 
+            # ---------------- Doing task ----------------------
             if  self.task_is_rw:
                 self.status = DEVICE_MOVING # stay in-loop
                 # do random walking ...
-                maxtime = time.time() + self.task_period
-                try:
-                    self.navigator.GoForward(self.epuck, maxtime)
-                    logger.debug ("\tRandom walking")
-                    time.sleep(self.task_period)
-                except:
-                    logger.debug ("\tRandom walk failed")
+                self.DoRandomWalk()
             elif self.PoseUpdated(): # task is move to target
                 if self.ArrivedAtTask():
                     logger.debug ("\tAtTask")
@@ -260,17 +248,17 @@ class DeviceController():
                         logger.debug ("\t--> Naviagtor")
                         self.navigator.GoTowardsTarget(self.epuck,\
                          rx, ry, rtheta, task_x, task_y, maxtime)
-                        time.sleep(self.task_period)
+                        #time.sleep(self.task_period)
                     except:
                         print "Going towards target failed"
             else:
                 self.status = DEVICE_MOVING # stay in-loop
-            
-        logger.debug ("--->Exiting DEVICE_MOVING loop.")    
+                self.DoRandomWalk()
+            logger.debug ("--->Exiting DEVICE_MOVING loop.")    
         
     def RunDeviceIdleLoop(self):
-        logger.debug ("Entering DEVICE_IDLE loop--->")
         while self.status is DEVICE_IDLE:
+            logger.debug ("Entering DEVICE_IDLE loop--->")
             if not self.EpuckReady():
                 self.status = DEVICE_NOT_RESPONDING # go out of loop
                 #self.RunDeviceUnavailabeLoop()
@@ -287,6 +275,7 @@ class DeviceController():
                         logger.debug ("\tAtTask")
                         # stay in loop
                         self.status = DEVICE_IDLE
+                        time.sleep(SMALL_DELAY)
                     else:
                         self.status = DEVICE_MOVING # go out of loop
                         logger.debug ("\tgo out to DEVICE_MOVING")
@@ -296,7 +285,7 @@ class DeviceController():
                     logger.debug ("\tPose not Updated")
                     # stay in loop
                     self.status = DEVICE_IDLE 
-        logger.debug ("--->Exiting DEVICE_IDLE loop.")              
+            logger.debug ("--->Exiting DEVICE_IDLE loop.")              
 
 
     def RunMainLoop(self):          
@@ -324,5 +313,5 @@ def get_config(config_file,  config):
 def controller_main(data_mgr,  config_file):
         bdaddr = get_config(config_file,  'bdaddr')
         dc = DeviceController(data_mgr,  bdaddr)
-        dc.InitLogFiles()
+        #dc.InitLogFiles()
         dc.RunMainLoop()

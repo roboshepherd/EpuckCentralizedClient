@@ -12,12 +12,16 @@ logger = logging.getLogger("EpcLogger")
 
 PROXIMITY_THRESHOLD = 200
 TRANSLATE_SPEED = 0.5
-ROTATE_SPEED = 1.0 # 1.0 == 3.14 rev/s, 0.644 == 2.04 rev/s
-STEP_DIST = 200 # pixel
+ROTATE_SPEED = 0.644 # 1.0 == 3.14 rev/s, 0.644 == 2.04 rev/s
+STEP_DIST = 40 # pixel
 TRANSLATE_CONST = 40 # dividing desired px-dist by this gives time(translate) 
-ROTATE_CONST = 0.637 # mutiplying this with desired angle gives time(rotate)
+ROTATE_CONST = 0.637/2 # mutiplying this with desired angle gives time(rotate)
 # typical value: 0.637  max val = 0.411
-FORWARD_STEP_TIME = 2
+FORWARD_STEP_TIME = 1
+# Obstacle Avoidance params
+BACKWARD_SPEED1 = -0.8 # orig: -0.4
+BACKWARD_TURN = 0.5 # orig: 0 , no turn
+AVOID_WAIT = 0.1 # orig: 0.05
 
 class NavFunc :
     NOTSET = -1
@@ -75,7 +79,7 @@ class EpuckNavigator:
                     wait(1)
                     e.move(trans, rotate)
                 elif mostActive in (0, 7):
-                    e.move(-0.4, 0)
+                    e.move(BACKWARD_SPEED1 , BACKWARD_TURN)
                 elif mostActive == 1:
                     e.move(-0.3, 0.1)
                 elif mostActive == 6:
@@ -92,7 +96,8 @@ class EpuckNavigator:
                 # nothing detected
                 e.forward(TRANSLATE_SPEED, FORWARD_STEP_TIME)
                 
-            wait(0.05)
+            wait(AVOID_WAIT)
+        e.move(0, 0) # stop
 
     def GoTowardsTarget(self, epuck, rx, ry, rtheta, task_x, task_y, maxtime):
         self.epuck = epuck
@@ -119,13 +124,13 @@ class EpuckNavigator:
         self.mTaskPose.y= y
         self.mTaskRadius = r
         self.mTaskConeAngle = ca
-        print "Updated TaskLoc: x= %f y= %f" %(x, y)
+        logger.info("Updated TaskLoc: x= %f y= %f", x, y)
 
     def UpdateCurrentPose(self,  x,  y,  theta):
         self.mRobotPose.x = x
         self.mRobotPose.y = y
         self.mRobotPose.theta= theta
-        print "Updated RobotPose: x= %f y= %f  theta:%f" %(x, y, theta)
+        logger.info( "Updated RobotPose: x= %f y= %f  theta:%f", x, y, theta)
 
     def UpdateTargetTaskAngle(self):
         dx = fabs(self.mRobotPose.x - self.mTaskPose.x)
@@ -147,45 +152,45 @@ class EpuckNavigator:
         if ( (rx < tx1)  and  (ry < ty2 ) and  (ry > ty1) ):  # xleft
             self.mXFunc = NavFunc.MAXZ
             self.mYFunc = NavFunc.FIXD
-            print "NavFunc set @xleft"
+            logger.debug("NavFunc set @xleft")
             self.mCurrentQuad = Quad.Q41
         elif ( (rx > tx2)  and  (ry < ty2 )  and (ry > ty1) ) :      #xright
             self.mXFunc = NavFunc.MINZ
             self.mYFunc = NavFunc.FIXD
-            print "NavFunc set @xright "
+            logger.debug("NavFunc set @xright ")
             self.mCurrentQuad = Quad.Q23
         elif ( (rx < tx2)  and  (rx > tx1 ) and  (ry < ty1) ):  #yup
             self.mXFunc = NavFunc.FIXD
             self.mYFunc = NavFunc.MAXZ
-            print "NavFunc set @yup "
+            logger.debug("NavFunc set @yup ")
             self.mCurrentQuad = Quad.Q12
         elif ( (rx < tx2)  and  (rx > tx1 ) and  (ry > ty2) ):   #udown
             self.mXFunc = NavFunc.FIXD
             self.mYFunc = NavFunc.MINZ
-            printf("NavFunc set @ydown ");
+            printf("NavFunc set @ydown ")
             self.mCurrentQuad = Quad.Q34
         elif ( (rx < tx1) and  (ry < ty1) ) :  # @Q1 : topleft
             self.mXFunc = NavFunc.MAXZ
             self.mYFunc = NavFunc.MAXZ
             self.mCurrentQuad = Quad.Q1
-            print "NavFunc set @Q1 "        
+            logger.debug("NavFunc set @Q1 ")        
         elif ( (rx > tx2)  and (ry < ty1) ) :
             self.mXFunc = NavFunc.MINZ
             self.mYFunc = NavFunc.MAXZ
             self.mCurrentQuad = Quad.Q2
-            print "NavFunc set @Q2 "
+            logger.debug("NavFunc set @Q2 ")
         elif ( (rx > tx2)  and  (ry > ty2) ) :
             self.mXFunc = NavFunc.MINZ
             self.mYFunc = NavFunc.MINZ
             self.mCurrentQuad = Quad.Q3
-            print "NavFunc set @Q3 "
+            logger.debug("NavFunc set @Q3 ")
         elif ( (rx < tx1)  and  (ry > ty2) ) :
             self.mXFunc = NavFunc.MAXZ
             self.mYFunc = NavFunc.MINZ
             self.mCurrentQuad = Quad.Q4
-            print "NavFunc set @Q4 "
+            logger.debug("NavFunc set @Q4 ")
         else:
-            print "Unknown Quad: Make Robot pose > task radius"
+            logger.warn("Unknown Quad: Make Robot pose > task radius")
     
     
     def  GoQ12(self):
@@ -206,22 +211,25 @@ class EpuckNavigator:
     
     def GoQ1(self):
         self.mThetaDesired = self.mTaskPose.theta
-        print "GoQ1(): Theta desired %f"  %self.mThetaDesired
+        logger.info("GoQ1(): Theta desired %f",  self.mThetaDesired)
         min_angle =  self.mThetaDesired
         max_angle = ANGLE180 + self.mThetaDesired
-        if(min_angle <= self.mRobotPose.theta <= max_angle):
+        if(min_angle < self.mRobotPose.theta < max_angle):
             rotate = self.mRobotPose.theta - self.mThetaDesired
             self.RotateLeft(rotate)
-        elif(max_angle <= self.mRobotPose.theta <= ANGLE360):
+            logger.debug("\t 1st turn choice %f", rotate)
+        elif(max_angle < self.mRobotPose.theta < ANGLE360):
             rotate = (ANGLE360 - self.mRobotPose.theta) + self.mThetaDesired
             self.RotateRight(rotate)
+            logger.debug("\t 2nd turn choice %f", rotate)
         else:
             rotate = self.mThetaDesired - self.mRobotPose.theta 
             self.RotateRight(rotate)
+            logger.debug("\t 3rd turn choice %f", rotate)
 
     def GoQ2(self):
         self.mThetaDesired = ANGLE180 -  self.mTaskPose.theta
-        print "GoQ2(): Theta desired %f"  %self.mThetaDesired
+        logger.info("GoQ2(): Theta desired %f", self.mThetaDesired)
         min_angle = self.mThetaDesired
         max_angle = ANGLE360 - self.mTaskPose.theta
         if(min_angle <= self.mRobotPose.theta <= max_angle):
@@ -236,7 +244,7 @@ class EpuckNavigator:
         
     def GoQ3(self):
         self.mThetaDesired = ANGLE180  + self.mTaskPose.theta
-        print "GoQ3(): Theta desired %f"  %self.mThetaDesired
+        logger.info("GoQ3(): Theta desired %f", self.mThetaDesired)
         min_angle = self.mTaskPose.theta
         max_angle = self.mThetaDesired
         if(min_angle <= self.mRobotPose.theta <= max_angle):
@@ -251,10 +259,10 @@ class EpuckNavigator:
 
     def GoQ4(self):
         self.mThetaDesired = ANGLE360 -  self.mTaskPose.theta
-        print "GoQ4(): Theta desired %f"  %self.mThetaDesired 
+        logger.info("GoQ4(): Theta desired %f", self.mThetaDesired) 
         min_angle = ANGLE180 - self.mTaskPose.theta
         max_angle = self.mThetaDesired
-        print "min_angle %f max_angle %f" %(min_angle, max_angle)
+        logger.info("min_angle %f max_angle %f", min_angle, max_angle)
         if(min_angle <= self.mRobotPose.theta <= max_angle):
             rotate = self.mThetaDesired - self.mRobotPose.theta
             #print "robot pose falls w/i min-max"
@@ -269,7 +277,7 @@ class EpuckNavigator:
             self.RotateLeft(rotate)
 
     def GoErrHandler(self): 
-        print "Unknown Quad, can't go "
+        logger.warn("Unknown Quad, can't go ")
     
     def TurnReverse(self):
         logger.debug("\t Turning reverse")
@@ -296,7 +304,7 @@ class EpuckNavigator:
         except Exception,e:
             print e
             print sys.exc_info()[0]
-            logger.debug("Translatation failed for %s", sys.exc_info()[0])
+            logger.error("Translatation failed for %s", sys.exc_info()[0])
     
     def TurnLeft(self, timeout):
         logger.debug("Now Doing Left Rotation for %f sec" %timeout)
