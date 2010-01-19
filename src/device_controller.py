@@ -150,7 +150,7 @@ class DeviceController():
         return self.task_timedout
 
     def ArrivedAtTask(self):
-        robot_x, robot_y, robot_theta = self.GetRobotPose()
+        robot_x, robot_y, robot_theta = self.GetUpdatedRobotPose()
         task_x, task_y = self.GetTaskPoseXY()
         dx = math.fabs(robot_x - task_x)
         dy = math.fabs(robot_y - task_y)
@@ -194,11 +194,11 @@ class DeviceController():
         while self.status is DEVICE_NOT_RESPONDING:
             if self.EpuckReady():
                 self.status = DEVICE_AVAILABLE # out loop
-                self.RunDeviceAvailableLoop()
+                #self.RunDeviceAvailableLoop()
                 break
             else: 
                 self.status = DEVICE_NOT_RESPONDING # stay here in loop
-                time.sleep(SMALL_DELAY)
+                #time.sleep(SMALL_DELAY)
 
     def RunDeviceAvailableLoop(self):
         logger.debug ("Entering DEVICE_AVAILABLE loop--->")
@@ -206,29 +206,29 @@ class DeviceController():
             if self.TaskSelected():
                 self.task_start = time.time()
                 self.status = DEVICE_MOVING
-                self.RunDeviceMovingLoop() # go out of this loop
+                #self.RunDeviceMovingLoop() # go out of this loop
                 break
             elif (not self.EpuckReady()):
                 self.status = DEVICE_NOT_RESPONDING
-                self.RunDeviceUnavailableLoop() # go out of this loop
+                #self.RunDeviceUnavailableLoop() # go out of this loop
                 break
             else:
                self.status = DEVICE_AVAILABLE # stay in-loop
                print "@DEVICE_AVAILABLE loop"
-               time.sleep(SMALL_DELAY)
+               #time.sleep(SMALL_DELAY)
    
     def RunDeviceMovingLoop(self):
         logger.debug ("Entering DEVICE_MOVING loop--->")
         while self.status is DEVICE_MOVING:
             if (not self.EpuckReady()):
                 self.status = DEVICE_NOT_RESPONDING # go out of loop
-                self.RunDeviceUnavailableLoop()
+                #self.RunDeviceUnavailableLoop()
                 logger.debug ("\tDEVICE_NOT_RESPONDING")
                 break
             elif self.TaskTimedOut():
                 self.task_done = True
                 self.status = DEVICE_AVAILABLE # go out of loop
-                self.RunDeviceAvailableLoop()
+                #self.RunDeviceAvailableLoop()
                 logger.debug ("\tTimedout")
                 break 
             # doing task 
@@ -239,26 +239,28 @@ class DeviceController():
                 try:
                     self.navigator.GoForward(self.epuck, maxtime)
                     logger.debug ("\tRandom walking")
+                    time.sleep(self.task_period)
                 except:
                     logger.debug ("\tRandom walk failed")
             elif self.PoseUpdated(): # task is move to target
-                if self.AtTask():
+                if self.ArrivedAtTask():
                     logger.debug ("\tAtTask")
                     self.status = DEVICE_IDLE
-                    self.RunDeviceIdleLoop()
+                    #self.RunDeviceIdleLoop()
                     break
                 else:
                     logger.debug ("\tMoving to Task")
                     self.status = DEVICE_MOVING # stay in-loop
                     # go to navigation routines for MoveToTarget
                     self.AppendPoseLog()
-                    rx, ry, rtheta = self.GetRobotPose()
+                    rx, ry, rtheta = self.GetUpdatedRobotPose()
                     task_x, task_y = self.GetTaskPoseXY()
                     maxtime = time.time() + self.task_period
                     try:
                         logger.debug ("\t--> Naviagtor")
                         self.navigator.GoTowardsTarget(self.epuck,\
                          rx, ry, rtheta, task_x, task_y, maxtime)
+                        time.sleep(self.task_period)
                     except:
                         print "Going towards target failed"
             else:
@@ -271,24 +273,24 @@ class DeviceController():
         while self.status is DEVICE_IDLE:
             if not self.EpuckReady():
                 self.status = DEVICE_NOT_RESPONDING # go out of loop
-                self.RunDeviceUnavailabeLoop()
+                #self.RunDeviceUnavailabeLoop()
                 logger.debug ("\tDEVICE_NOT_RESPONDING")
                 break
             elif self.TaskTimedOut():
                 self.status = DEVICE_AVAILABLE # go out of loop
-                self.RunDeviceAvailableLoop()
+                #self.RunDeviceAvailableLoop()
                 logger.debug ("\tTimedout")
                 break
             while (not self.TaskTimedOut()):
                 if self.PoseUpdated():
-                    if self.AtTask():
+                    if self.ArrivedAtTask():
                         logger.debug ("\tAtTask")
                         # stay in loop
                         self.status = DEVICE_IDLE
                     else:
                         self.status = DEVICE_MOVING # go out of loop
                         logger.debug ("\tgo out to DEVICE_MOVING")
-                        self.RunDeviceMovingLoop()
+                        #self.RunDeviceMovingLoop()
                         break
                 else:
                     logger.debug ("\tPose not Updated")
@@ -300,8 +302,11 @@ class DeviceController():
     def RunMainLoop(self):          
         while EXIT_COND:
             try:
-                self.RunDeviceUnavailableLoop()                
-                time.sleep(2)
+                self.RunDeviceUnavailableLoop()
+                self.RunDeviceAvailableLoop()
+                self.RunDeviceMovingLoop()
+                self.RunDeviceIdleLoop()                
+                time.sleep(1)
             except (KeyboardInterrupt, SystemExit):
                 print "User requested exit... shutting down now"                
                 sys.exit(0)

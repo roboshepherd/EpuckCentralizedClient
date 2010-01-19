@@ -1,17 +1,21 @@
 import  time
+import sys
 from math import fabs, atan2, atan
 
-#from myro import *
+from myro import *
 from RILCommonModules.RILSetup import *
 from RILCommonModules.pose import *
 from utils import *
+import  logging,  logging.config,  logging.handlers
+logging.config.fileConfig("logging.conf")
+logger = logging.getLogger("EpcLogger")
 
 PROXIMITY_THRESHOLD = 200
-TRASNLATE_SPEED = 0.466
+TRANSLATE_SPEED = 0.5
 ROTATE_SPEED = 1.0 # 1.0 == 3.14 rev/s, 0.644 == 2.04 rev/s
-STEP_DIST = 100 # pixel
+STEP_DIST = 200 # pixel
 TRANSLATE_CONST = 40 # dividing desired px-dist by this gives time(translate) 
-ROTATE_CONST = 0.411 # mutiplying this with desired angle gives time(rotate)
+ROTATE_CONST = 0.637 # mutiplying this with desired angle gives time(rotate)
 # typical value: 0.637  max val = 0.411
 FORWARD_STEP_TIME = 2
 
@@ -47,8 +51,8 @@ class EpuckNavigator:
         self.epuck = None
 
     
-    def GoForward(self, timeout):
-        e = self.epuck
+    def GoForward(self, e, timeout = FORWARD_STEP_TIME):
+        self.epuck = e
         maxtime = time.time() + timeout
         threshold = PROXIMITY_THRESHOLD
         while int(time.time()) < int(maxtime):
@@ -57,8 +61,8 @@ class EpuckNavigator:
             maxval = max(sensors)
             if maxval > threshold:
                 mostActive = sensors.index(maxval)
-                allActive = [i for i in range(8) if sensors[i] > 200]
-                #print 'sensor %d activated' % mostActive
+                allActive = [i for i in range(8) if sensors[i] > PROXIMITY_THRESHOLD]
+                print 'sensor %d activated' % mostActive
                 #print 'i feel sensors', allActive
                 # flash the closest LED
                 led = e.getLEDnumber(mostActive)
@@ -86,7 +90,7 @@ class EpuckNavigator:
                     e.move(0.4, -0.2)
             else:
                 # nothing detected
-                e.forward(0.3, FORWARD_STEP_TIME)
+                e.forward(TRANSLATE_SPEED, FORWARD_STEP_TIME)
                 
             wait(0.05)
 
@@ -97,18 +101,18 @@ class EpuckNavigator:
         self.UpdateTargetTaskAngle()
         # update objective function
         self.UpdateNavFunc()
-        print "GoTowardsTarget(): START:", time.ctime()
-        print "TaskPoseOrientation:%2f Cone:%2f"\
-            %(self.mTaskPose.theta, self. mTaskConeAngle)
+        logger.debug("GoTowardsTarget(): START: %s", time.ctime())
+        logger.debug("TaskPoseOrientation:%2f Cone:%2f",\
+            self.mTaskPose.theta, self. mTaskConeAngle)
         # Do Rotation by Quad 
         GoActionSwitch = {"12" : self.GoQ12, "23": self.GoQ23,\
             "34": self.GoQ34,  "41":  self.GoQ41,"1": self.GoQ1,\
              "2": self.GoQ2, "3": self.GoQ3, "4": self.GoQ4 }
         GoActionSwitch.get(str(self.mCurrentQuad),  self.GoErrHandler)()
         # Trasnslation is fixed
-        self.Translate()   
-
-
+        time.sleep(FORWARD_STEP_TIME)
+        self.Translate(epuck)
+        #self.epuck.backward(TRANSLATE_SPEED, 5)
 
     def SetupTaskLoc(self, x, y, r=TASK_RADIUS, ca=TASK_CONE_ANGLE):
         self.mTaskPose.x = x
@@ -268,54 +272,43 @@ class EpuckNavigator:
         print "Unknown Quad, can't go "
     
     def TurnReverse(self):
-        print "\t Turning reverse"
+        logger.debug("\t Turning reverse")
         tm = ROTATE_CONST * ANGLE180
         self.TurnLeft(tm)
 
     def RotateLeft(self, angle):
-        print "\t Rotating left for %f rad" %angle
+        logger.debug("\t Rotating left for %f rad" %angle)
         tm = ROTATE_CONST * angle
         self.TurnLeft(tm)
     
     def RotateRight(self, angle):
-        print "\t Rotating right for %f rad" %angle
+        logger.debug("\t Rotating right for %f rad" %angle)
         tm = ROTATE_CONST * angle
         self.TurnRight(tm)
     
-    def Translate(self):
+    def Translate(self, epuck):
         timeout = STEP_DIST / TRANSLATE_CONST
-        print "Now Doing Translation for %f sec" %timeout
-        #try:
+        logger.debug("Now Doing Translation for %f sec" %timeout)
+        try:
             #self.epuck.forward(TRANSLATE_SPEED, timeout)
-        #except:
-            #print "Translate failed"
+            self.GoForward(epuck, timeout)
+            time.sleep(timeout)
+        except Exception,e:
+            print e
+            print sys.exc_info()[0]
+            logger.debug("Translatation failed for %s", sys.exc_info()[0])
     
     def TurnLeft(self, timeout):
-        print "Now Doing Left Rotation for %f sec" %timeout
-        #try:
-            #self.epuck.turnLeft(ROTATE_SPEED, timeout)
-        #except:
-            #print "TurnLeft failed"
+        logger.debug("Now Doing Left Rotation for %f sec" %timeout)
+        try:
+            self.epuck.turnLeft(ROTATE_SPEED, timeout)
+        except:
+            logger.debug("TurnLeft failed")
     
     def TurnRight(self, timeout):
-        print "Now Doing Right Rotation for %f sec" %timeout
-        #try:
-            #self.epuck.turnRight(ROTATE_SPEED, timeout)
-        #except:
-            #print "TurnRight failed"
+        logger.debug("Now Doing Right Rotation for %f sec" %timeout)
+        try:
+            self.epuck.turnRight(ROTATE_SPEED, timeout)
+        except:
+            logger.debug("TurnRight failed")
 
-    def ArrivedAtTaskLoc(self):
-        ret = False
-        dx = fabs(self.mRobotPose.x - self.mTaskPose.x)
-        dy = fabs(self.mRobotPose.y - self.mTaskPose.y)
-        print "ArrivedAtTaskLoc(): xdist: %f ydist: %f" %(dx, dy)
-        pxdist = sqrt(dx * dx + dy * dy)
-        print "********ArrivedAtTaskLoc(): pxdist: %.2f taskradi: %.2f" %(pxdist, mTaskRadius)
-        if (pxdist < mTaskRadius) :
-            ret = True
-            print "ArrivedAtTaskLoc(): Arrived within radius %.2f !" %self.mTaskRadius
-        return ret
-
-
-
-   
