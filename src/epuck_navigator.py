@@ -21,7 +21,7 @@ FORWARD_STEP_TIME = 1
 # Obstacle Avoidance params
 BACKWARD_SPEED1 = -0.8 # orig: -0.4
 BACKWARD_TURN = 0.5 # orig: 0 , no turn
-AVOID_WAIT = 0.1 # orig: 0.05
+TINY_SLEEP = 0.05 # orig: 0.05
 
 class NavFunc :
     NOTSET = -1
@@ -96,7 +96,7 @@ class EpuckNavigator:
                 # nothing detected
                 e.forward(TRANSLATE_SPEED, FORWARD_STEP_TIME)
                 
-            wait(AVOID_WAIT)
+            wait(TINY_SLEEP)
         e.move(0, 0) # stop
 
     def GoTowardsTarget(self, epuck, rx, ry, rtheta, task_x, task_y, maxtime):
@@ -115,10 +115,10 @@ class EpuckNavigator:
              "2": self.GoQ2, "3": self.GoQ3, "4": self.GoQ4 }
         GoActionSwitch.get(str(self.mCurrentQuad),  self.GoErrHandler)()
         # Trasnslation is fixed
-        time.sleep(FORWARD_STEP_TIME)
+        time.sleep(TINY_SLEEP)
         self.Translate(epuck)
-        #self.epuck.backward(TRANSLATE_SPEED, 5)
-
+        time.sleep(TINY_SLEEP) # to stabilize pose
+        
     def SetupTaskLoc(self, x, y, r=TASK_RADIUS, ca=TASK_CONE_ANGLE):
         self.mTaskPose.x = x
         self.mTaskPose.y= y
@@ -152,22 +152,22 @@ class EpuckNavigator:
         if ( (rx < tx1)  and  (ry < ty2 ) and  (ry > ty1) ):  # xleft
             self.mXFunc = NavFunc.MAXZ
             self.mYFunc = NavFunc.FIXD
-            logger.debug("NavFunc set @xleft")
+            logger.debug("NavFunc set @Q41")
             self.mCurrentQuad = Quad.Q41
         elif ( (rx > tx2)  and  (ry < ty2 )  and (ry > ty1) ) :      #xright
             self.mXFunc = NavFunc.MINZ
             self.mYFunc = NavFunc.FIXD
-            logger.debug("NavFunc set @xright ")
+            logger.debug("NavFunc set @Q23 ")
             self.mCurrentQuad = Quad.Q23
         elif ( (rx < tx2)  and  (rx > tx1 ) and  (ry < ty1) ):  #yup
             self.mXFunc = NavFunc.FIXD
             self.mYFunc = NavFunc.MAXZ
-            logger.debug("NavFunc set @yup ")
+            logger.debug("NavFunc set @Q12 ")
             self.mCurrentQuad = Quad.Q12
         elif ( (rx < tx2)  and  (rx > tx1 ) and  (ry > ty2) ):   #udown
             self.mXFunc = NavFunc.FIXD
             self.mYFunc = NavFunc.MINZ
-            printf("NavFunc set @ydown ")
+            logger.debug("NavFunc set @Q34 ")
             self.mCurrentQuad = Quad.Q34
         elif ( (rx < tx1) and  (ry < ty1) ) :  # @Q1 : topleft
             self.mXFunc = NavFunc.MAXZ
@@ -190,24 +190,58 @@ class EpuckNavigator:
             self.mCurrentQuad = Quad.Q4
             logger.debug("NavFunc set @Q4 ")
         else:
-            logger.warn("Unknown Quad: Make Robot pose > task radius")
+            logger.warn("UpdateNavFunc():Unknown Quad")
     
     
     def  GoQ12(self):
         self.mThetaDesired = ANGLE90
-        self.TurnReverse()
+        if (ANGLE90 < self.mRobotPose.theta < ANGLE270):
+            rotate = self.mRobotPose.theta - self.mThetaDesired
+            self.RotateLeft(rotate)
+        elif (ANGLE270 < self.mRobotPose.theta < ANGLE360):
+            rotate = ANGLE360 - self.mRobotPose.theta + self.mThetaDesired
+            self.RotateRight(rotate)
+        elif (ANGLE90 < self.mRobotPose.theta < ANGLE0):
+            rotate = self.mThetaDesired - self.mRobotPose.theta
+            self.RotateRight(rotate)
+        else:
+            logger.warn("@Q12: don't know how much to rotate")
     
     def GoQ23(self):
         self.mThetaDesired = ANGLE180
-        self.TurnReverse()
+        if (ANGLE180 < self.mRobotPose.theta < ANGLE360):
+            rotate = self.mRobotPose.theta - self.mThetaDesired
+            self.RotateLeft(rotate)
+        elif (ANGLE0 < self.mRobotPose.theta < ANGLE180):
+            rotate = self.mThetaDesired - self.mRobotPose.theta  
+            self.RotateRight(rotate)
+        else:
+            logger.warn("@Q23: don't know how much to rotate")
     
     def GoQ34(self):
         self.mThetaDesired = ANGLE270
-        self.TurnReverse()
+        if (ANGLE90 < self.mRobotPose.theta < ANGLE270):
+            rotate = self.mThetaDesired - self.mRobotPose.theta 
+            self.RotateRight(rotate)
+        elif (ANGLE270 < self.mRobotPose.theta < ANGLE360):
+            rotate = self.mRobotPose.theta - self.mThetaDesired 
+            self.RotateLeft(rotate)
+        elif (ANGLE90 < self.mRobotPose.theta < ANGLE0):
+            rotate = self.mRobotPose.theta + ANGLE90
+            self.RotateLeft(rotate)
+        else:
+            logger.warn("@Q34: don't know how much to rotate")
 
     def GoQ41(self):
-        self.mThetaDesired = 0.0
-        self.TurnReverse()
+        self.mThetaDesired = ANGLE360
+        if (ANGLE180 < self.mRobotPose.theta < ANGLE360):
+            rotate = self.mThetaDesired - self.mRobotPose.theta
+            self.RotateRight(rotate)
+        elif (ANGLE0 < self.mRobotPose.theta < ANGLE180):
+            rotate = self.mRobotPose.theta  
+            self.RotateLeft(rotate)
+        else:
+            logger.warn("@Q41: don't know how much to rotate")
     
     def GoQ1(self):
         self.mThetaDesired = self.mTaskPose.theta
@@ -277,46 +311,46 @@ class EpuckNavigator:
             self.RotateLeft(rotate)
 
     def GoErrHandler(self): 
-        logger.warn("Unknown Quad, can't go ")
+        logger.warn("GoErrHandler(): Unknown Quad, can't go ")
     
-    def TurnReverse(self):
-        logger.debug("\t Turning reverse")
-        tm = ROTATE_CONST * ANGLE180
-        self.TurnLeft(tm)
+    #def TurnReverse(self):
+        #logger.debug("\t Turning reverse")
+        #tm = ROTATE_CONST * ANGLE180
+        #self.TurnLeft(tm)
 
     def RotateLeft(self, angle):
-        logger.debug("\t Rotating left for %f rad" %angle)
+        logger.debug("\t Rotating left for %f rad", angle)
         tm = ROTATE_CONST * angle
         self.TurnLeft(tm)
     
     def RotateRight(self, angle):
-        logger.debug("\t Rotating right for %f rad" %angle)
+        logger.debug("\t Rotating right for %f rad", angle)
         tm = ROTATE_CONST * angle
         self.TurnRight(tm)
     
     def Translate(self, epuck):
         timeout = STEP_DIST / TRANSLATE_CONST
-        logger.debug("Now Doing Translation for %f sec" %timeout)
+        logger.debug("Now Doing Translation for %f sec", timeout)
         try:
             #self.epuck.forward(TRANSLATE_SPEED, timeout)
             self.GoForward(epuck, timeout)
-            time.sleep(timeout)
+            #time.sleep(TINY_SLEEP)
         except Exception,e:
             print e
             print sys.exc_info()[0]
             logger.error("Translatation failed for %s", sys.exc_info()[0])
     
     def TurnLeft(self, timeout):
-        logger.debug("Now Doing Left Rotation for %f sec" %timeout)
+        logger.debug("Now Doing Left Rotation for %f sec", timeout)
         try:
             self.epuck.turnLeft(ROTATE_SPEED, timeout)
-        except:
-            logger.debug("TurnLeft failed")
+        except Exception,e:
+            logger.debug("TurnLeft failed %s", e)
     
     def TurnRight(self, timeout):
-        logger.debug("Now Doing Right Rotation for %f sec" %timeout)
+        logger.debug("Now Doing Right Rotation for %f sec", timeout)
         try:
             self.epuck.turnRight(ROTATE_SPEED, timeout)
-        except:
-            logger.debug("TurnRight failed")
+        except Exception,e:
+            logger.debug("TurnRight failed: %s", e)
 
