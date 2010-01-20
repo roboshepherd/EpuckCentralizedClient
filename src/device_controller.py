@@ -219,6 +219,7 @@ class DeviceController():
                 break
             else:
                self.status = DEVICE_AVAILABLE # stay in-loop
+               print "@DEVICE_AVAILABLE loop"
                time.sleep(SMALL_DELAY)
    
     def RunDeviceMovingLoop(self):

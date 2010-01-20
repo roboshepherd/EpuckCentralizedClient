@@ -334,7 +334,7 @@ class EpuckNavigator:
         try:
             #self.epuck.forward(TRANSLATE_SPEED, timeout)
             self.GoForward(epuck, timeout)
-            #time.sleep(TINY_SLEEP)
+            time.sleep(TINY_SLEEP)
         except Exception,e:
             print e
             print sys.exc_info()[0]
