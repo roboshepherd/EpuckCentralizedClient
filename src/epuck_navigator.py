@@ -59,45 +59,46 @@ class EpuckNavigator:
         self.epuck = e
         maxtime = time.time() + timeout
         threshold = PROXIMITY_THRESHOLD
-        while int(time.time()) < int(maxtime):
-            sensors = e.getProximity()
-            #print sensors
-            maxval = max(sensors)
-            if maxval > threshold:
-                mostActive = sensors.index(maxval)
-                allActive = [i for i in range(8) if sensors[i] > PROXIMITY_THRESHOLD]
-                print 'sensor %d activated' % mostActive
-                #print 'i feel sensors', allActive
-                # flash the closest LED
-                led = e.getLEDnumber(mostActive)
-                e.flashLED(led, 0.25)
-                # response
-                if allActive == [0, 7]:
-                    trans = e.getTranslate()
-                    rotate = e.getRotate()
-                    e.move(0, 0.7)
-                    wait(1)
-                    e.move(trans, rotate)
-                elif mostActive in (0, 7):
-                    e.move(BACKWARD_SPEED1 , BACKWARD_TURN)
-                elif mostActive == 1:
-                    e.move(-0.3, 0.1)
-                elif mostActive == 6:
-                    e.move(-0.3, -0.1)
-                elif mostActive == 2:
-                    e.move(0.5, 0.2)
-                elif mostActive == 5:
-                    e.move(0.5, -0.2)
-                elif mostActive == 3:
-                    e.move(0.4, 0.2)
-                elif mostActive == 4:
-                    e.move(0.4, -0.2)
-            else:
-                # nothing detected
-                e.forward(TRANSLATE_SPEED, FORWARD_STEP_TIME)
-                
-            wait(TINY_SLEEP)
-        e.move(0, 0) # stop
+        # sense obstacle
+        sensors = e.getProximity()
+        #print sensors
+        maxval = max(sensors)
+        if maxval > threshold:
+            mostActive = sensors.index(maxval)
+            allActive = [i for i in range(8) if sensors[i] > PROXIMITY_THRESHOLD]
+            logger.info("\t Proximity sensor %d activated", mostActive)
+            #print 'i feel sensors', allActive
+            # flash the closest LED
+            led = e.getLEDnumber(mostActive)
+            e.flashLED(led, 0.25)
+            # response
+            if allActive == [0, 7]:
+                trans = e.getTranslate()
+                rotate = e.getRotate()
+                e.move(0, 0.7)
+                wait(1)
+                e.move(trans, rotate)
+            elif mostActive in (0, 7):
+                e.move(BACKWARD_SPEED1 , BACKWARD_TURN)
+            elif mostActive == 1:
+                e.move(-0.3, 0.1)
+            elif mostActive == 6:
+                e.move(-0.3, -0.1)
+            elif mostActive == 2:
+                e.move(0.5, 0.2)
+            elif mostActive == 5:
+                e.move(0.5, -0.2)
+            elif mostActive == 3:
+                e.move(0.4, 0.2)
+            elif mostActive == 4:
+                e.move(0.4, -0.2)
+            wait(FORWARD_STEP_TIME)
+            e.stop() # stop
+        else:
+            # nothing detected
+            e.forward(TRANSLATE_SPEED, FORWARD_STEP_TIME)
+        #wait(TINY_SLEEP)
+        
 
     def GoTowardsTarget(self, epuck, rx, ry, rtheta, task_x, task_y, maxtime):
         self.epuck = epuck
@@ -336,21 +337,19 @@ class EpuckNavigator:
             self.GoForward(epuck, timeout)
             time.sleep(TINY_SLEEP)
         except Exception,e:
-            print e
-            print sys.exc_info()[0]
-            logger.error("Translatation failed for %s", sys.exc_info()[0])
+            logger.error("Translatation failed for %s", e)
     
     def TurnLeft(self, timeout):
         logger.debug("Now Doing Left Rotation for %f sec", timeout)
         try:
             self.epuck.turnLeft(ROTATE_SPEED, timeout)
         except Exception,e:
-            logger.debug("TurnLeft failed %s", e)
+            logger.error("TurnLeft failed %s", e)
     
     def TurnRight(self, timeout):
         logger.debug("Now Doing Right Rotation for %f sec", timeout)
         try:
             self.epuck.turnRight(ROTATE_SPEED, timeout)
         except Exception,e:
-            logger.debug("TurnRight failed: %s", e)
+            logger.error("TurnRight failed: %s", e)
 
