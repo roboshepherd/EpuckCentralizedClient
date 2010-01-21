@@ -197,21 +197,22 @@ class TaskSelector():
                 log += str(taskrec[i].dist)
             elif log_type == LOG_TYPE_SENSITIZATION:
                 log += str(taskrec[i].sensitization)
+        log +="\n"
         return log
     
     def AppendTaskLogs(self):
         try:
-            self.stimuli_writer.AppendData(self.GetTaskLog(LOG_TYPE_STIMULI))
+            self.stimuli_writer.AppendData(self.GetTaskLog(LOG_TYPE_STIMULUS))
             self.dist_writer.AppendData(self.GetTaskLog(LOG_TYPE_DIST))
-            self.dist_writer.AppendData(self.GetTaskLog(LOG_TYPE_SESITIZATION))
-        except:
-            print "Task logging failed"
+            self.dist_writer.AppendData(self.GetTaskLog(LOG_TYPE_SENSITIZATION))
+        except Exception, e:
+            print "Task logging failed: ", e
             
     def AppendPoseLog(self):        
         sep = self.data_ctx.sep
         p= self.robot.pose
         log = self.GetCommonHeader()\
-         + sep + str(p.x) + sep + str(p.y) + sep + str(p.theta)
+         + sep + str(p.x) + sep + str(p.y) + sep + str(p.theta) + "\n"
         try: 
             self.pose_writer.AppendData(log)
         except:
@@ -224,18 +225,15 @@ class TaskSelector():
 
 # main process function
 def  selector_main(dataManager, robot):
-    #time.sleep(INIT_SLEEP)
     ts = TaskSelector(dataManager,  robot)
-    #ts.InitLogFiles()
+    ts.InitLogFiles()
     ts.datamgr.mRobotPoseAvailable.wait()
     ts.datamgr.mTaskInfoAvailable.wait()
     for i in range(TASK_SELECTION_STEPS):
         logger.info("@TS  ----- [Step %d Start ] -----",  i)
-        
         #logger.debug("@TS Robot pose %s:" ,dataManager.mRobotPose.items() )
         ts.SelectTask() # can be started delayed
         ts.PostTaskSelection()
-        #ts.AppendTaskLogs()
-        #ts.AppendPoseLog()
-        
+        ts.AppendTaskLogs()
+        ts.AppendPoseLog()
         dataManager.mTaskTimedOut.wait() # when task done == timedout

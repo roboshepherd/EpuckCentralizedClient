@@ -5,7 +5,8 @@ import os, signal, subprocess, re, sys
 cmd = "ps aux | grep ClientMain.py"
 subproc = subprocess.Popen([cmd, ], stderr=subprocess.PIPE, stdout=subprocess.PIPE, shell=True)
 out = subproc.communicate()
-#print "\t ps says: \n" + out[0]
+print "\t ps says:" + out[0]
+print "\n"
 lines=  out[0].split("\n")
 #print "\t Output lines: \n", lines
 for line in lines:

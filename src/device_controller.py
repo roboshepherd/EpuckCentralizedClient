@@ -325,5 +325,5 @@ def get_config(config_file,  config):
 def controller_main(data_mgr,  config_file):
         bdaddr = get_config(config_file,  'bdaddr')
         dc = DeviceController(data_mgr,  bdaddr)
-        #dc.InitLogFiles()
+        dc.InitLogFiles()
         dc.RunMainLoop()
