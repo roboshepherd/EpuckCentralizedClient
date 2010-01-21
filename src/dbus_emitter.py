@@ -9,6 +9,7 @@ from data_manager import *
 from utils import *
 
 schedule = sched.scheduler(time.time, time.sleep)
+loop = None
 
 #------------------ Signal Despatch ---------------------------------
 class TaskStatusSignal(dbus.service.Object):
@@ -21,6 +22,7 @@ class TaskStatusSignal(dbus.service.Object):
         #"  %(sig,  taskid,  status)
         pass
     def Exit(self):
+        global loop
         loop.quit()
 
     
@@ -28,10 +30,10 @@ def emit_task_signal(delay,  sig1):
     global task_signal,  datamgr_proxy
     schedule.enter(delay, 0, emit_task_signal, (delay, sig1  ) )
     try:
-        datamgr_proxy.mSelectedTaskAvailable.wait()
+        datamgr_proxy.mSelectedTaskStarted.wait()
         robotid = datamgr_proxy.mRobotID
         taskdict = datamgr_proxy.mSelectedTask
-        datamgr_proxy.mSelectedTaskAvailable.clear()
+        datamgr_proxy.mSelectedTaskStarted.clear()
         taskid =  eval(str(taskdict[SELECTED_TASK_ID])) 
         status = str(taskdict[SELECTED_TASK_STATUS]) 
 #        for k, v in taskdict.items():
@@ -64,6 +66,6 @@ def emitter_main(dm,  dbus_iface= DBUS_IFACE_EPUCK,  dbus_path =\
             loop.run()
     except (KeyboardInterrupt, dbus.DBusException, SystemExit):
             print "User requested exit... shutting down now"
-            tracker_signal.Exit()
+            task_signal.Exit()
             pass
             sys.exit(0)

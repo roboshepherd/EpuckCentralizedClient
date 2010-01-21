@@ -23,15 +23,15 @@ def main():
         #dbus_server.start()
         dbus_listener.start()
         device_controller.start()
-        #taskselector.start()
-        #dbus_emitter.start()
+        taskselector.start()
+        dbus_emitter.start()
         # Ending....
         time.sleep(2)
         #dbus_server.join()
         dbus_listener.join()
         device_controller.join()
-        #taskselector.join()
-        #dbus_emitter.join()
+        taskselector.join()
+        dbus_emitter.join()
         logging.debug("--- End EPC---")
 
 
@@ -46,12 +46,12 @@ if __name__ == '__main__':
 	# setup processes
 	dbus_shared_path = DBUS_PATH_BASE + robotid
 	dm = DataManager(int(robotid))
-	#----------START TEST CODE ----#
-	dm.mSelectedTask[SELECTED_TASK_ID] = 1
-	dm.mSelectedTask[SELECTED_TASK_STATUS] = TASK_SELECTED
-	dm.mSelectedTask[SELECTED_TASK_INFO] = [1200000, 1507, 944, 0.0, 0.5]
-	dm.mTaskInfo[1] = [1200000, 1507, 944, 0.0, 0.5]
-	# -- END TEST CODE --------#
+	##----------START TEST CODE ----#
+	#dm.mSelectedTask[SELECTED_TASK_ID] = 1
+	#dm.mSelectedTask[SELECTED_TASK_STATUS] = TASK_SELECTED
+	#dm.mSelectedTask[SELECTED_TASK_INFO] = [1200000, 1507, 944, 0.0, 0.5]
+	#dm.mTaskInfo[1] = [1200000, 1507, 944, 0.0, 0.5]
+	## -- END TEST CODE --------#
 	
 	robot = RILRobot(int(robotid))
 	robot.InitTaskRecords(MAX_SHOPTASK)

@@ -24,7 +24,7 @@ _packet_loss = ''
 EXIT_COND = True 
 # may be changed later to set as time duration 
 SMALL_DELAY = 3
-TASK_STEP_DURATION = 15
+TASK_STEP_DURATION = 30
 
 def process_ping_output(output):
     global _packet_loss
@@ -110,10 +110,14 @@ class DeviceController():
 
     def TaskSelected(self):
         self.task_selected = False
+        
+        self.datamgr_proxy.mSelectedTaskAvailable.wait()
         taskdict = self.datamgr_proxy.mSelectedTask
         taskid = eval(str(taskdict[SELECTED_TASK_ID]))
         status = str(taskdict[SELECTED_TASK_STATUS])
         print "From TaskDict got %i %s"  %(taskid,  status)
+        self.datamgr_proxy.mSelectedTaskAvailable.clear() # read complete
+        
         if status == TASK_SELECTED:
             self.task_selected = True
         if taskid is RANDOM_WALK_TASK_ID:
@@ -137,11 +141,11 @@ class DeviceController():
         task_x, task_y = self.GetTaskPoseXY()
         dx = math.fabs(robot_x - task_x)
         dy = math.fabs(robot_y - task_y)
-        print "ArrivedAtTask(): xdist: %f ydist: %f" %(dx, dy)
+        #print "ArrivedAtTask(): xdist: %f ydist: %f" %(dx, dy)
         pxdist = math.sqrt(dx * dx + dy * dy)
         if (pxdist < TASK_RADIUS) :
             self.at_task = True
-            print "ArrivedAtTask(): Arrived within radius %.2f !\n" %pxdist
+            #print "ArrivedAtTask(): Arrived within radius %.2f !\n" %pxdist
         return self.at_task
     
     def PoseUpdated(self):
@@ -191,11 +195,17 @@ class DeviceController():
             logger.warn("Going towards target failed: %s", e)
 
     def ResetTaskStats(self):
+        self.task_done = True
+        self.task_end = time.time()
+        self.datamgr_proxy.mTaskTimedOut.set() # Trigger TaskSelector
+        #time.sleep(1)
+        #self.datamgr_proxy.mTaskTimedOut.clear() 
         self.task_is_rw = False
         self.task_timedout = False 
         self.task_selected = False
-        self.step += 1  
+        self.step += 1
         
+ 
 
     def RunDeviceUnavailableLoop(self):
         while self.status is DEVICE_NOT_RESPONDING:
@@ -213,6 +223,7 @@ class DeviceController():
             if self.TaskSelected():
                 self.task_start = time.time()
                 self.status = DEVICE_MOVING  # go out of this loop
+                self.datamgr_proxy.mSelectedTaskStarted.set() #>> dbus_emitter
                 break
             elif (not self.EpuckReady()):
                 self.status = DEVICE_NOT_RESPONDING # go out of this loop
@@ -230,9 +241,7 @@ class DeviceController():
                 logger.debug ("\t DEVICE_NOT_RESPONDING")
                 break
             elif self.TaskTimedOut():
-                self.task_done = True
                 self.status = DEVICE_AVAILABLE # go out of loop
-                self.task_end = time.time()
                 logger.debug ("\t Timedout")
                 self.ResetTaskStats() # for next task
                 break 

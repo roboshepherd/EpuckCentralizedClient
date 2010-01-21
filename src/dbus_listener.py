@@ -43,10 +43,10 @@ def save_pose_from_swistrack(x, y, theta):
         datamgr_proxy.mRobotPose[ROBOT_POSE_THETA] = eval(str(theta))
         datamgr_proxy.mRobotPose[ROBOT_POSE_TS] = time.time()
         datamgr_proxy.mRobotPoseAvailable.set()
-        print datamgr_proxy.mRobotPose
+        #print datamgr_proxy.mRobotPose
         #logger.info("RobotPose-x %f",  datamgr_proxy.mRobotPose[1])
-        logger.info("@DBC RobotPose recvd. len logged: %d" ,\
-            len(datamgr_proxy.mRobotPose))
+        #logger.info("@DBC RobotPose recvd. len logged: %d" ,\
+        #    len(datamgr_proxy.mRobotPose))
     except:
        print "Err in save_pose()"
 
@@ -60,26 +60,26 @@ def save_taskinfo(taskinfo):
             value = extract_objects(v)
             datamgr_proxy.mTaskInfo[key] = value 
         datamgr_proxy.mTaskInfoAvailable.set()
-        print datamgr_proxy.mTaskInfo
+        #print datamgr_proxy.mTaskInfo
     except:
        print "Err in save_taskinfo()"
 
 def pose_signal_handler( x, y, theta):
-    print "Caught pose signal: %f, %f, %f "  %(x, y, theta)
+    #print "Caught pose signal: %f, %f, %f "  %(x, y, theta)
     save_pose_from_swistrack(x, y, theta)
  
 def taskinfo_signal_handler( sig,  val):
-    print "Caught signal  %s (in taskinfo signal handler) "  %(sig)
+    #print "Caught signal  %s (in taskinfo signal handler) "  %(sig)
     #print "Val: ",  val
     save_taskinfo(val)
  
 def main_loop():
+    global loop
     try:
         loop = gobject.MainLoop()
         loop.run()
     except (KeyboardInterrupt, SystemExit):
         print "User requested exit... shutting down now"
-        pass
         sys.exit(0)
 
 def listener_main(data_mgr,  dbus_if1= DBUS_IFACE_TRACKER,\

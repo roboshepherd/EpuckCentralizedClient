@@ -73,16 +73,16 @@ class TaskSelector():
         try:
             for index,  info in ti.items():
                 taskid = index 
-                logger.debug("Taskid -- %i:" ,  taskid)
+                #logger.debug("Taskid -- %i:" ,  taskid)
                 tx,  ty = info[TASK_INFO_X],  info[TASK_INFO_Y]
                 dist = self.CalculateDist(r.pose,  tx, ty)
-                logger.debug("\tTask dist %f:" ,  dist)
+                #logger.debug("\tTask dist %f:" ,  dist)
                 learn =  r.taskrec[taskid].sensitization
-                logger.debug("\tTask learn %f:" ,  learn)
+                #logger.debug("\tTask learn %f:" ,  learn)
                 urg = info[TASK_INFO_URGENCY ]
-                logger.debug("\tTask urg %f:" ,  urg)
+                #logger.debug("\tTask urg %f:" ,  urg)
                 stimuli = self.CalculateTaskStimuli(learn, dist, self.deltadist, urg)
-                logger.info("\tTask %d stimuli %f:" , taskid,  stimuli)
+                #logger.info("\tTask %d stimuli %f:" , taskid,  stimuli)
                 self.stimulus.append(stimuli)
                 # save claculation for logging and using in next step
                 r.taskrec[taskid].id = taskid
@@ -92,9 +92,9 @@ class TaskSelector():
         except:
             logger.error("FIXME --  list error")
         tsSum = math.fsum(self.stimulus)
-        logger.debug("@TS Task Stimulus sum: %f",  tsSum)
+        #logger.debug("@TS Task Stimulus sum: %f",  tsSum)
         rwStimuli = self.CalculateRandomWalkStimuli(tsSum,  taskCount)
-        logger.info("\t RandomWalk Stimuli: %f",  rwStimuli)
+        #logger.info("\t RandomWalk Stimuli: %f",  rwStimuli)
         taskid = 0
         r.taskrec[taskid].stimuli = rwStimuli
         stimulusSum = tsSum +  rwStimuli
@@ -125,7 +125,7 @@ class TaskSelector():
         ranges =  self.taskranges
         #logger.debug("@TS Task Count including RW: %d",  len(ranges))
         n = random.randrange(0, 100, 1)
-        logger.debug("\tSelected Randon no: %d",  n)
+        #logger.debug("\tSelected Randon no: %d",  n)
         for r in ranges:
             #logger.debug("@TS Probing task %d range",  r.id)
             if(n >= r.start and n <= r.end):
@@ -134,20 +134,22 @@ class TaskSelector():
                 break
 
     def PostTaskSelection(self):
-        self.datamgr.mSelectedTask.clear()
         taskid = self.selectedTaskid
-        self.datamgr.mSelectedTask[SELECTED_TASK_ID] = taskid
-        self.datamgr.mSelectedTask[SELECTED_TASK_STATUS] =\
-            TASK_SELECTED
-        if taskid is 0:
-            self.datamgr.mSelectedTask[SELECTED_TASK_RW] = True
-        # Test it>>>>
-        self.datamgr.mSelectedTask[SELECTED_TASK_INFO] =\
-              self.datamgr.mTaskInfo[taskid]
-        #print "<<<Testing Selected TaskInfo>>>"
-        #print self.datamgr.mSelectedTask[SELECTED_TASK_INFO]
-        self.datamgr.mSelectedTaskAvailable.set()
+        try:
+            self.datamgr.mSelectedTask[SELECTED_TASK_ID] = taskid
+            self.datamgr.mSelectedTask[SELECTED_TASK_STATUS] = TASK_SELECTED
+            self.datamgr.mSelectedTask[SELECTED_TASK_INFO] =\
+                self.datamgr.mTaskInfo[taskid]
+        except Exception, e:
+            logger.warn("Datamgr: SELECTED_TASK not updated ")
+            print e
+
         self.robot.UpdateTaskRecords(self.selectedTaskid)
+        
+        self.datamgr.mSelectedTaskAvailable.set() # Trigger Device Controller
+        #time.sleep(1)
+        self.datamgr.mTaskTimedOut.clear() # delay next task selection
+
 
     def InitLogFiles(self):
         # -- Init Stimuli writer --
@@ -180,7 +182,7 @@ class TaskSelector():
     def GetCommonHeader(self):
         ts = time.strftime("%H%M%S", time.gmtime())
         sep = self.data_ctx.sep
-        header = ts + sep + self.step + sep + self.selected_task
+        header = str(ts) + sep + str(self.step) + sep + str(self.selected_task)
         return header
 
     def GetTaskLog(self, log_type):
@@ -221,18 +223,19 @@ class TaskSelector():
         self.GetRandomSelection()
 
 # main process function
-def  selector_main(dataManager,  robot):
+def  selector_main(dataManager, robot):
     #time.sleep(INIT_SLEEP)
     ts = TaskSelector(dataManager,  robot)
-    ts.InitLogFiles()
+    #ts.InitLogFiles()
     ts.datamgr.mRobotPoseAvailable.wait()
     ts.datamgr.mTaskInfoAvailable.wait()
     for i in range(TASK_SELECTION_STEPS):
         logger.info("@TS  ----- [Step %d Start ] -----",  i)
+        
         #logger.debug("@TS Robot pose %s:" ,dataManager.mRobotPose.items() )
         ts.SelectTask() # can be started delayed
         ts.PostTaskSelection()
-        ts.AppendTaskLogs()
-        ts.AppendPoseLog()
-        #time.sleep(60)
-        dataManager.mTaskDoneOTO.wait() # task done or timedout
+        #ts.AppendTaskLogs()
+        #ts.AppendPoseLog()
+        
+        dataManager.mTaskTimedOut.wait() # when task done == timedout

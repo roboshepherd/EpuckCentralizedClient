@@ -13,10 +13,13 @@ class DataManager:
         self.mSelectedTask = self.mgr.dict()  
         # Set/Unset by TaskSelector, DeviceController
         # key: SEE RILsetup, val: Values
+        
         self.mSelectedTaskAvailable = self.mgr.Event() 
         # Set/Unset by TaskSelector
+        
+        self.mSelectedTaskStarted = self.mgr.Event()
+        #set by Device controller, used/clear by dbus_emmitter
+        
         # DeviceController Signals
-        self.mTaskDoneOTO = self.mgr.Event()  # Set/Unset by DeviceController
+        self.mTaskTimedOut = self.mgr.Event()  # Set/Unset by DeviceController
         #self.mDeviceNotResponding = 
-
-
