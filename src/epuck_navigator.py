@@ -57,6 +57,7 @@ class EpuckNavigator:
         # navigator log
         self.motion_writer = None
         self.step = 0
+        self.translate = 0
         self.rotate_dir = 0
         self.rotate_angle = 0
         self.obstacle_sensor = -1
@@ -74,11 +75,14 @@ class EpuckNavigator:
         desc += "#" + "TRANSLATE STEP_DIST: " + str(STEP_DIST) + " pixel"+\
                 "\tFORWARD_STEP_TIME: " + str(FORWARD_STEP_TIME) + "s \n"
         desc += "#" + "ROTATE_SPEED: " + str(ROTATE_SPEED) +"rev rad/s"\
-                "\tROTATE_CONST: " + str(ROTATE_CONST) + "\n" 
-        desc += "#" + "RotateDir: -1 : Left, +1: Right"
-        desc += "#" + "Obstacle sensed: -1 : None, 0-7: Sensor#, 8: All"
+                "\tROTATE_CONST: " + str(ROTATE_CONST) + "\n"
+        desc += "#" + "Valid Coordinates: 1(topLeft)), 2, 3(bottomRight), 4,\
+         12, 23, 34, 41\n"
+        desc += "#" + "TranslateDone: 1, : NoTranslation: 0 \n" 
+        desc += "#" + "RotateDir:  Left== -1,  Right== 1 \n"
+        desc += "#" + "Obstacle sensed: -1 : None, (0-7): Sensor#, 8: All"
         # prepare label
-        label = "TimeStamp;Step#;Coordinate;RotateDir;Angle(rad);\
+        label = "TimeStamp;Step#;Coordinate;Translated;RotateDir;Angle(rad);\
          ObstacleSensor# \n"
         # Data context
         ctx = DataCtx(name, label, desc)
@@ -94,13 +98,15 @@ class EpuckNavigator:
     def AppendMotionLog(self):        
         sep = DATA_SEP
         log = self.GetCommonHeader()\
-         + sep + str(self.mCurrentQuad) + sep + str(self.rotate_dir)\
+         + sep + str(self.mCurrentQuad) + sep + str(self.translated)\
+         + sep + str(self.rotate_dir)\
          + sep + str(self.rotate_angle) + sep + str(self.obstacle_sensor) +"\n"
         try: 
             self.motion_writer.AppendData(log)
         except:
             print "Motion logging failed"
         # reset to default values
+        self.translated = 0
         self.rotate_dir = 0
         self.rotate_angle = 0
         self.obstacle_sensor = -1 
@@ -151,6 +157,8 @@ class EpuckNavigator:
             # nothing detected
             e.forward(TRANSLATE_SPEED, FORWARD_STEP_TIME)
         #wait(TINY_SLEEP)
+        # log translation
+        self.translated = 1
         
 
     def GoTowardsTarget(self, epuck, rx, ry, rtheta, task_x, task_y, maxtime):
