@@ -2,6 +2,7 @@ import subprocess
 import re
 import time
 import math
+import sys
 import  logging,  logging.config,  logging.handlers
 logging.config.fileConfig("logging.conf")
 logger = logging.getLogger("EpcLogger")
@@ -74,17 +75,18 @@ class DeviceController():
     def InitLogFiles(self):
         # -- Init Stimuli writer --
         name = "RobotPose"
-        now = time.strftime("%Y%b%H%M%S", time.gmtime())
+        now = time.strftime("%Y%b%d-%H%M%S", time.gmtime())
         desc = "logged in centralized communication mode from: " + now
         # prepare label
         label = "TimeStamp;StepCounter;X;Y;Theta \n"
         # Data context
         ctx = DataCtx(name, label, desc)
-        self.pose_writer = DataWriter("Robot", self.robotid, ctx, now)
+        self.pose_writer = DataWriter("Robot", ctx, now, str(self.robotid))
 
     def GetCommonHeader(self):
-        ts = time.strftime("%H%M%S", time.gmtime())
+        ts = time.strftime("%H:%M:%S", time.gmtime())
         sep = DATA_SEP
+        self.step = self.step + 1
         header = str(ts) + sep + str(self.step)
         return header
     
@@ -175,7 +177,8 @@ class DeviceController():
         try:
             self.navigator.GoForward(self.epuck, maxtime)
             logger.debug ("\tRandom walking")
-            time.sleep(self.task_period)
+            #time.sleep(self.task_period)
+            self.navigator.AppendMotionLog()
         except:
             logger.debug ("\tRandom walk failed")
     
@@ -191,6 +194,7 @@ class DeviceController():
             self.navigator.GoTowardsTarget(self.epuck,\
              rx, ry, rtheta, task_x, task_y, maxtime)
             #time.sleep(self.task_period)
+            self.navigator.AppendMotionLog()
         except Exception,e:
             logger.warn("Going towards target failed: %s", e)
 
@@ -203,8 +207,7 @@ class DeviceController():
         self.task_is_rw = False
         self.task_timedout = False 
         self.task_selected = False
-        self.step += 1
-        
+
  
 
     def RunDeviceUnavailableLoop(self):
@@ -250,12 +253,12 @@ class DeviceController():
                 self.status = DEVICE_MOVING # stay in-loop
                 # do random walking ...
                 logger.debug ("\t RandomWalking")
+                self.AppendPoseLog()
                 self.DoRandomWalk()
             elif self.PoseUpdated(): # task is move to target
                 if self.ArrivedAtTask():
                     logger.debug ("\t AtTask")
                     self.status = DEVICE_IDLE
-                    #self.RunDeviceIdleLoop()
                     break
                 else:
                     logger.debug ("\tMoving to Task")
@@ -309,7 +312,7 @@ class DeviceController():
                 self.RunDeviceIdleLoop()                
                 time.sleep(1)
             except (KeyboardInterrupt, SystemExit):
-                print "User requested exit... shutting down now"                
+                print "User requested exit..DeviceController shutting down now"                
                 sys.exit(0)
 
 # CODE++: parse based on robot-id
@@ -327,3 +330,4 @@ def controller_main(data_mgr,  config_file):
         dc = DeviceController(data_mgr,  bdaddr)
         dc.InitLogFiles()
         dc.RunMainLoop()
+

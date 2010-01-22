@@ -19,20 +19,24 @@ import device_controller
 multiprocessing.log_to_stderr(logging.DEBUG)
 
 def main():
-        logging.debug("--- Start EPC---")
-        #dbus_server.start()
-        dbus_listener.start()
-        device_controller.start()
-        taskselector.start()
-        dbus_emitter.start()
-        # Ending....
-        time.sleep(2)
-        #dbus_server.join()
-        dbus_listener.join()
-        device_controller.join()
-        taskselector.join()
-        dbus_emitter.join()
-        logging.debug("--- End EPC---")
+	logging.debug("--- Start EPC---")
+	#dbus_server.start()
+	dbus_listener.start()
+	device_controller.start()
+	taskselector.start()
+	dbus_emitter.start()
+	# Ending....
+	time.sleep(2)
+	#dbus_server.join()
+	try:
+		dbus_listener.join()
+		device_controller.join()
+		taskselector.join()
+		dbus_emitter.join()
+	except (KeyboardInterrupt, SystemExit):
+		logging.debug("--- End EPC---")
+		print "User requested exit..ClientMain shutting down now"                
+		sys.exit(0)
 
 
 if __name__ == '__main__':

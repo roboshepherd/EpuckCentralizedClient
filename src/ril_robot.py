@@ -12,12 +12,13 @@ from data_manager import *
 class TaskRecord:
     info = []
     def __init__(self,  id=-1,  sensitization=INIT_SENSITIZATION,\
-                   dist=0,  stimuli=0,  probability=0,  timesDone=0):
+                   dist=0,  stimuli=0,  probability=0,  urgency=0, timesDone=0):
         self.id = id
         self.sensitization = sensitization
         self.dist = dist
         self.stimuli = stimuli
         self.probability = probability
+        self.urgency = urgency
         self.timesDone = timesDone
     def Info(self):
         self.info = [self.id,  self.sensitization,   self.dist,  self.stimuli,  self.probability  ]

@@ -5,6 +5,7 @@ from math import fabs, atan2, atan
 from myro import *
 from RILCommonModules.RILSetup import *
 from RILCommonModules.pose import *
+from RILCommonModules.LiveGraph import *
 from utils import *
 import  logging,  logging.config,  logging.handlers
 logging.config.fileConfig("logging.conf")
@@ -53,7 +54,57 @@ class EpuckNavigator:
         self.mThetaLocal = 0.0
         # epuck
         self.epuck = None
+        # navigator log
+        self.motion_writer = None
+        self.step = 0
+        self.rotate_dir = 0
+        self.rotate_angle = 0
+        self.obstacle_sensor = -1
+        # init stuff
+        self.InitLogFiles() 
 
+
+    def InitLogFiles(self):
+        # -- Init Stimuli writer --
+        name = "Navigation"
+        now = time.strftime("%Y%b%d-%H%M%S", time.gmtime())
+        desc = "Started from: " + now + "\n"
+        desc += "#" + "TRANSLATE_SPEED: " + str(TRANSLATE_SPEED) +"rev rad/s"\
+                "\tTRANSLATE_CONST: " + str(TRANSLATE_CONST) + "\n"
+        desc += "#" + "TRANSLATE STEP_DIST: " + str(STEP_DIST) + " pixel"+\
+                "\tFORWARD_STEP_TIME: " + str(FORWARD_STEP_TIME) + "s \n"
+        desc += "#" + "ROTATE_SPEED: " + str(ROTATE_SPEED) +"rev rad/s"\
+                "\tROTATE_CONST: " + str(ROTATE_CONST) + "\n" 
+        desc += "#" + "RotateDir: -1 : Left, +1: Right"
+        desc += "#" + "Obstacle sensed: -1 : None, 0-7: Sensor#, 8: All"
+        # prepare label
+        label = "TimeStamp;Step#;Coordinate;RotateDir;Angle(rad);\
+         ObstacleSensor# \n"
+        # Data context
+        ctx = DataCtx(name, label, desc)
+        self.motion_writer = DataWriter("Robot", ctx, now)
+
+    def GetCommonHeader(self):
+        ts = time.strftime("%H:%M:%S", time.gmtime())
+        sep = DATA_SEP
+        self.step = self.step + 1
+        header = str(ts) + sep + str(self.step)
+        return header
+    
+    def AppendMotionLog(self):        
+        sep = DATA_SEP
+        log = self.GetCommonHeader()\
+         + sep + str(self.mCurrentQuad) + sep + str(self.rotate_dir)\
+         + sep + str(self.rotate_angle) + sep + str(self.obstacle_sensor) +"\n"
+        try: 
+            self.motion_writer.AppendData(log)
+        except:
+            print "Motion logging failed"
+        # reset to default values
+        self.rotate_dir = 0
+        self.rotate_angle = 0
+        self.obstacle_sensor = -1 
+    
     
     def GoForward(self, e, timeout = FORWARD_STEP_TIME):
         self.epuck = e
@@ -67,12 +118,14 @@ class EpuckNavigator:
             mostActive = sensors.index(maxval)
             allActive = [i for i in range(8) if sensors[i] > PROXIMITY_THRESHOLD]
             logger.info("\t Proximity sensor %d activated", mostActive)
+            self.obstacle_sensor = mostActive
             #print 'i feel sensors', allActive
             # flash the closest LED
             led = e.getLEDnumber(mostActive)
             e.flashLED(led, 0.25)
             # response
             if allActive == [0, 7]:
+                self.obstacle_sensor = 8 # all
                 trans = e.getTranslate()
                 rotate = e.getRotate()
                 e.move(0, 0.7)
@@ -321,11 +374,19 @@ class EpuckNavigator:
 
     def RotateLeft(self, angle):
         logger.debug("\t Rotating left for %f rad", angle)
+        # for logging
+        self.rotate_dir = -1
+        self.rotate_angle = angle
+        # real stuff
         tm = ROTATE_CONST * angle
         self.TurnLeft(tm)
     
     def RotateRight(self, angle):
         logger.debug("\t Rotating right for %f rad", angle)
+        # for logging
+        self.rotate_dir = 1
+        self.rotate_angle = angle
+        # real stuff
         tm = ROTATE_CONST * angle
         self.TurnRight(tm)
     

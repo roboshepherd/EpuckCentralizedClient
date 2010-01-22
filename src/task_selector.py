@@ -1,4 +1,8 @@
-import math,  time,  random, gobject
+import math
+import  time
+import  random
+import gobject # !!
+import sys
 import logging,  logging.config,  logging.handlers
 
 from RILCommonModules.RILSetup import *
@@ -12,6 +16,7 @@ logger = logging.getLogger("EpcLogger")
 LOG_TYPE_STIMULUS = "stimulus"
 LOG_TYPE_DIST = "dist"
 LOG_TYPE_SENSITIZATION = "sensitization"
+LOG_TYPE_URGENCY = "urgency"
 
 class TaskProbRange():
     def __init__(self,  id):
@@ -27,17 +32,16 @@ class TaskSelector():
         self.stimulus = []
         self.probabilities = []
         self.taskranges = [] # put inst. of TaskProbRange()s
-        self.selectedTaskid = -1 
+        self.selected_taskid = -1 
         self.deltadist = DELTA_DISTANCE
         # live graph data writer objects
         self.step = 0
-        self.selected_task = -1
         self.data_ctx = None
         self.stimuli_writer = None
         self.dist_writer = None
         self.sensitization_writer = None
         self.pose_writer = None
-        
+        self.urgency_writer = None
 
     def  CalculateDist(self,  rp,  tx,  ty):
         if USE_NORMALIZED_POSE is True:
@@ -69,7 +73,7 @@ class TaskSelector():
         ti = self.taskinfo
         logger.debug("\t TaskInfo: %s",  ti.items() )
         taskCount = len(ti)
-        logger.debug("\t task count %d:" , taskCount)
+        #logger.debug("\t task count %d:" , taskCount)
         try:
             for index,  info in ti.items():
                 taskid = index 
@@ -89,6 +93,7 @@ class TaskSelector():
                 r.taskrec[taskid].sensitization = learn
                 r.taskrec[taskid].dist = dist
                 r.taskrec[taskid].stimuli = stimuli
+                r.taskrec[taskid].urgency = urg
         except:
             logger.error("FIXME --  list error")
         tsSum = math.fsum(self.stimulus)
@@ -130,11 +135,11 @@ class TaskSelector():
             #logger.debug("@TS Probing task %d range",  r.id)
             if(n >= r.start and n <= r.end):
                 logger.info("\t Select task %d ",  r.id)
-                self.selectedTaskid = r.id
+                self.selected_taskid = r.id
                 break
 
     def PostTaskSelection(self):
-        taskid = self.selectedTaskid
+        taskid = self.selected_taskid
         try:
             self.datamgr.mSelectedTask[SELECTED_TASK_ID] = taskid
             self.datamgr.mSelectedTask[SELECTED_TASK_STATUS] = TASK_SELECTED
@@ -144,7 +149,7 @@ class TaskSelector():
             logger.warn("Datamgr: SELECTED_TASK not updated ")
             print e
 
-        self.robot.UpdateTaskRecords(self.selectedTaskid)
+        self.robot.UpdateTaskRecords(self.selected_taskid)
         
         self.datamgr.mSelectedTaskAvailable.set() # Trigger Device Controller
         #time.sleep(1)
@@ -153,12 +158,12 @@ class TaskSelector():
 
     def InitLogFiles(self):
         # -- Init Stimuli writer --
-        name = "RobotStimulus"
-        now = time.strftime("%Y%b%H%M%S", time.gmtime()) 
-        desc = "logged in centralized communication mode from: " + now
+        name = "Stimulus"
+        now = time.strftime("%Y%b%d-%H%M%S", time.gmtime()) 
+        desc = "logged in centralized communication mode from: " + now +"\n"
         # prepare label
         label = "TimeStamp;StepCounter;SelectedTask"
-        for x in xrange(MAX_SHOPTASK+1):
+        for x in xrange(1,  MAX_SHOPTASK+1):
             label += "; "
             label += "Task"
             label += str(x)
@@ -166,37 +171,53 @@ class TaskSelector():
         # Data context
         self.data_ctx = DataCtx(name, label, desc)
         ctx = self.data_ctx 
-        id = self.robot.id
-        self.stimuli_writer = DataWriter("Robot", id, ctx, now )
+        robotid = str(self.robot.id)
+        self.stimuli_writer = DataWriter("Robot", ctx, now, robotid)
         # -- Init dist writer -- 
         ctx.name = "DistanceToTasks"
-        self.dist_writer = DataWriter("Robot", id, ctx, now )
+        self.dist_writer = DataWriter("Robot", ctx, now, robotid)
         # Init sensitization writer
         ctx.name = "Sensitizations"
-        self.dist_writer = DataWriter("Robot", id, ctx, now )
+        self.sensitization_writer = DataWriter("Robot", ctx, now, robotid)
+        # Init sensitization writer
+        ctx.name = "Urgency"
+        self.urgency_writer = DataWriter("Robot", ctx, now,robotid)
+        
         # raw pose  
-        ctx.name = "RobotPose"
-        ctx.label = "TimeStamp;StepCounter;X;Y;Theta"
-        self.pose_writer = DataWriter("Robot", id, ctx, now )
+        ctx.name = "PoseAtTS"
+        ctx.label = "TimeStamp;StepCounter;SelectedTask;X;Y;Theta \n"
+        self.pose_writer = DataWriter("Robot", ctx, now, robotid)
     
     def GetCommonHeader(self):
-        ts = time.strftime("%H%M%S", time.gmtime())
+        ts = time.strftime("%H:%M:%S", time.gmtime())
         sep = self.data_ctx.sep
-        header = str(ts) + sep + str(self.step) + sep + str(self.selected_task)
+        header = str(ts) + sep + str(self.step) + sep +\
+         str(self.selected_taskid)
         return header
 
     def GetTaskLog(self, log_type):
         log = self.GetCommonHeader()
         sep = self.data_ctx.sep
         taskrec = self.robot.taskrec
-        for i in range(len(taskrec)):
-            log += sep
-            if log_type == LOG_TYPE_STIMULUS:
+
+        if log_type == LOG_TYPE_STIMULUS:
+            for i in range(len(taskrec)):
+                log += sep
                 log += str(taskrec[i].stimuli)
-            elif log_type == LOG_TYPE_DIST:                
+        elif log_type == LOG_TYPE_DIST:
+            for i in range(len(taskrec)):
+                log += sep                
                 log += str(taskrec[i].dist)
-            elif log_type == LOG_TYPE_SENSITIZATION:
+        elif log_type == LOG_TYPE_SENSITIZATION:
+            for i in range(len(taskrec)):
+                log += sep
                 log += str(taskrec[i].sensitization)
+        elif log_type == LOG_TYPE_URGENCY:                
+            for i in range(len(taskrec)):
+                log += sep
+                log += str(taskrec[i].urgency)
+        else:
+            logger.warn("GetTaskLog(): Unknown log type")
         log +="\n"
         return log
     
@@ -204,7 +225,9 @@ class TaskSelector():
         try:
             self.stimuli_writer.AppendData(self.GetTaskLog(LOG_TYPE_STIMULUS))
             self.dist_writer.AppendData(self.GetTaskLog(LOG_TYPE_DIST))
-            self.dist_writer.AppendData(self.GetTaskLog(LOG_TYPE_SENSITIZATION))
+            self.urgency_writer.AppendData(self.GetTaskLog(LOG_TYPE_URGENCY))
+            self.sensitization_writer.AppendData(\
+                self.GetTaskLog(LOG_TYPE_SENSITIZATION))            
         except Exception, e:
             print "Task logging failed: ", e
             
@@ -229,11 +252,17 @@ def  selector_main(dataManager, robot):
     ts.InitLogFiles()
     ts.datamgr.mRobotPoseAvailable.wait()
     ts.datamgr.mTaskInfoAvailable.wait()
-    for i in range(TASK_SELECTION_STEPS):
-        logger.info("@TS  ----- [Step %d Start ] -----",  i)
-        #logger.debug("@TS Robot pose %s:" ,dataManager.mRobotPose.items() )
-        ts.SelectTask() # can be started delayed
-        ts.PostTaskSelection()
-        ts.AppendTaskLogs()
-        ts.AppendPoseLog()
-        dataManager.mTaskTimedOut.wait() # when task done == timedout
+    try:
+        for i in range(TASK_SELECTION_STEPS):
+            ts.step = i
+            logger.info("@TS  ----- [Task Selection Step %d Start ] -----",  i)
+            #logger.debug("@TS Robot pose %s:" ,dataManager.mRobotPose.items() )
+            ts.SelectTask() # can be started delayed
+            ts.PostTaskSelection()
+            ts.AppendTaskLogs()
+            ts.AppendPoseLog()
+            dataManager.mTaskTimedOut.wait() # when task done == timedout
+    except (KeyboardInterrupt, SystemExit):
+            print "User requested exit... TaskSelector shutting down now"
+            sys.exit(0)
+        
