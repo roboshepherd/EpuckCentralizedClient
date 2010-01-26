@@ -4,7 +4,7 @@ import time
 import math
 import sys
 import  logging,  logging.config,  logging.handlers
-logging.config.fileConfig("logging.conf")
+#logging.config.fileConfig("logging.conf")
 logger = logging.getLogger("EpcLogger")
 
 
@@ -12,8 +12,8 @@ from myro import *
 from RILCommonModules.RILSetup import *
 from RILCommonModules.LiveGraph import *
 from RILCommonModules.pose import *
-from data_manager import *
-from epuck_navigator import *
+from EpuckCentralizedClient.data_manager import *
+from EpuckCentralizedClient.epuck_navigator import *
 
 # Device status alias
 DEVICE_NOT_RESPONDING = 0
@@ -325,9 +325,9 @@ def get_config(config_file,  config):
         result = lst[1]
     return result
 
-def controller_main(data_mgr,  config_file):
-        bdaddr = get_config(config_file,  'bdaddr')
-        dc = DeviceController(data_mgr,  bdaddr)
+def controller_main(data_mgr):
+        #bdaddr = get_config(config_file,  'bdaddr')
+        dc = DeviceController(data_mgr)
         dc.InitLogFiles()
         dc.RunMainLoop()
 

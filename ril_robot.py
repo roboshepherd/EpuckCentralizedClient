@@ -1,13 +1,12 @@
 import  logging,  logging.config,  logging.handlers
-logging.config.fileConfig("logging.conf")
+#logging.config.fileConfig("logging.conf")
 logger = logging.getLogger("EpcLogger")
 
 from RILCommonModules.RILSetup import *
 from RILCommonModules.pose import *
 from RILCommonModules.shop_task import *
 
-
-from data_manager import *
+from EpuckCentralizedClient.data_manager import *
 
 class TaskRecord:
     info = []

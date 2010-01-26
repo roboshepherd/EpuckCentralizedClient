@@ -1,22 +1,24 @@
 #!/usr/bin/python
 import multiprocessing
-import  logging,  logging.config,  logging.handlers
+from multiprocessing import *
 import time
 import sys
-
-logging.config.fileConfig("logging.conf")
+import  logging,  logging.config,  logging.handlers
+logging.config.fileConfig("\
+/home/newport-ril/centralized-expt/EpuckCentralizedClient/logging.conf")
 logger = logging.getLogger("EpcLogger")
-BDADDR_CONFIG_FILE = "bdaddr.conf"
-from multiprocessing import *
-from RILCommonModules import *
-from data_manager import *
-from ril_robot import *
-import dbus_server
-import dbus_listener 
-import dbus_emitter
-import task_selector
-import device_controller
 multiprocessing.log_to_stderr(logging.DEBUG)
+
+from RILCommonModules import *
+from EpuckCentralizedClient import *
+from EpuckCentralizedClient.data_manager import *
+from EpuckCentralizedClient.ril_robot import *
+#import EpuckCentralizedClient.dbus_server
+from EpuckCentralizedClient.dbus_listener import *
+from EpuckCentralizedClient.dbus_emitter import *
+from EpuckCentralizedClient.task_selector import *
+from EpuckCentralizedClient.device_controller import *
+
 
 def main():
 	logging.debug("--- Start EPC---")
@@ -63,28 +65,28 @@ if __name__ == '__main__':
 	sig2 = SIG_TASK_INFO
 	sig3 = SIG_TASK_STATUS
 	delay = 3 # interval between signals
-	dbus_server = multiprocessing.Process(\
-		target=dbus_server.server_main,
-		name="SwisTrackProxy",\
-		args=(DBUS_IFACE_TRACKER, dbus_shared_path,  sig1,  delay,))
+	#dbus_server = multiprocessing.Process(\
+		#target=dbus_server.server_main,
+		#name="SwisTrackProxy",\
+		#args=(DBUS_IFACE_TRACKER, dbus_shared_path,  sig1,  delay,))
 	dbus_listener = multiprocessing.Process(\
-		target=dbus_listener.listener_main,\
+		target=listener_main,\
 		name="DBusListener",\
 		args=(dm,  DBUS_IFACE_TRACKER, dbus_shared_path,\
 			DBUS_IFACE_TASK_SERVER, DBUS_PATH_TASK_SERVER,\
 			sig1,  sig2,  delay,))
 	taskselector = multiprocessing.Process(\
-		target=task_selector.selector_main,\
+		target=selector_main,\
 		name="TaskSelector",\
 		args=(dm,  robot))
 	dbus_emitter = multiprocessing.Process(\
-		target=dbus_emitter.emitter_main,\
+		target=emitter_main,\
 		name="DBusEmitter",\
 		args=(dm,  DBUS_IFACE_EPUCK, dbus_shared_path,  sig3,   delay,))
 	device_controller =  multiprocessing.Process(\
-		target=device_controller.controller_main,\
+		target=controller_main,\
 		name="DeviceController",  
-		args=(dm,  BDADDR_CONFIG_FILE,))
+		args=(dm,))
 	main()
       
 

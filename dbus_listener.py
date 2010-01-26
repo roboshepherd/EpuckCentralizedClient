@@ -4,9 +4,9 @@ import dbus, dbus.service, dbus.mainloop.glib
 import multiprocessing,  logging,  logging.config,  logging.handlers
 
 from RILCommonModules.RILSetup import *
-from data_manager import *
+from EpuckCentralizedClient.data_manager import *
 
-logging.config.fileConfig("logging.conf")
+#logging.config.fileConfig("logging.conf")
 logger = logging.getLogger("EpcLogger")
 
 #--------------------- Signal Reception ----------------------------

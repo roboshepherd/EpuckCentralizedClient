@@ -7,10 +7,10 @@ import logging,  logging.config,  logging.handlers
 
 from RILCommonModules.RILSetup import *
 from RILCommonModules.LiveGraph import *
-from data_manager import *
-from ril_robot import *
+from EpuckCentralizedClient.data_manager import *
+from EpuckCentralizedClient.ril_robot import *
 
-logging.config.fileConfig("logging.conf")
+#logging.config.fileConfig("logging.conf")
 logger = logging.getLogger("EpcLogger")
 
 LOG_TYPE_STIMULUS = "stimulus"

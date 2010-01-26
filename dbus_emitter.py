@@ -5,8 +5,8 @@ import dbus, dbus.service, dbus.mainloop.glib
 import multiprocessing,  logging
 
 from RILCommonModules.RILSetup import *
-from data_manager import *
-from utils import *
+from EpuckCentralizedClient.data_manager import *
+from EpuckCentralizedClient.utils import *
 
 schedule = sched.scheduler(time.time, time.sleep)
 loop = None

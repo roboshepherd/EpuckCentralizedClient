@@ -6,9 +6,9 @@ from myro import *
 from RILCommonModules.RILSetup import *
 from RILCommonModules.pose import *
 from RILCommonModules.LiveGraph import *
-from utils import *
+from EpuckCentralizedClient.utils import *
 import  logging,  logging.config,  logging.handlers
-logging.config.fileConfig("logging.conf")
+#logging.config.fileConfig("logging.conf")
 logger = logging.getLogger("EpcLogger")
 
 PROXIMITY_THRESHOLD = 200
