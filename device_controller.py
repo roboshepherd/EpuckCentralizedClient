@@ -8,7 +8,7 @@ import  logging,  logging.config,  logging.handlers
 logger = logging.getLogger("EpcLogger")
 
 
-from myro import *
+from myro import Epuck
 from RILCommonModules.RILSetup import *
 from RILCommonModules.LiveGraph import *
 from RILCommonModules.pose import *
@@ -233,6 +233,7 @@ class DeviceController():
                 break
             else:
                self.status = DEVICE_AVAILABLE # stay in-loop
+               self.DoRandomWalk() ## To improve id-pose detection
                print "@DEVICE_AVAILABLE loop"
                time.sleep(SMALL_DELAY)
    

@@ -16,8 +16,9 @@ out = subproc.communicate()
 #print "\n"
 lines=  out[0].split("\n")
 #print "\t Output lines: \n", lines
+killed = 0
 for line in lines:
-	print "Line:-->", line
+	#print "Line:-->", line
 	output = line.split()
 	try:
 		if (output[12] == robotid):
@@ -25,9 +26,11 @@ for line in lines:
 			pid = int(output[1])
 			if(pid > 0):
 				os.kill(pid, signal.SIGKILL)	    
+				killed = killed + 1
 		else:
-			print "PID not OK"
+			#print "PID not OK"
+			pass
 	except Exception, e:
 		print e
 	# Killing valid PID	
-
+print "Killed: ", killed

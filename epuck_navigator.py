@@ -2,7 +2,7 @@ import  time
 import sys
 from math import fabs, atan2, atan
 
-from myro import *
+from myro import Epuck
 from RILCommonModules.RILSetup import *
 from RILCommonModules.pose import *
 from RILCommonModules.LiveGraph import *
@@ -57,7 +57,7 @@ class EpuckNavigator:
         # navigator log
         self.motion_writer = None
         self.step = 0
-        self.translate = 0
+        self.translated = 0
         self.rotate_dir = 0
         self.rotate_angle = 0
         self.obstacle_sensor = -1
@@ -104,7 +104,7 @@ class EpuckNavigator:
         try: 
             self.motion_writer.AppendData(log)
         except:
-            print "Motion logging failed"
+            logger.warn("Motion logging failed")
         # reset to default values
         self.translated = 0
         self.rotate_dir = 0
