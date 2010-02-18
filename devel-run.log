@@ -1,85 +1,1105 @@
-2010-01-22 16:01:55,616 - root - DEBUG - --- Start EPC---
-2010-01-22 16:01:55,648 - EpcLogger - DEBUG - Entering DEVICE_NOT_RESPONDING loop--->
-2010-01-22 16:01:56,705 - EpcLogger - INFO - @TS  ----- [Task Selection Step 0 Start ] -----
-2010-01-22 16:01:56,705 - EpcLogger - DEBUG - @TS  Robot pose x=1648.347290 y=2258.126465:
-2010-01-22 16:01:56,705 - EpcLogger - DEBUG - 	 TaskInfo: [(1, [1264176103.6600001, 1507.0, 944.0, 0.0, 0.52000000000000002]), (2, [1264176103.6600001, 2431.0, 2264.0, 0.0, 0.52000000000000002]), (3, [1264176103.6600001, 1042.0, 1973.0, 0.0, 0.52000000000000002])]
-2010-01-22 16:01:56,706 - EpcLogger - INFO - 	 Select task 3 
-2010-01-22 16:01:56,706 - EpcLogger - INFO - 	task 3 inc. sensitization:0.110000, timesDone:1
-2010-01-22 16:02:01,386 - EpcLogger - DEBUG - Entering DEVICE_AVAILABLE loop--->
-2010-01-22 16:02:01,389 - EpcLogger - DEBUG - Entering DEVICE_MOVING loop--->
-2010-01-22 16:02:03,502 - EpcLogger - DEBUG - 	Moving to Task
-2010-01-22 16:02:03,503 - EpcLogger - DEBUG - 	--> Naviagtor
-2010-01-22 16:02:03,503 - EpcLogger - INFO - Updated RobotPose: x= 1648.347412 y= 2258.120361  theta:4.153883
-2010-01-22 16:02:03,503 - EpcLogger - INFO - Updated TaskLoc: x= 1042.000000 y= 1973.000000
-2010-01-22 16:02:03,503 - EpcLogger - DEBUG - NavFunc set @Q23 
-2010-01-22 16:02:03,504 - EpcLogger - DEBUG - GoTowardsTarget(): START: Fri Jan 22 16:02:03 2010
-2010-01-22 16:02:03,504 - EpcLogger - DEBUG - TaskPoseOrientation:0.439546 Cone:0.260000
-2010-01-22 16:02:03,504 - EpcLogger - DEBUG - 	 Rotating left for 1.012291 rad
-2010-01-22 16:02:03,504 - EpcLogger - DEBUG - Now Doing Left Rotation for 0.322415 sec
-2010-01-22 16:02:03,926 - EpcLogger - DEBUG - Now Doing Translation for 1.000000 sec
-2010-01-22 16:02:05,154 - EpcLogger - DEBUG - --->Exiting DEVICE_MOVING loop.
-2010-01-22 16:02:05,154 - EpcLogger - DEBUG - Entering DEVICE_MOVING loop--->
-2010-01-22 16:02:07,170 - EpcLogger - DEBUG - 	Moving to Task
-2010-01-22 16:02:07,171 - EpcLogger - DEBUG - 	--> Naviagtor
-2010-01-22 16:02:07,171 - EpcLogger - INFO - Updated RobotPose: x= 1568.175537 y= 2266.123291  theta:2.984513
-2010-01-22 16:02:07,171 - EpcLogger - INFO - Updated TaskLoc: x= 1042.000000 y= 1973.000000
-2010-01-22 16:02:07,171 - EpcLogger - DEBUG - NavFunc set @Q23 
-2010-01-22 16:02:07,172 - EpcLogger - DEBUG - GoTowardsTarget(): START: Fri Jan 22 16:02:07 2010
-2010-01-22 16:02:07,172 - EpcLogger - DEBUG - TaskPoseOrientation:0.508265 Cone:0.260000
-2010-01-22 16:02:07,172 - EpcLogger - DEBUG - 	 Rotating right for 0.157080 rad
-2010-01-22 16:02:07,172 - EpcLogger - DEBUG - Now Doing Right Rotation for 0.050030 sec
-2010-01-22 16:02:07,330 - EpcLogger - DEBUG - Now Doing Translation for 1.000000 sec
-2010-01-22 16:02:07,402 - EpcLogger - INFO - 	 Proximity sensor 5 activated
-2010-01-22 16:02:08,878 - EpcLogger - DEBUG - --->Exiting DEVICE_MOVING loop.
-2010-01-22 16:02:08,879 - EpcLogger - DEBUG - Entering DEVICE_MOVING loop--->
-2010-01-22 16:02:10,898 - EpcLogger - DEBUG - 	Moving to Task
-2010-01-22 16:02:10,899 - EpcLogger - DEBUG - 	--> Naviagtor
-2010-01-22 16:02:10,899 - EpcLogger - INFO - Updated RobotPose: x= 1507.644043 y= 2218.641357  theta:4.293510
-2010-01-22 16:02:10,899 - EpcLogger - INFO - Updated TaskLoc: x= 1042.000000 y= 1973.000000
-2010-01-22 16:02:10,899 - EpcLogger - DEBUG - NavFunc set @Q23 
-2010-01-22 16:02:10,900 - EpcLogger - DEBUG - GoTowardsTarget(): START: Fri Jan 22 16:02:10 2010
-2010-01-22 16:02:10,900 - EpcLogger - DEBUG - TaskPoseOrientation:0.485429 Cone:0.260000
-2010-01-22 16:02:10,900 - EpcLogger - DEBUG - 	 Rotating left for 1.151917 rad
-2010-01-22 16:02:10,900 - EpcLogger - DEBUG - Now Doing Left Rotation for 0.366886 sec
-2010-01-22 16:02:11,358 - EpcLogger - DEBUG - Now Doing Translation for 1.000000 sec
-2010-01-22 16:02:12,590 - EpcLogger - DEBUG - --->Exiting DEVICE_MOVING loop.
-2010-01-22 16:02:12,590 - EpcLogger - DEBUG - Entering DEVICE_MOVING loop--->
-2010-01-22 16:02:14,714 - EpcLogger - DEBUG - 	Moving to Task
-2010-01-22 16:02:14,715 - EpcLogger - DEBUG - 	--> Naviagtor
-2010-01-22 16:02:14,715 - EpcLogger - INFO - Updated RobotPose: x= 1426.195801 y= 2224.725098  theta:3.019419
-2010-01-22 16:02:14,715 - EpcLogger - INFO - Updated TaskLoc: x= 1042.000000 y= 1973.000000
-2010-01-22 16:02:14,715 - EpcLogger - DEBUG - NavFunc set @Q23 
-2010-01-22 16:02:14,716 - EpcLogger - DEBUG - GoTowardsTarget(): START: Fri Jan 22 16:02:14 2010
-2010-01-22 16:02:14,716 - EpcLogger - DEBUG - TaskPoseOrientation:0.580022 Cone:0.260000
-2010-01-22 16:02:14,716 - EpcLogger - DEBUG - 	 Rotating right for 0.122173 rad
-2010-01-22 16:02:14,716 - EpcLogger - DEBUG - Now Doing Right Rotation for 0.038912 sec
-2010-01-22 16:02:14,866 - EpcLogger - DEBUG - Now Doing Translation for 1.000000 sec
-2010-01-22 16:02:16,086 - EpcLogger - DEBUG - --->Exiting DEVICE_MOVING loop.
-2010-01-22 16:02:16,086 - EpcLogger - DEBUG - Entering DEVICE_MOVING loop--->
-2010-01-22 16:02:18,198 - EpcLogger - DEBUG - 	Moving to Task
-2010-01-22 16:02:18,200 - EpcLogger - DEBUG - 	--> Naviagtor
-2010-01-22 16:02:18,200 - EpcLogger - INFO - Updated RobotPose: x= 1348.083252 y= 2212.978760  theta:3.246312
-2010-01-22 16:02:18,200 - EpcLogger - INFO - Updated TaskLoc: x= 1042.000000 y= 1973.000000
-2010-01-22 16:02:18,200 - EpcLogger - DEBUG - NavFunc set @Q23 
-2010-01-22 16:02:18,201 - EpcLogger - DEBUG - GoTowardsTarget(): START: Fri Jan 22 16:02:18 2010
-2010-01-22 16:02:18,201 - EpcLogger - DEBUG - TaskPoseOrientation:0.664928 Cone:0.260000
-2010-01-22 16:02:18,201 - EpcLogger - DEBUG - 	 Rotating left for 0.104720 rad
-2010-01-22 16:02:18,201 - EpcLogger - DEBUG - Now Doing Left Rotation for 0.033353 sec
-2010-01-22 16:02:18,334 - EpcLogger - DEBUG - Now Doing Translation for 1.000000 sec
-2010-01-22 16:02:19,630 - EpcLogger - DEBUG - --->Exiting DEVICE_MOVING loop.
-2010-01-22 16:02:19,630 - EpcLogger - DEBUG - Entering DEVICE_MOVING loop--->
-2010-01-22 16:02:21,739 - EpcLogger - DEBUG - 	Moving to Task
-2010-01-22 16:02:21,739 - EpcLogger - DEBUG - 	--> Naviagtor
-2010-01-22 16:02:21,739 - EpcLogger - INFO - Updated RobotPose: x= 1269.060791 y= 2215.098389  theta:3.054326
-2010-01-22 16:02:21,740 - EpcLogger - INFO - Updated TaskLoc: x= 1042.000000 y= 1973.000000
-2010-01-22 16:02:21,740 - EpcLogger - WARNING - UpdateNavFunc():Unknown Quad
-2010-01-22 16:02:21,740 - EpcLogger - DEBUG - GoTowardsTarget(): START: Fri Jan 22 16:02:21 2010
-2010-01-22 16:02:21,740 - EpcLogger - DEBUG - TaskPoseOrientation:0.817439 Cone:0.260000
-2010-01-22 16:02:21,740 - EpcLogger - WARNING - GoErrHandler(): Unknown Quad, can't go 
-2010-01-22 16:02:21,790 - EpcLogger - DEBUG - Now Doing Translation for 1.000000 sec
-2010-01-22 16:02:22,990 - EpcLogger - DEBUG - --->Exiting DEVICE_MOVING loop.
-2010-01-22 16:02:22,990 - EpcLogger - DEBUG - Entering DEVICE_MOVING loop--->
-2010-01-22 16:02:25,066 - EpcLogger - DEBUG - 	 AtTask
-2010-01-22 16:02:25,066 - EpcLogger - DEBUG - Entering DEVICE_IDLE loop--->
-2010-01-22 16:02:27,082 - EpcLogger - DEBUG - 	 AtTask
-2010-01-22 16:02:28,104 - root - DEBUG - --- End EPC---
+2010-02-18 11:43:40,551 - root - DEBUG - --- Start EPC---
+2010-02-18 11:43:41,641 - EpcLogger - INFO - @TS  ----- [Task Selection Step 0 Start ] -----
+2010-02-18 11:43:41,642 - EpcLogger - DEBUG - @TS  Robot pose x=2033.957642 y=1271.058228:
+2010-02-18 11:43:41,642 - EpcLogger - DEBUG - 	 TaskInfo: [(1, [1266493396.5699999, 950.0, 840.0, 0.0, 0.53000000000000003]), (2, [1266493396.5699999, 1797.0, 713.0, 0.0, 0.52500000000000002]), (3, [1266493396.5699999, 1848.0, 1713.0, 0.0, 0.52500000000000002]), (4, [1266493396.5699999, 535.0, 1596.0, 0.0, 0.52500000000000002])]
+2010-02-18 11:43:41,643 - EpcLogger - DEBUG - 	 task count 4:
+2010-02-18 11:43:41,643 - EpcLogger - DEBUG - Taskid -- 1:
+2010-02-18 11:43:41,644 - EpcLogger - INFO - 	Task 1 stimuli 0.489971:
+2010-02-18 11:43:41,644 - EpcLogger - DEBUG - Taskid -- 2:
+2010-02-18 11:43:41,644 - EpcLogger - INFO - 	Task 2 stimuli 0.736562:
+2010-02-18 11:43:41,644 - EpcLogger - DEBUG - Taskid -- 3:
+2010-02-18 11:43:41,644 - EpcLogger - INFO - 	Task 3 stimuli 0.831202:
+2010-02-18 11:43:41,644 - EpcLogger - DEBUG - Taskid -- 4:
+2010-02-18 11:43:41,645 - EpcLogger - INFO - 	Task 4 stimuli 0.387143:
+2010-02-18 11:43:41,645 - EpcLogger - INFO - 	 RandomWalk Stimuli: 0.300000
+2010-02-18 11:43:41,645 - EpcLogger - DEBUG - @TS Task 0 Prob 0.109294
+2010-02-18 11:43:41,645 - EpcLogger - DEBUG - @TS Task 1 Prob 0.178504
+2010-02-18 11:43:41,645 - EpcLogger - DEBUG - @TS Task 2 Prob 0.268341
+2010-02-18 11:43:41,646 - EpcLogger - DEBUG - @TS Task 3 Prob 0.302819
+2010-02-18 11:43:41,646 - EpcLogger - DEBUG - @TS Task 4 Prob 0.141042
+2010-02-18 11:43:41,646 - EpcLogger - DEBUG - @TS Task 0 prob start: 0  end: 11
+2010-02-18 11:43:41,646 - EpcLogger - DEBUG - @TS Task 1 prob start: 12  end: 29
+2010-02-18 11:43:41,646 - EpcLogger - DEBUG - @TS Task 2 prob start: 30  end: 56
+2010-02-18 11:43:41,646 - EpcLogger - DEBUG - @TS Task 3 prob start: 57  end: 86
+2010-02-18 11:43:41,647 - EpcLogger - DEBUG - @TS Task 4 prob start: 87  end: 100
+2010-02-18 11:43:41,647 - EpcLogger - DEBUG - 	Selected Randon no: 3
+2010-02-18 11:43:41,647 - EpcLogger - DEBUG - @TS Probing task 0 range 0 - 11 
+2010-02-18 11:43:41,647 - EpcLogger - INFO - 	 Select task 0 
+2010-02-18 11:43:41,648 - EpcLogger - WARNING - Datamgr: SELECTED_TASK not updated 
+2010-02-18 11:43:41,648 - EpcLogger - INFO - 	task 0 inc. sensitization:0.130000, timesDone:1
+2010-02-18 11:43:56,090 - EpcLogger - DEBUG - Entering DEVICE_NOT_RESPONDING loop--->
+2010-02-18 11:43:56,091 - EpcLogger - DEBUG - Entering DEVICE_AVAILABLE loop--->
+2010-02-18 11:43:56,091 - EpcLogger - DEBUG - 	Random walking
+2010-02-18 11:43:56,146 - EpcLogger - INFO - 	 Proximity sensor 3 activated
+2010-02-18 11:43:57,468 - EpcLogger - DEBUG - Entering DEVICE_MOVING loop--->
+2010-02-18 11:43:57,469 - EpcLogger - DEBUG - 	 RandomWalking
+2010-02-18 11:43:57,469 - EpcLogger - DEBUG - 	Random walking
+2010-02-18 11:43:57,522 - EpcLogger - INFO - 	 Proximity sensor 3 activated
+2010-02-18 11:43:58,874 - EpcLogger - DEBUG - --->Exiting DEVICE_MOVING loop.
+2010-02-18 11:43:58,874 - EpcLogger - DEBUG - Entering DEVICE_MOVING loop--->
+2010-02-18 11:43:58,874 - EpcLogger - DEBUG - 	 RandomWalking
+2010-02-18 11:43:58,875 - EpcLogger - DEBUG - 	Random walking
+2010-02-18 11:43:58,918 - EpcLogger - INFO - 	 Proximity sensor 3 activated
+2010-02-18 11:44:00,278 - EpcLogger - DEBUG - --->Exiting DEVICE_MOVING loop.
+2010-02-18 11:44:00,278 - EpcLogger - DEBUG - Entering DEVICE_MOVING loop--->
+2010-02-18 11:44:00,279 - EpcLogger - DEBUG - 	 RandomWalking
+2010-02-18 11:44:00,279 - EpcLogger - DEBUG - 	Random walking
+2010-02-18 11:44:00,334 - EpcLogger - INFO - 	 Proximity sensor 3 activated
+2010-02-18 11:44:01,662 - EpcLogger - DEBUG - --->Exiting DEVICE_MOVING loop.
+2010-02-18 11:44:01,662 - EpcLogger - DEBUG - Entering DEVICE_MOVING loop--->
+2010-02-18 11:44:01,662 - EpcLogger - DEBUG - 	 RandomWalking
+2010-02-18 11:44:01,663 - EpcLogger - DEBUG - 	Random walking
+2010-02-18 11:44:01,710 - EpcLogger - INFO - 	 Proximity sensor 3 activated
+2010-02-18 11:44:03,062 - EpcLogger - DEBUG - --->Exiting DEVICE_MOVING loop.
+2010-02-18 11:44:03,062 - EpcLogger - DEBUG - Entering DEVICE_MOVING loop--->
+2010-02-18 11:44:03,063 - EpcLogger - DEBUG - 	 RandomWalking
+2010-02-18 11:44:03,063 - EpcLogger - DEBUG - 	Random walking
+2010-02-18 11:44:03,106 - EpcLogger - INFO - 	 Proximity sensor 3 activated
+2010-02-18 11:44:04,443 - EpcLogger - DEBUG - --->Exiting DEVICE_MOVING loop.
+2010-02-18 11:44:04,443 - EpcLogger - DEBUG - Entering DEVICE_MOVING loop--->
+2010-02-18 11:44:04,443 - EpcLogger - DEBUG - 	 RandomWalking
+2010-02-18 11:44:04,444 - EpcLogger - DEBUG - 	Random walking
+2010-02-18 11:44:04,498 - EpcLogger - INFO - 	 Proximity sensor 3 activated
+2010-02-18 11:44:05,850 - EpcLogger - DEBUG - --->Exiting DEVICE_MOVING loop.
+2010-02-18 11:44:05,850 - EpcLogger - DEBUG - Entering DEVICE_MOVING loop--->
+2010-02-18 11:44:05,851 - EpcLogger - DEBUG - 	 RandomWalking
+2010-02-18 11:44:05,851 - EpcLogger - DEBUG - 	Random walking
+2010-02-18 11:44:05,898 - EpcLogger - INFO - 	 Proximity sensor 3 activated
+2010-02-18 11:44:07,250 - EpcLogger - DEBUG - --->Exiting DEVICE_MOVING loop.
+2010-02-18 11:44:07,250 - EpcLogger - DEBUG - Entering DEVICE_MOVING loop--->
+2010-02-18 11:44:07,250 - EpcLogger - DEBUG - 	 RandomWalking
+2010-02-18 11:44:07,251 - EpcLogger - DEBUG - 	Random walking
+2010-02-18 11:44:07,302 - EpcLogger - INFO - 	 Proximity sensor 3 activated
+2010-02-18 11:44:08,662 - EpcLogger - DEBUG - --->Exiting DEVICE_MOVING loop.
+2010-02-18 11:44:08,662 - EpcLogger - DEBUG - Entering DEVICE_MOVING loop--->
+2010-02-18 11:44:08,663 - EpcLogger - DEBUG - 	 RandomWalking
+2010-02-18 11:44:08,663 - EpcLogger - DEBUG - 	Random walking
+2010-02-18 11:44:08,710 - EpcLogger - INFO - 	 Proximity sensor 3 activated
+2010-02-18 11:44:10,038 - EpcLogger - DEBUG - --->Exiting DEVICE_MOVING loop.
+2010-02-18 11:44:10,038 - EpcLogger - DEBUG - Entering DEVICE_MOVING loop--->
+2010-02-18 11:44:10,038 - EpcLogger - DEBUG - 	 RandomWalking
+2010-02-18 11:44:10,039 - EpcLogger - DEBUG - 	Random walking
+2010-02-18 11:44:10,086 - EpcLogger - INFO - 	 Proximity sensor 3 activated
+2010-02-18 11:44:11,446 - EpcLogger - DEBUG - --->Exiting DEVICE_MOVING loop.
+2010-02-18 11:44:11,446 - EpcLogger - DEBUG - Entering DEVICE_MOVING loop--->
+2010-02-18 11:44:11,446 - EpcLogger - DEBUG - 	 RandomWalking
+2010-02-18 11:44:11,447 - EpcLogger - DEBUG - 	Random walking
+2010-02-18 11:44:11,494 - EpcLogger - INFO - 	 Proximity sensor 3 activated
+2010-02-18 11:44:12,850 - EpcLogger - DEBUG - --->Exiting DEVICE_MOVING loop.
+2010-02-18 11:44:12,850 - EpcLogger - DEBUG - Entering DEVICE_MOVING loop--->
+2010-02-18 11:44:12,850 - EpcLogger - DEBUG - 	 RandomWalking
+2010-02-18 11:44:12,851 - EpcLogger - DEBUG - 	Random walking
+2010-02-18 11:44:12,898 - EpcLogger - INFO - 	 Proximity sensor 3 activated
+2010-02-18 11:44:14,262 - EpcLogger - DEBUG - --->Exiting DEVICE_MOVING loop.
+2010-02-18 11:44:14,262 - EpcLogger - DEBUG - Entering DEVICE_MOVING loop--->
+2010-02-18 11:44:14,262 - EpcLogger - DEBUG - 	 RandomWalking
+2010-02-18 11:44:14,263 - EpcLogger - DEBUG - 	Random walking
+2010-02-18 11:44:14,314 - EpcLogger - INFO - 	 Proximity sensor 3 activated
+2010-02-18 11:44:15,662 - EpcLogger - DEBUG - --->Exiting DEVICE_MOVING loop.
+2010-02-18 11:44:15,662 - EpcLogger - DEBUG - Entering DEVICE_MOVING loop--->
+2010-02-18 11:44:15,662 - EpcLogger - DEBUG - 	 RandomWalking
+2010-02-18 11:44:15,663 - EpcLogger - DEBUG - 	Random walking
+2010-02-18 11:44:15,710 - EpcLogger - INFO - 	 Proximity sensor 3 activated
+2010-02-18 11:44:17,046 - EpcLogger - DEBUG - --->Exiting DEVICE_MOVING loop.
+2010-02-18 11:44:17,047 - EpcLogger - DEBUG - Entering DEVICE_MOVING loop--->
+2010-02-18 11:44:17,047 - EpcLogger - DEBUG - 	 RandomWalking
+2010-02-18 11:44:17,047 - EpcLogger - DEBUG - 	Random walking
+2010-02-18 11:44:17,098 - EpcLogger - INFO - 	 Proximity sensor 3 activated
+2010-02-18 11:44:18,490 - EpcLogger - DEBUG - --->Exiting DEVICE_MOVING loop.
+2010-02-18 11:44:18,490 - EpcLogger - DEBUG - Entering DEVICE_MOVING loop--->
+2010-02-18 11:44:18,490 - EpcLogger - DEBUG - 	 RandomWalking
+2010-02-18 11:44:18,491 - EpcLogger - DEBUG - 	Random walking
+2010-02-18 11:44:18,538 - EpcLogger - INFO - 	 Proximity sensor 3 activated
+2010-02-18 11:44:19,886 - EpcLogger - DEBUG - --->Exiting DEVICE_MOVING loop.
+2010-02-18 11:44:19,886 - EpcLogger - DEBUG - Entering DEVICE_MOVING loop--->
+2010-02-18 11:44:19,886 - EpcLogger - DEBUG - 	 RandomWalking
+2010-02-18 11:44:19,887 - EpcLogger - DEBUG - 	Random walking
+2010-02-18 11:44:19,930 - EpcLogger - INFO - 	 Proximity sensor 3 activated
+2010-02-18 11:44:21,266 - EpcLogger - DEBUG - --->Exiting DEVICE_MOVING loop.
+2010-02-18 11:44:21,266 - EpcLogger - DEBUG - Entering DEVICE_MOVING loop--->
+2010-02-18 11:44:21,266 - EpcLogger - DEBUG - 	 RandomWalking
+2010-02-18 11:44:21,267 - EpcLogger - DEBUG - 	Random walking
+2010-02-18 11:44:21,310 - EpcLogger - INFO - 	 Proximity sensor 3 activated
+2010-02-18 11:44:22,686 - EpcLogger - DEBUG - --->Exiting DEVICE_MOVING loop.
+2010-02-18 11:44:22,686 - EpcLogger - DEBUG - Entering DEVICE_MOVING loop--->
+2010-02-18 11:44:22,686 - EpcLogger - DEBUG - 	 RandomWalking
+2010-02-18 11:44:22,687 - EpcLogger - DEBUG - 	Random walking
+2010-02-18 11:44:22,769 - EpcLogger - INFO - 	 Proximity sensor 3 activated
+2010-02-18 11:44:24,191 - EpcLogger - DEBUG - --->Exiting DEVICE_MOVING loop.
+2010-02-18 11:44:24,191 - EpcLogger - DEBUG - Entering DEVICE_MOVING loop--->
+2010-02-18 11:44:24,191 - EpcLogger - DEBUG - 	 RandomWalking
+2010-02-18 11:44:24,191 - EpcLogger - DEBUG - 	Random walking
+2010-02-18 11:44:24,242 - EpcLogger - INFO - 	 Proximity sensor 3 activated
+2010-02-18 11:44:25,630 - EpcLogger - DEBUG - --->Exiting DEVICE_MOVING loop.
+2010-02-18 11:44:25,630 - EpcLogger - DEBUG - Entering DEVICE_MOVING loop--->
+2010-02-18 11:44:25,630 - EpcLogger - DEBUG - 	 RandomWalking
+2010-02-18 11:44:25,631 - EpcLogger - DEBUG - 	Random walking
+2010-02-18 11:44:25,686 - EpcLogger - INFO - 	 Proximity sensor 3 activated
+2010-02-18 11:44:27,030 - EpcLogger - DEBUG - --->Exiting DEVICE_MOVING loop.
+2010-02-18 11:44:27,030 - EpcLogger - DEBUG - Entering DEVICE_MOVING loop--->
+2010-02-18 11:44:27,030 - EpcLogger - DEBUG - 	 RandomWalking
+2010-02-18 11:44:27,036 - EpcLogger - DEBUG - 	Random walking
+2010-02-18 11:44:27,090 - EpcLogger - INFO - 	 Proximity sensor 3 activated
+2010-02-18 11:44:28,442 - EpcLogger - DEBUG - --->Exiting DEVICE_MOVING loop.
+2010-02-18 11:44:28,442 - EpcLogger - DEBUG - Entering DEVICE_MOVING loop--->
+2010-02-18 11:44:28,442 - EpcLogger - DEBUG - 	 Timedout
+2010-02-18 11:44:28,443 - EpcLogger - INFO - @TS  ----- [Task Selection Step 1 Start ] -----
+2010-02-18 11:44:28,443 - EpcLogger - DEBUG - @TS  Robot pose x=2100.317383 y=1304.183228:
+2010-02-18 11:44:28,444 - EpcLogger - DEBUG - 	 TaskInfo: [(1, [1266493396.5699999, 950.0, 840.0, 0.0, 0.57499999999999996]), (2, [1266493396.5699999, 1797.0, 713.0, 0.0, 0.57499999999999996]), (3, [1266493396.5699999, 1848.0, 1713.0, 0.0, 0.56999999999999995]), (4, [1266493396.5699999, 535.0, 1596.0, 0.0, 0.56999999999999995])]
+2010-02-18 11:44:28,444 - EpcLogger - DEBUG - 	 task count 4:
+2010-02-18 11:44:28,444 - EpcLogger - DEBUG - Taskid -- 1:
+2010-02-18 11:44:28,445 - EpcLogger - INFO - 	Task 1 stimuli 0.455788:
+2010-02-18 11:44:28,445 - EpcLogger - DEBUG - Taskid -- 2:
+2010-02-18 11:44:28,445 - EpcLogger - INFO - 	Task 2 stimuli 0.692654:
+2010-02-18 11:44:28,445 - EpcLogger - DEBUG - Taskid -- 3:
+2010-02-18 11:44:28,445 - EpcLogger - INFO - 	Task 3 stimuli 0.826812:
+2010-02-18 11:44:28,446 - EpcLogger - DEBUG - Taskid -- 4:
+2010-02-18 11:44:28,446 - EpcLogger - INFO - 	Task 4 stimuli 0.367023:
+2010-02-18 11:44:28,446 - EpcLogger - INFO - 	 RandomWalk Stimuli: 0.300000
+2010-02-18 11:44:28,446 - EpcLogger - DEBUG - @TS Task 0 Prob 0.113538
+2010-02-18 11:44:28,446 - EpcLogger - DEBUG - @TS Task 1 Prob 0.172498
+2010-02-18 11:44:28,446 - EpcLogger - DEBUG - @TS Task 2 Prob 0.262143
+2010-02-18 11:44:28,447 - EpcLogger - DEBUG - @TS Task 3 Prob 0.312916
+2010-02-18 11:44:28,447 - EpcLogger - DEBUG - @TS Task 4 Prob 0.138904
+2010-02-18 11:44:28,447 - EpcLogger - DEBUG - @TS Task 0 prob start: 0  end: 11
+2010-02-18 11:44:28,447 - EpcLogger - DEBUG - @TS Task 1 prob start: 12  end: 28
+2010-02-18 11:44:28,447 - EpcLogger - DEBUG - @TS Task 2 prob start: 29  end: 54
+2010-02-18 11:44:28,448 - EpcLogger - DEBUG - @TS Task 3 prob start: 55  end: 85
+2010-02-18 11:44:28,448 - EpcLogger - DEBUG - @TS Task 4 prob start: 86  end: 99
+2010-02-18 11:44:28,448 - EpcLogger - DEBUG - 	Selected Randon no: 62
+2010-02-18 11:44:28,448 - EpcLogger - DEBUG - @TS Probing task 0 range 0 - 11 
+2010-02-18 11:44:28,448 - EpcLogger - DEBUG - @TS Probing task 1 range 12 - 28 
+2010-02-18 11:44:28,448 - EpcLogger - DEBUG - @TS Probing task 2 range 29 - 54 
+2010-02-18 11:44:28,449 - EpcLogger - DEBUG - @TS Probing task 3 range 55 - 85 
+2010-02-18 11:44:28,449 - EpcLogger - INFO - 	 Select task 3 
+2010-02-18 11:44:28,449 - EpcLogger - INFO - 	task 3 inc. sensitization:0.120000, timesDone:1
+2010-02-18 11:44:28,546 - EpcLogger - DEBUG - Entering DEVICE_AVAILABLE loop--->
+2010-02-18 11:44:28,546 - EpcLogger - DEBUG - 	Random walking
+2010-02-18 11:44:28,606 - EpcLogger - INFO - 	 Proximity sensor 3 activated
+2010-02-18 11:44:29,963 - EpcLogger - DEBUG - Entering DEVICE_MOVING loop--->
+2010-02-18 11:44:29,963 - EpcLogger - DEBUG - 	Moving to Task
+2010-02-18 11:44:29,964 - EpcLogger - DEBUG - 	--> Naviagtor
+2010-02-18 11:44:29,964 - EpcLogger - INFO - Updated RobotPose: x= 2028.014771 y= 1273.457520  theta:2.862340
+2010-02-18 11:44:29,964 - EpcLogger - INFO - Updated TaskLoc: x= 1848.000000 y= 1713.000000
+2010-02-18 11:44:29,965 - EpcLogger - DEBUG - NavFunc set @Q12 
+2010-02-18 11:44:29,965 - EpcLogger - DEBUG - GoTowardsTarget(): START: Thu Feb 18 11:44:29 2010
+2010-02-18 11:44:29,965 - EpcLogger - DEBUG - TaskPoseOrientation:1.182084 Cone:0.260000
+2010-02-18 11:44:29,965 - EpcLogger - DEBUG - 	 Rotating left for 1.291544 rad
+2010-02-18 11:44:29,965 - EpcLogger - DEBUG - Now Doing Left Rotation for 0.411357 sec
+2010-02-18 11:44:30,422 - EpcLogger - DEBUG - Now Doing Translation for 1.000000 sec
+2010-02-18 11:44:30,474 - EpcLogger - INFO - 	 Proximity sensor 3 activated
+2010-02-18 11:44:31,842 - EpcLogger - DEBUG - --->Exiting DEVICE_MOVING loop.
+2010-02-18 11:44:31,842 - EpcLogger - DEBUG - Entering DEVICE_MOVING loop--->
+2010-02-18 11:44:31,843 - EpcLogger - DEBUG - 	Moving to Task
+2010-02-18 11:44:31,843 - EpcLogger - DEBUG - 	--> Naviagtor
+2010-02-18 11:44:31,843 - EpcLogger - INFO - Updated RobotPose: x= 2030.552856 y= 1312.917236  theta:0.506145
+2010-02-18 11:44:31,843 - EpcLogger - INFO - Updated TaskLoc: x= 1848.000000 y= 1713.000000
+2010-02-18 11:44:31,844 - EpcLogger - DEBUG - NavFunc set @Q12 
+2010-02-18 11:44:31,844 - EpcLogger - DEBUG - GoTowardsTarget(): START: Thu Feb 18 11:44:31 2010
+2010-02-18 11:44:31,844 - EpcLogger - DEBUG - TaskPoseOrientation:1.142726 Cone:0.260000
+2010-02-18 11:44:31,844 - EpcLogger - WARNING - @Q12: don't know how much to rotate
+2010-02-18 11:44:31,854 - EpcLogger - DEBUG - Now Doing Translation for 1.000000 sec
+2010-02-18 11:44:31,910 - EpcLogger - INFO - 	 Proximity sensor 3 activated
+2010-02-18 11:44:33,310 - EpcLogger - DEBUG - --->Exiting DEVICE_MOVING loop.
+2010-02-18 11:44:33,310 - EpcLogger - DEBUG - Entering DEVICE_MOVING loop--->
+2010-02-18 11:44:33,311 - EpcLogger - DEBUG - 	Moving to Task
+2010-02-18 11:44:33,311 - EpcLogger - DEBUG - 	--> Naviagtor
+2010-02-18 11:44:33,311 - EpcLogger - INFO - Updated RobotPose: x= 2062.172119 y= 1322.100342  theta:6.265732
+2010-02-18 11:44:33,311 - EpcLogger - INFO - Updated TaskLoc: x= 1848.000000 y= 1713.000000
+2010-02-18 11:44:33,312 - EpcLogger - DEBUG - NavFunc set @Q12 
+2010-02-18 11:44:33,312 - EpcLogger - DEBUG - GoTowardsTarget(): START: Thu Feb 18 11:44:33 2010
+2010-02-18 11:44:33,312 - EpcLogger - DEBUG - TaskPoseOrientation:1.069570 Cone:0.260000
+2010-02-18 11:44:33,312 - EpcLogger - DEBUG - 	 Rotating right for 1.588250 rad
+2010-02-18 11:44:33,312 - EpcLogger - DEBUG - Now Doing Right Rotation for 0.505858 sec
+2010-02-18 11:44:33,918 - EpcLogger - DEBUG - Now Doing Translation for 1.000000 sec
+2010-02-18 11:44:33,978 - EpcLogger - INFO - 	 Proximity sensor 3 activated
+2010-02-18 11:44:35,386 - EpcLogger - DEBUG - --->Exiting DEVICE_MOVING loop.
+2010-02-18 11:44:35,386 - EpcLogger - DEBUG - Entering DEVICE_MOVING loop--->
+2010-02-18 11:44:35,387 - EpcLogger - DEBUG - 	Moving to Task
+2010-02-18 11:44:35,387 - EpcLogger - DEBUG - 	--> Naviagtor
+2010-02-18 11:44:35,387 - EpcLogger - INFO - Updated RobotPose: x= 2146.994873 y= 1304.627563  theta:0.034907
+2010-02-18 11:44:35,387 - EpcLogger - INFO - Updated TaskLoc: x= 1848.000000 y= 1713.000000
+2010-02-18 11:44:35,387 - EpcLogger - DEBUG - NavFunc set @Q12 
+2010-02-18 11:44:35,388 - EpcLogger - DEBUG - GoTowardsTarget(): START: Thu Feb 18 11:44:35 2010
+2010-02-18 11:44:35,388 - EpcLogger - DEBUG - TaskPoseOrientation:0.938809 Cone:0.260000
+2010-02-18 11:44:35,388 - EpcLogger - WARNING - @Q12: don't know how much to rotate
+2010-02-18 11:44:35,398 - EpcLogger - DEBUG - Now Doing Translation for 1.000000 sec
+2010-02-18 11:44:35,450 - EpcLogger - INFO - 	 Proximity sensor 3 activated
+2010-02-18 11:44:36,826 - EpcLogger - DEBUG - --->Exiting DEVICE_MOVING loop.
+2010-02-18 11:44:36,826 - EpcLogger - DEBUG - Entering DEVICE_MOVING loop--->
+2010-02-18 11:44:36,827 - EpcLogger - DEBUG - 	Moving to Task
+2010-02-18 11:44:36,827 - EpcLogger - DEBUG - 	--> Naviagtor
+2010-02-18 11:44:36,827 - EpcLogger - INFO - Updated RobotPose: x= 2178.449219 y= 1299.120239  theta:5.811946
+2010-02-18 11:44:36,828 - EpcLogger - INFO - Updated TaskLoc: x= 1848.000000 y= 1713.000000
+2010-02-18 11:44:36,828 - EpcLogger - DEBUG - NavFunc set @Q2 
+2010-02-18 11:44:36,828 - EpcLogger - DEBUG - GoTowardsTarget(): START: Thu Feb 18 11:44:36 2010
+2010-02-18 11:44:36,828 - EpcLogger - DEBUG - TaskPoseOrientation:0.897021 Cone:0.260000
+2010-02-18 11:44:36,828 - EpcLogger - INFO - GoQ2(): Theta desired 2.244572
+2010-02-18 11:44:36,828 - EpcLogger - DEBUG - 	 Rotating right for 2.715812 rad
+2010-02-18 11:44:36,828 - EpcLogger - DEBUG - Now Doing Right Rotation for 0.864986 sec
+2010-02-18 11:44:37,802 - EpcLogger - DEBUG - Now Doing Translation for 1.000000 sec
+2010-02-18 11:44:37,866 - EpcLogger - INFO - 	 Proximity sensor 3 activated
+2010-02-18 11:44:39,226 - EpcLogger - DEBUG - --->Exiting DEVICE_MOVING loop.
+2010-02-18 11:44:39,226 - EpcLogger - DEBUG - Entering DEVICE_MOVING loop--->
+2010-02-18 11:44:39,226 - EpcLogger - DEBUG - 	Moving to Task
+2010-02-18 11:44:39,227 - EpcLogger - DEBUG - 	--> Naviagtor
+2010-02-18 11:44:39,227 - EpcLogger - INFO - Updated RobotPose: x= 2213.168457 y= 1261.132202  theta:1.169371
+2010-02-18 11:44:39,227 - EpcLogger - INFO - Updated TaskLoc: x= 1848.000000 y= 1713.000000
+2010-02-18 11:44:39,227 - EpcLogger - DEBUG - NavFunc set @Q2 
+2010-02-18 11:44:39,227 - EpcLogger - DEBUG - GoTowardsTarget(): START: Thu Feb 18 11:44:39 2010
+2010-02-18 11:44:39,227 - EpcLogger - DEBUG - TaskPoseOrientation:0.891117 Cone:0.260000
+2010-02-18 11:44:39,228 - EpcLogger - INFO - GoQ2(): Theta desired 2.250476
+2010-02-18 11:44:39,228 - EpcLogger - DEBUG - 	 Rotating right for 1.081105 rad
+2010-02-18 11:44:39,228 - EpcLogger - DEBUG - Now Doing Right Rotation for 0.344332 sec
+2010-02-18 11:44:39,646 - EpcLogger - DEBUG - Now Doing Translation for 1.000000 sec
+2010-02-18 11:44:39,686 - EpcLogger - INFO - 	 Proximity sensor 3 activated
+2010-02-18 11:44:41,042 - EpcLogger - DEBUG - --->Exiting DEVICE_MOVING loop.
+2010-02-18 11:44:41,042 - EpcLogger - DEBUG - Entering DEVICE_MOVING loop--->
+2010-02-18 11:44:41,043 - EpcLogger - DEBUG - 	Moving to Task
+2010-02-18 11:44:41,043 - EpcLogger - DEBUG - 	--> Naviagtor
+2010-02-18 11:44:41,043 - EpcLogger - INFO - Updated RobotPose: x= 2248.138672 y= 1307.344604  theta:1.361357
+2010-02-18 11:44:41,043 - EpcLogger - INFO - Updated TaskLoc: x= 1848.000000 y= 1713.000000
+2010-02-18 11:44:41,043 - EpcLogger - DEBUG - NavFunc set @Q2 
+2010-02-18 11:44:41,043 - EpcLogger - DEBUG - GoTowardsTarget(): START: Thu Feb 18 11:44:41 2010
+2010-02-18 11:44:41,043 - EpcLogger - DEBUG - TaskPoseOrientation:0.792244 Cone:0.260000
+2010-02-18 11:44:41,044 - EpcLogger - INFO - GoQ2(): Theta desired 2.349348
+2010-02-18 11:44:41,044 - EpcLogger - DEBUG - 	 Rotating right for 0.987991 rad
+2010-02-18 11:44:41,044 - EpcLogger - DEBUG - Now Doing Right Rotation for 0.314675 sec
+2010-02-18 11:44:41,410 - EpcLogger - DEBUG - Now Doing Translation for 1.000000 sec
+2010-02-18 11:44:41,478 - EpcLogger - INFO - 	 Proximity sensor 3 activated
+2010-02-18 11:44:42,854 - EpcLogger - DEBUG - --->Exiting DEVICE_MOVING loop.
+2010-02-18 11:44:42,854 - EpcLogger - DEBUG - Entering DEVICE_MOVING loop--->
+2010-02-18 11:44:42,854 - EpcLogger - DEBUG - 	Moving to Task
+2010-02-18 11:44:42,855 - EpcLogger - DEBUG - 	--> Naviagtor
+2010-02-18 11:44:42,855 - EpcLogger - INFO - Updated RobotPose: x= 2278.466064 y= 1360.517822  theta:1.413717
+2010-02-18 11:44:42,855 - EpcLogger - INFO - Updated TaskLoc: x= 1848.000000 y= 1713.000000
+2010-02-18 11:44:42,855 - EpcLogger - DEBUG - NavFunc set @Q2 
+2010-02-18 11:44:42,855 - EpcLogger - DEBUG - GoTowardsTarget(): START: Thu Feb 18 11:44:42 2010
+2010-02-18 11:44:42,855 - EpcLogger - DEBUG - TaskPoseOrientation:0.686123 Cone:0.260000
+2010-02-18 11:44:42,856 - EpcLogger - INFO - GoQ2(): Theta desired 2.455470
+2010-02-18 11:44:42,856 - EpcLogger - DEBUG - 	 Rotating right for 1.041753 rad
+2010-02-18 11:44:42,856 - EpcLogger - DEBUG - Now Doing Right Rotation for 0.331798 sec
+2010-02-18 11:44:43,230 - EpcLogger - DEBUG - Now Doing Translation for 1.000000 sec
+2010-02-18 11:44:43,274 - EpcLogger - INFO - 	 Proximity sensor 5 activated
+2010-02-18 11:44:44,630 - EpcLogger - DEBUG - --->Exiting DEVICE_MOVING loop.
+2010-02-18 11:44:44,630 - EpcLogger - DEBUG - Entering DEVICE_MOVING loop--->
+2010-02-18 11:44:44,631 - EpcLogger - DEBUG - 	Moving to Task
+2010-02-18 11:44:44,631 - EpcLogger - DEBUG - 	--> Naviagtor
+2010-02-18 11:44:44,631 - EpcLogger - INFO - Updated RobotPose: x= 2306.581299 y= 1413.815063  theta:1.658063
+2010-02-18 11:44:44,631 - EpcLogger - INFO - Updated TaskLoc: x= 1848.000000 y= 1713.000000
+2010-02-18 11:44:44,631 - EpcLogger - DEBUG - NavFunc set @Q23 
+2010-02-18 11:44:44,632 - EpcLogger - DEBUG - GoTowardsTarget(): START: Thu Feb 18 11:44:44 2010
+2010-02-18 11:44:44,632 - EpcLogger - DEBUG - TaskPoseOrientation:0.578070 Cone:0.260000
+2010-02-18 11:44:44,632 - EpcLogger - DEBUG - 	 Rotating right for 1.483530 rad
+2010-02-18 11:44:44,632 - EpcLogger - DEBUG - Now Doing Right Rotation for 0.472504 sec
+2010-02-18 11:44:45,186 - EpcLogger - DEBUG - Now Doing Translation for 1.000000 sec
+2010-02-18 11:44:45,259 - EpcLogger - INFO - 	 Proximity sensor 3 activated
+2010-02-18 11:44:46,606 - EpcLogger - DEBUG - --->Exiting DEVICE_MOVING loop.
+2010-02-18 11:44:46,606 - EpcLogger - DEBUG - Entering DEVICE_MOVING loop--->
+2010-02-18 11:44:46,607 - EpcLogger - DEBUG - 	Moving to Task
+2010-02-18 11:44:46,608 - EpcLogger - DEBUG - 	--> Naviagtor
+2010-02-18 11:44:46,608 - EpcLogger - INFO - Updated RobotPose: x= 2272.683105 y= 1467.293701  theta:4.223697
+2010-02-18 11:44:46,608 - EpcLogger - INFO - Updated TaskLoc: x= 1848.000000 y= 1713.000000
+2010-02-18 11:44:46,608 - EpcLogger - DEBUG - NavFunc set @Q23 
+2010-02-18 11:44:46,608 - EpcLogger - DEBUG - GoTowardsTarget(): START: Thu Feb 18 11:44:46 2010
+2010-02-18 11:44:46,608 - EpcLogger - DEBUG - TaskPoseOrientation:0.524508 Cone:0.260000
+2010-02-18 11:44:46,609 - EpcLogger - DEBUG - 	 Rotating left for 1.082104 rad
+2010-02-18 11:44:46,609 - EpcLogger - DEBUG - Now Doing Left Rotation for 0.344650 sec
+2010-02-18 11:44:47,026 - EpcLogger - DEBUG - Now Doing Translation for 1.000000 sec
+2010-02-18 11:44:47,090 - EpcLogger - INFO - 	 Proximity sensor 3 activated
+2010-02-18 11:44:48,446 - EpcLogger - DEBUG - --->Exiting DEVICE_MOVING loop.
+2010-02-18 11:44:48,446 - EpcLogger - DEBUG - Entering DEVICE_MOVING loop--->
+2010-02-18 11:44:48,447 - EpcLogger - DEBUG - 	Moving to Task
+2010-02-18 11:44:48,447 - EpcLogger - DEBUG - 	--> Naviagtor
+2010-02-18 11:44:48,447 - EpcLogger - INFO - Updated RobotPose: x= 2218.156982 y= 1435.721436  theta:1.954769
+2010-02-18 11:44:48,448 - EpcLogger - INFO - Updated TaskLoc: x= 1848.000000 y= 1713.000000
+2010-02-18 11:44:48,448 - EpcLogger - DEBUG - NavFunc set @Q23 
+2010-02-18 11:44:48,448 - EpcLogger - DEBUG - GoTowardsTarget(): START: Thu Feb 18 11:44:48 2010
+2010-02-18 11:44:48,448 - EpcLogger - DEBUG - TaskPoseOrientation:0.642914 Cone:0.260000
+2010-02-18 11:44:48,448 - EpcLogger - DEBUG - 	 Rotating right for 1.186824 rad
+2010-02-18 11:44:48,448 - EpcLogger - DEBUG - Now Doing Right Rotation for 0.378003 sec
+2010-02-18 11:44:48,894 - EpcLogger - DEBUG - Now Doing Translation for 1.000000 sec
+2010-02-18 11:44:48,970 - EpcLogger - INFO - 	 Proximity sensor 3 activated
+2010-02-18 11:44:50,346 - EpcLogger - DEBUG - --->Exiting DEVICE_MOVING loop.
+2010-02-18 11:44:50,346 - EpcLogger - DEBUG - Entering DEVICE_MOVING loop--->
+2010-02-18 11:44:50,347 - EpcLogger - DEBUG - 	Moving to Task
+2010-02-18 11:44:50,347 - EpcLogger - DEBUG - 	--> Naviagtor
+2010-02-18 11:44:50,347 - EpcLogger - INFO - Updated RobotPose: x= 2211.329346 y= 1533.812988  theta:1.553343
+2010-02-18 11:44:50,347 - EpcLogger - INFO - Updated TaskLoc: x= 1848.000000 y= 1713.000000
+2010-02-18 11:44:50,347 - EpcLogger - DEBUG - NavFunc set @Q23 
+2010-02-18 11:44:50,347 - EpcLogger - DEBUG - GoTowardsTarget(): START: Thu Feb 18 11:44:50 2010
+2010-02-18 11:44:50,347 - EpcLogger - DEBUG - TaskPoseOrientation:0.458177 Cone:0.260000
+2010-02-18 11:44:50,348 - EpcLogger - DEBUG - 	 Rotating right for 1.588250 rad
+2010-02-18 11:44:50,348 - EpcLogger - DEBUG - Now Doing Right Rotation for 0.505857 sec
+2010-02-18 11:44:50,934 - EpcLogger - DEBUG - Now Doing Translation for 1.000000 sec
+2010-02-18 11:44:50,998 - EpcLogger - INFO - 	 Proximity sensor 3 activated
+2010-02-18 11:44:52,382 - EpcLogger - DEBUG - --->Exiting DEVICE_MOVING loop.
+2010-02-18 11:44:52,382 - EpcLogger - DEBUG - Entering DEVICE_MOVING loop--->
+2010-02-18 11:44:52,383 - EpcLogger - DEBUG - 	Moving to Task
+2010-02-18 11:44:52,383 - EpcLogger - DEBUG - 	--> Naviagtor
+2010-02-18 11:44:52,383 - EpcLogger - INFO - Updated RobotPose: x= 2196.727051 y= 1568.887939  theta:2.443461
+2010-02-18 11:44:52,383 - EpcLogger - INFO - Updated TaskLoc: x= 1848.000000 y= 1713.000000
+2010-02-18 11:44:52,384 - EpcLogger - DEBUG - NavFunc set @Q23 
+2010-02-18 11:44:52,384 - EpcLogger - DEBUG - GoTowardsTarget(): START: Thu Feb 18 11:44:52 2010
+2010-02-18 11:44:52,384 - EpcLogger - DEBUG - TaskPoseOrientation:0.391878 Cone:0.260000
+2010-02-18 11:44:52,384 - EpcLogger - DEBUG - 	 Rotating right for 0.698132 rad
+2010-02-18 11:44:52,384 - EpcLogger - DEBUG - Now Doing Right Rotation for 0.222355 sec
+2010-02-18 11:44:52,702 - EpcLogger - DEBUG - Now Doing Translation for 1.000000 sec
+2010-02-18 11:44:52,762 - EpcLogger - INFO - 	 Proximity sensor 3 activated
+2010-02-18 11:44:54,130 - EpcLogger - DEBUG - --->Exiting DEVICE_MOVING loop.
+2010-02-18 11:44:54,130 - EpcLogger - DEBUG - Entering DEVICE_MOVING loop--->
+2010-02-18 11:44:54,131 - EpcLogger - DEBUG - 	Moving to Task
+2010-02-18 11:44:54,131 - EpcLogger - DEBUG - 	--> Naviagtor
+2010-02-18 11:44:54,131 - EpcLogger - INFO - Updated RobotPose: x= 2157.797607 y= 1622.503296  theta:2.164208
+2010-02-18 11:44:54,131 - EpcLogger - INFO - Updated TaskLoc: x= 1848.000000 y= 1713.000000
+2010-02-18 11:44:54,132 - EpcLogger - DEBUG - NavFunc set @Q23 
+2010-02-18 11:44:54,132 - EpcLogger - DEBUG - GoTowardsTarget(): START: Thu Feb 18 11:44:54 2010
+2010-02-18 11:44:54,132 - EpcLogger - DEBUG - TaskPoseOrientation:0.284208 Cone:0.260000
+2010-02-18 11:44:54,132 - EpcLogger - DEBUG - 	 Rotating right for 0.977384 rad
+2010-02-18 11:44:54,132 - EpcLogger - DEBUG - Now Doing Right Rotation for 0.311297 sec
+2010-02-18 11:44:54,530 - EpcLogger - DEBUG - Now Doing Translation for 1.000000 sec
+2010-02-18 11:44:54,598 - EpcLogger - INFO - 	 Proximity sensor 3 activated
+2010-02-18 11:44:55,958 - EpcLogger - DEBUG - --->Exiting DEVICE_MOVING loop.
+2010-02-18 11:44:55,958 - EpcLogger - DEBUG - Entering DEVICE_MOVING loop--->
+2010-02-18 11:44:55,959 - EpcLogger - DEBUG - 	 AtTask
+2010-02-18 11:44:55,959 - EpcLogger - DEBUG - Entering DEVICE_IDLE loop--->
+2010-02-18 11:44:55,959 - EpcLogger - DEBUG - 	 waiting for pose update
+2010-02-18 11:44:55,959 - EpcLogger - DEBUG - 	Random walking
+2010-02-18 11:44:56,034 - EpcLogger - INFO - 	 Proximity sensor 3 activated
+2010-02-18 11:44:57,378 - EpcLogger - DEBUG - 	 AtTask
+2010-02-18 11:44:57,478 - EpcLogger - DEBUG - 	 waiting for pose update
+2010-02-18 11:44:57,478 - EpcLogger - DEBUG - 	Random walking
+2010-02-18 11:44:57,550 - EpcLogger - INFO - 	 Proximity sensor 3 activated
+2010-02-18 11:44:58,906 - EpcLogger - DEBUG - 	 go out to DEVICE_MOVING
+2010-02-18 11:44:58,907 - EpcLogger - DEBUG - --->Exiting DEVICE_IDLE loop.
+2010-02-18 11:44:59,006 - EpcLogger - DEBUG - Entering DEVICE_MOVING loop--->
+2010-02-18 11:44:59,006 - EpcLogger - DEBUG - 	Random walking
+2010-02-18 11:44:59,070 - EpcLogger - INFO - 	 Proximity sensor 3 activated
+2010-02-18 11:45:00,434 - EpcLogger - DEBUG - --->Exiting DEVICE_MOVING loop.
+2010-02-18 11:45:00,434 - EpcLogger - DEBUG - Entering DEVICE_MOVING loop--->
+2010-02-18 11:45:00,434 - EpcLogger - DEBUG - 	 Timedout
+2010-02-18 11:45:00,435 - EpcLogger - INFO - @TS  ----- [Task Selection Step 2 Start ] -----
+2010-02-18 11:45:00,435 - EpcLogger - DEBUG - @TS  Robot pose x=2228.015869 y=1758.212646:
+2010-02-18 11:45:00,436 - EpcLogger - DEBUG - 	 TaskInfo: [(1, [1266493396.5699999, 950.0, 840.0, 0.0, 0.60499999999999998]), (2, [1266493396.5699999, 1797.0, 713.0, 0.0, 0.60499999999999998]), (3, [1266493396.5699999, 1848.0, 1713.0, 0.0, 0.56000000000000005]), (4, [1266493396.5699999, 535.0, 1596.0, 0.0, 0.60499999999999998])]
+2010-02-18 11:45:00,436 - EpcLogger - DEBUG - 	 task count 4:
+2010-02-18 11:45:00,436 - EpcLogger - DEBUG - Taskid -- 1:
+2010-02-18 11:45:00,437 - EpcLogger - INFO - 	Task 1 stimuli 0.340034:
+2010-02-18 11:45:00,437 - EpcLogger - DEBUG - Taskid -- 2:
+2010-02-18 11:45:00,437 - EpcLogger - INFO - 	Task 2 stimuli 0.434798:
+2010-02-18 11:45:00,437 - EpcLogger - DEBUG - Taskid -- 3:
+2010-02-18 11:45:00,437 - EpcLogger - INFO - 	Task 3 stimuli 0.970648:
+2010-02-18 11:45:00,437 - EpcLogger - DEBUG - Taskid -- 4:
+2010-02-18 11:45:00,438 - EpcLogger - INFO - 	Task 4 stimuli 0.328457:
+2010-02-18 11:45:00,438 - EpcLogger - INFO - 	 RandomWalk Stimuli: 0.300000
+2010-02-18 11:45:00,438 - EpcLogger - DEBUG - @TS Task 0 Prob 0.126372
+2010-02-18 11:45:00,438 - EpcLogger - DEBUG - @TS Task 1 Prob 0.143236
+2010-02-18 11:45:00,438 - EpcLogger - DEBUG - @TS Task 2 Prob 0.183155
+2010-02-18 11:45:00,439 - EpcLogger - DEBUG - @TS Task 3 Prob 0.408877
+2010-02-18 11:45:00,439 - EpcLogger - DEBUG - @TS Task 4 Prob 0.138360
+2010-02-18 11:45:00,439 - EpcLogger - DEBUG - @TS Task 0 prob start: 0  end: 13
+2010-02-18 11:45:00,439 - EpcLogger - DEBUG - @TS Task 1 prob start: 14  end: 27
+2010-02-18 11:45:00,439 - EpcLogger - DEBUG - @TS Task 2 prob start: 28  end: 45
+2010-02-18 11:45:00,439 - EpcLogger - DEBUG - @TS Task 3 prob start: 46  end: 86
+2010-02-18 11:45:00,440 - EpcLogger - DEBUG - @TS Task 4 prob start: 87  end: 100
+2010-02-18 11:45:00,440 - EpcLogger - DEBUG - 	Selected Randon no: 53
+2010-02-18 11:45:00,440 - EpcLogger - DEBUG - @TS Probing task 0 range 0 - 13 
+2010-02-18 11:45:00,440 - EpcLogger - DEBUG - @TS Probing task 1 range 14 - 27 
+2010-02-18 11:45:00,440 - EpcLogger - DEBUG - @TS Probing task 2 range 28 - 45 
+2010-02-18 11:45:00,440 - EpcLogger - DEBUG - @TS Probing task 3 range 46 - 86 
+2010-02-18 11:45:00,441 - EpcLogger - INFO - 	 Select task 3 
+2010-02-18 11:45:00,441 - EpcLogger - INFO - 	task 3 inc. sensitization:0.150000, timesDone:2
+2010-02-18 11:45:00,534 - EpcLogger - DEBUG - Entering DEVICE_AVAILABLE loop--->
+2010-02-18 11:45:00,534 - EpcLogger - DEBUG - 	Random walking
+2010-02-18 11:45:00,598 - EpcLogger - INFO - 	 Proximity sensor 3 activated
+2010-02-18 11:45:01,962 - EpcLogger - DEBUG - Entering DEVICE_MOVING loop--->
+2010-02-18 11:45:01,963 - EpcLogger - DEBUG - 	Moving to Task
+2010-02-18 11:45:01,964 - EpcLogger - DEBUG - 	--> Naviagtor
+2010-02-18 11:45:01,964 - EpcLogger - INFO - Updated RobotPose: x= 2232.625244 y= 1679.860596  theta:4.066617
+2010-02-18 11:45:01,964 - EpcLogger - INFO - Updated TaskLoc: x= 1848.000000 y= 1713.000000
+2010-02-18 11:45:01,964 - EpcLogger - DEBUG - NavFunc set @Q23 
+2010-02-18 11:45:01,964 - EpcLogger - DEBUG - GoTowardsTarget(): START: Thu Feb 18 11:45:01 2010
+2010-02-18 11:45:01,965 - EpcLogger - DEBUG - TaskPoseOrientation:0.085948 Cone:0.260000
+2010-02-18 11:45:01,965 - EpcLogger - DEBUG - 	 Rotating left for 0.925024 rad
+2010-02-18 11:45:01,965 - EpcLogger - DEBUG - Now Doing Left Rotation for 0.294620 sec
+2010-02-18 11:45:02,322 - EpcLogger - DEBUG - Now Doing Translation for 1.000000 sec
+2010-02-18 11:45:02,438 - EpcLogger - INFO - 	 Proximity sensor 3 activated
+2010-02-18 11:45:03,794 - EpcLogger - DEBUG - --->Exiting DEVICE_MOVING loop.
+2010-02-18 11:45:03,794 - EpcLogger - DEBUG - Entering DEVICE_MOVING loop--->
+2010-02-18 11:45:03,794 - EpcLogger - DEBUG - 	Moving to Task
+2010-02-18 11:45:03,795 - EpcLogger - DEBUG - 	--> Naviagtor
+2010-02-18 11:45:03,795 - EpcLogger - INFO - Updated RobotPose: x= 2187.136963 y= 1678.489258  theta:2.042035
+2010-02-18 11:45:03,795 - EpcLogger - INFO - Updated TaskLoc: x= 1848.000000 y= 1713.000000
+2010-02-18 11:45:03,795 - EpcLogger - DEBUG - NavFunc set @Q23 
+2010-02-18 11:45:03,796 - EpcLogger - DEBUG - GoTowardsTarget(): START: Thu Feb 18 11:45:03 2010
+2010-02-18 11:45:03,796 - EpcLogger - DEBUG - TaskPoseOrientation:0.101411 Cone:0.260000
+2010-02-18 11:45:03,796 - EpcLogger - DEBUG - 	 Rotating right for 1.099557 rad
+2010-02-18 11:45:03,796 - EpcLogger - DEBUG - Now Doing Right Rotation for 0.350209 sec
+2010-02-18 11:45:04,234 - EpcLogger - DEBUG - Now Doing Translation for 1.000000 sec
+2010-02-18 11:45:04,298 - EpcLogger - INFO - 	 Proximity sensor 3 activated
+2010-02-18 11:45:05,642 - EpcLogger - DEBUG - --->Exiting DEVICE_MOVING loop.
+2010-02-18 11:45:05,642 - EpcLogger - DEBUG - Entering DEVICE_MOVING loop--->
+2010-02-18 11:45:05,643 - EpcLogger - DEBUG - 	Moving to Task
+2010-02-18 11:45:05,643 - EpcLogger - DEBUG - 	--> Naviagtor
+2010-02-18 11:45:05,643 - EpcLogger - INFO - Updated RobotPose: x= 2163.933594 y= 1728.598511  theta:2.286381
+2010-02-18 11:45:05,644 - EpcLogger - INFO - Updated TaskLoc: x= 1848.000000 y= 1713.000000
+2010-02-18 11:45:05,644 - EpcLogger - DEBUG - NavFunc set @Q23 
+2010-02-18 11:45:05,644 - EpcLogger - DEBUG - GoTowardsTarget(): START: Thu Feb 18 11:45:05 2010
+2010-02-18 11:45:05,644 - EpcLogger - DEBUG - TaskPoseOrientation:0.049333 Cone:0.260000
+2010-02-18 11:45:05,644 - EpcLogger - DEBUG - 	 Rotating right for 0.855211 rad
+2010-02-18 11:45:05,644 - EpcLogger - DEBUG - Now Doing Right Rotation for 0.272385 sec
+2010-02-18 11:45:05,982 - EpcLogger - DEBUG - Now Doing Translation for 1.000000 sec
+2010-02-18 11:45:06,046 - EpcLogger - INFO - 	 Proximity sensor 3 activated
+2010-02-18 11:45:07,390 - EpcLogger - DEBUG - --->Exiting DEVICE_MOVING loop.
+2010-02-18 11:45:07,390 - EpcLogger - DEBUG - Entering DEVICE_MOVING loop--->
+2010-02-18 11:45:07,391 - EpcLogger - DEBUG - 	 AtTask
+2010-02-18 11:45:07,391 - EpcLogger - DEBUG - Entering DEVICE_IDLE loop--->
+2010-02-18 11:45:07,391 - EpcLogger - DEBUG - 	 waiting for pose update
+2010-02-18 11:45:07,391 - EpcLogger - DEBUG - 	Random walking
+2010-02-18 11:45:07,458 - EpcLogger - INFO - 	 Proximity sensor 3 activated
+2010-02-18 11:45:08,879 - EpcLogger - DEBUG - 	 go out to DEVICE_MOVING
+2010-02-18 11:45:08,879 - EpcLogger - DEBUG - --->Exiting DEVICE_IDLE loop.
+2010-02-18 11:45:08,978 - EpcLogger - DEBUG - Entering DEVICE_MOVING loop--->
+2010-02-18 11:45:08,978 - EpcLogger - DEBUG - 	Random walking
+2010-02-18 11:45:09,046 - EpcLogger - INFO - 	 Proximity sensor 3 activated
+2010-02-18 11:45:10,434 - EpcLogger - DEBUG - --->Exiting DEVICE_MOVING loop.
+2010-02-18 11:45:10,434 - EpcLogger - DEBUG - Entering DEVICE_MOVING loop--->
+2010-02-18 11:45:10,435 - EpcLogger - DEBUG - 	Moving to Task
+2010-02-18 11:45:10,435 - EpcLogger - DEBUG - 	--> Naviagtor
+2010-02-18 11:45:10,435 - EpcLogger - INFO - Updated RobotPose: x= 2159.672607 y= 1877.196655  theta:0.331613
+2010-02-18 11:45:10,436 - EpcLogger - INFO - Updated TaskLoc: x= 1848.000000 y= 1713.000000
+2010-02-18 11:45:10,436 - EpcLogger - DEBUG - NavFunc set @Q23 
+2010-02-18 11:45:10,436 - EpcLogger - DEBUG - GoTowardsTarget(): START: Thu Feb 18 11:45:10 2010
+2010-02-18 11:45:10,436 - EpcLogger - DEBUG - TaskPoseOrientation:0.484876 Cone:0.260000
+2010-02-18 11:45:10,436 - EpcLogger - DEBUG - 	 Rotating right for 2.809980 rad
+2010-02-18 11:45:10,436 - EpcLogger - DEBUG - Now Doing Right Rotation for 0.894979 sec
+2010-02-18 11:45:11,414 - EpcLogger - DEBUG - Now Doing Translation for 1.000000 sec
+2010-02-18 11:45:11,486 - EpcLogger - INFO - 	 Proximity sensor 3 activated
+2010-02-18 11:45:12,910 - EpcLogger - DEBUG - --->Exiting DEVICE_MOVING loop.
+2010-02-18 11:45:12,910 - EpcLogger - DEBUG - Entering DEVICE_MOVING loop--->
+2010-02-18 11:45:12,910 - EpcLogger - DEBUG - 	Moving to Task
+2010-02-18 11:45:12,911 - EpcLogger - DEBUG - 	--> Naviagtor
+2010-02-18 11:45:12,911 - EpcLogger - INFO - Updated RobotPose: x= 2211.449707 y= 1870.406982  theta:2.129302
+2010-02-18 11:45:12,911 - EpcLogger - INFO - Updated TaskLoc: x= 1848.000000 y= 1713.000000
+2010-02-18 11:45:12,911 - EpcLogger - DEBUG - NavFunc set @Q23 
+2010-02-18 11:45:12,911 - EpcLogger - DEBUG - GoTowardsTarget(): START: Thu Feb 18 11:45:12 2010
+2010-02-18 11:45:12,911 - EpcLogger - DEBUG - TaskPoseOrientation:0.408704 Cone:0.260000
+2010-02-18 11:45:12,912 - EpcLogger - DEBUG - 	 Rotating right for 1.012291 rad
+2010-02-18 11:45:12,912 - EpcLogger - DEBUG - Now Doing Right Rotation for 0.322415 sec
+2010-02-18 11:45:13,326 - EpcLogger - DEBUG - Now Doing Translation for 1.000000 sec
+2010-02-18 11:45:13,397 - EpcLogger - INFO - 	 Proximity sensor 3 activated
+2010-02-18 11:45:14,762 - EpcLogger - DEBUG - --->Exiting DEVICE_MOVING loop.
+2010-02-18 11:45:14,762 - EpcLogger - DEBUG - Entering DEVICE_MOVING loop--->
+2010-02-18 11:45:14,763 - EpcLogger - DEBUG - 	Moving to Task
+2010-02-18 11:45:14,763 - EpcLogger - DEBUG - 	--> Naviagtor
+2010-02-18 11:45:14,763 - EpcLogger - INFO - Updated RobotPose: x= 2202.111328 y= 1926.152100  theta:2.303835
+2010-02-18 11:45:14,763 - EpcLogger - INFO - Updated TaskLoc: x= 1848.000000 y= 1713.000000
+2010-02-18 11:45:14,763 - EpcLogger - DEBUG - NavFunc set @Q23 
+2010-02-18 11:45:14,764 - EpcLogger - DEBUG - GoTowardsTarget(): START: Thu Feb 18 11:45:14 2010
+2010-02-18 11:45:14,764 - EpcLogger - DEBUG - TaskPoseOrientation:0.541841 Cone:0.260000
+2010-02-18 11:45:14,764 - EpcLogger - DEBUG - 	 Rotating right for 0.837758 rad
+2010-02-18 11:45:14,764 - EpcLogger - DEBUG - Now Doing Right Rotation for 0.266826 sec
+2010-02-18 11:45:15,114 - EpcLogger - DEBUG - Now Doing Translation for 1.000000 sec
+2010-02-18 11:45:15,178 - EpcLogger - INFO - 	 Proximity sensor 3 activated
+2010-02-18 11:45:16,542 - EpcLogger - DEBUG - --->Exiting DEVICE_MOVING loop.
+2010-02-18 11:45:16,542 - EpcLogger - DEBUG - Entering DEVICE_MOVING loop--->
+2010-02-18 11:45:16,543 - EpcLogger - DEBUG - 	Moving to Task
+2010-02-18 11:45:16,543 - EpcLogger - DEBUG - 	--> Naviagtor
+2010-02-18 11:45:16,543 - EpcLogger - INFO - Updated RobotPose: x= 2183.834229 y= 1986.309448  theta:2.199115
+2010-02-18 11:45:16,543 - EpcLogger - INFO - Updated TaskLoc: x= 1848.000000 y= 1713.000000
+2010-02-18 11:45:16,543 - EpcLogger - DEBUG - NavFunc set @Q23 
+2010-02-18 11:45:16,544 - EpcLogger - DEBUG - GoTowardsTarget(): START: Thu Feb 18 11:45:16 2010
+2010-02-18 11:45:16,544 - EpcLogger - DEBUG - TaskPoseOrientation:0.683113 Cone:0.260000
+2010-02-18 11:45:16,544 - EpcLogger - DEBUG - 	 Rotating right for 0.942478 rad
+2010-02-18 11:45:16,544 - EpcLogger - DEBUG - Now Doing Right Rotation for 0.300179 sec
+2010-02-18 11:45:16,922 - EpcLogger - DEBUG - Now Doing Translation for 1.000000 sec
+2010-02-18 11:45:16,986 - EpcLogger - INFO - 	 Proximity sensor 3 activated
+2010-02-18 11:45:18,350 - EpcLogger - DEBUG - --->Exiting DEVICE_MOVING loop.
+2010-02-18 11:45:18,350 - EpcLogger - DEBUG - Entering DEVICE_MOVING loop--->
+2010-02-18 11:45:18,351 - EpcLogger - DEBUG - 	Moving to Task
+2010-02-18 11:45:18,351 - EpcLogger - DEBUG - 	--> Naviagtor
+2010-02-18 11:45:18,351 - EpcLogger - INFO - Updated RobotPose: x= 2173.021973 y= 2047.777100  theta:2.199115
+2010-02-18 11:45:18,351 - EpcLogger - INFO - Updated TaskLoc: x= 1848.000000 y= 1713.000000
+2010-02-18 11:45:18,351 - EpcLogger - DEBUG - NavFunc set @Q3 
+2010-02-18 11:45:18,352 - EpcLogger - DEBUG - GoTowardsTarget(): START: Thu Feb 18 11:45:18 2010
+2010-02-18 11:45:18,352 - EpcLogger - DEBUG - TaskPoseOrientation:0.800182 Cone:0.260000
+2010-02-18 11:45:18,352 - EpcLogger - INFO - GoQ3(): Theta desired 3.941775
+2010-02-18 11:45:18,352 - EpcLogger - DEBUG - 	 Rotating right for 1.742660 rad
+2010-02-18 11:45:18,352 - EpcLogger - DEBUG - Now Doing Right Rotation for 0.555037 sec
+2010-02-18 11:45:18,970 - EpcLogger - DEBUG - Now Doing Translation for 1.000000 sec
+2010-02-18 11:45:19,042 - EpcLogger - INFO - 	 Proximity sensor 5 activated
+2010-02-18 11:45:20,398 - EpcLogger - DEBUG - --->Exiting DEVICE_MOVING loop.
+2010-02-18 11:45:20,398 - EpcLogger - DEBUG - Entering DEVICE_MOVING loop--->
+2010-02-18 11:45:20,399 - EpcLogger - DEBUG - 	Moving to Task
+2010-02-18 11:45:20,399 - EpcLogger - DEBUG - 	--> Naviagtor
+2010-02-18 11:45:20,399 - EpcLogger - INFO - Updated RobotPose: x= 2125.895508 y= 2054.349609  theta:3.961898
+2010-02-18 11:45:20,399 - EpcLogger - INFO - Updated TaskLoc: x= 1848.000000 y= 1713.000000
+2010-02-18 11:45:20,399 - EpcLogger - DEBUG - NavFunc set @Q34 
+2010-02-18 11:45:20,399 - EpcLogger - DEBUG - GoTowardsTarget(): START: Thu Feb 18 11:45:20 2010
+2010-02-18 11:45:20,399 - EpcLogger - DEBUG - TaskPoseOrientation:0.887512 Cone:0.260000
+2010-02-18 11:45:20,400 - EpcLogger - DEBUG - 	 Rotating right for 0.750491 rad
+2010-02-18 11:45:20,400 - EpcLogger - DEBUG - Now Doing Right Rotation for 0.239032 sec
+2010-02-18 11:45:20,722 - EpcLogger - DEBUG - Now Doing Translation for 1.000000 sec
+2010-02-18 11:45:20,782 - EpcLogger - INFO - 	 Proximity sensor 3 activated
+2010-02-18 11:45:22,126 - EpcLogger - DEBUG - --->Exiting DEVICE_MOVING loop.
+2010-02-18 11:45:22,126 - EpcLogger - DEBUG - Entering DEVICE_MOVING loop--->
+2010-02-18 11:45:22,127 - EpcLogger - DEBUG - 	Moving to Task
+2010-02-18 11:45:22,127 - EpcLogger - DEBUG - 	--> Naviagtor
+2010-02-18 11:45:22,127 - EpcLogger - INFO - Updated RobotPose: x= 2124.296143 y= 1986.042480  theta:4.660029
+2010-02-18 11:45:22,128 - EpcLogger - INFO - Updated TaskLoc: x= 1848.000000 y= 1713.000000
+2010-02-18 11:45:22,128 - EpcLogger - WARNING - UpdateNavFunc():Unknown Quad
+2010-02-18 11:45:22,128 - EpcLogger - DEBUG - GoTowardsTarget(): START: Thu Feb 18 11:45:22 2010
+2010-02-18 11:45:22,128 - EpcLogger - DEBUG - TaskPoseOrientation:0.779475 Cone:0.260000
+2010-02-18 11:45:22,128 - EpcLogger - WARNING - GoErrHandler(): Unknown Quad, can't go 
+2010-02-18 11:45:22,138 - EpcLogger - DEBUG - Now Doing Translation for 1.000000 sec
+2010-02-18 11:45:22,194 - EpcLogger - INFO - 	 Proximity sensor 3 activated
+2010-02-18 11:45:23,558 - EpcLogger - DEBUG - --->Exiting DEVICE_MOVING loop.
+2010-02-18 11:45:23,558 - EpcLogger - DEBUG - Entering DEVICE_MOVING loop--->
+2010-02-18 11:45:23,558 - EpcLogger - DEBUG - 	Random walking
+2010-02-18 11:45:23,622 - EpcLogger - INFO - 	 Proximity sensor 3 activated
+2010-02-18 11:45:25,010 - EpcLogger - DEBUG - --->Exiting DEVICE_MOVING loop.
+2010-02-18 11:45:25,010 - EpcLogger - DEBUG - Entering DEVICE_MOVING loop--->
+2010-02-18 11:45:25,011 - EpcLogger - DEBUG - 	 AtTask
+2010-02-18 11:45:25,011 - EpcLogger - DEBUG - Entering DEVICE_IDLE loop--->
+2010-02-18 11:45:25,011 - EpcLogger - DEBUG - 	 waiting for pose update
+2010-02-18 11:45:25,011 - EpcLogger - DEBUG - 	Random walking
+2010-02-18 11:45:25,054 - EpcLogger - INFO - 	 Proximity sensor 3 activated
+2010-02-18 11:45:26,402 - EpcLogger - DEBUG - 	 AtTask
+2010-02-18 11:45:26,502 - EpcLogger - DEBUG - 	 waiting for pose update
+2010-02-18 11:45:26,502 - EpcLogger - DEBUG - 	Random walking
+2010-02-18 11:45:26,558 - EpcLogger - INFO - 	 Proximity sensor 3 activated
+2010-02-18 11:45:27,918 - EpcLogger - DEBUG - 	 go out to DEVICE_MOVING
+2010-02-18 11:45:27,919 - EpcLogger - DEBUG - --->Exiting DEVICE_IDLE loop.
+2010-02-18 11:45:28,018 - EpcLogger - DEBUG - Entering DEVICE_MOVING loop--->
+2010-02-18 11:45:28,018 - EpcLogger - DEBUG - 	Random walking
+2010-02-18 11:45:28,070 - EpcLogger - INFO - 	 Proximity sensor 2 activated
+2010-02-18 11:45:29,430 - EpcLogger - DEBUG - --->Exiting DEVICE_MOVING loop.
+2010-02-18 11:45:29,430 - EpcLogger - DEBUG - Entering DEVICE_MOVING loop--->
+2010-02-18 11:45:29,431 - EpcLogger - DEBUG - 	Moving to Task
+2010-02-18 11:45:29,431 - EpcLogger - DEBUG - 	--> Naviagtor
+2010-02-18 11:45:29,431 - EpcLogger - INFO - Updated RobotPose: x= 2094.181396 y= 2044.233276  theta:5.777040
+2010-02-18 11:45:29,432 - EpcLogger - INFO - Updated TaskLoc: x= 1848.000000 y= 1713.000000
+2010-02-18 11:45:29,432 - EpcLogger - DEBUG - NavFunc set @Q34 
+2010-02-18 11:45:29,432 - EpcLogger - DEBUG - GoTowardsTarget(): START: Thu Feb 18 11:45:29 2010
+2010-02-18 11:45:29,432 - EpcLogger - DEBUG - TaskPoseOrientation:0.931644 Cone:0.260000
+2010-02-18 11:45:29,432 - EpcLogger - DEBUG - 	 Rotating left for 1.064651 rad
+2010-02-18 11:45:29,432 - EpcLogger - DEBUG - Now Doing Left Rotation for 0.339091 sec
+2010-02-18 11:45:29,830 - EpcLogger - DEBUG - Now Doing Translation for 1.000000 sec
+2010-02-18 11:45:29,894 - EpcLogger - INFO - 	 Proximity sensor 3 activated
+2010-02-18 11:45:31,270 - EpcLogger - DEBUG - --->Exiting DEVICE_MOVING loop.
+2010-02-18 11:45:31,270 - EpcLogger - DEBUG - Entering DEVICE_MOVING loop--->
+2010-02-18 11:45:31,271 - EpcLogger - DEBUG - 	Moving to Task
+2010-02-18 11:45:31,271 - EpcLogger - DEBUG - 	--> Naviagtor
+2010-02-18 11:45:31,271 - EpcLogger - INFO - Updated RobotPose: x= 2108.657959 y= 1990.595459  theta:3.525565
+2010-02-18 11:45:31,271 - EpcLogger - INFO - Updated TaskLoc: x= 1848.000000 y= 1713.000000
+2010-02-18 11:45:31,272 - EpcLogger - WARNING - UpdateNavFunc():Unknown Quad
+2010-02-18 11:45:31,272 - EpcLogger - DEBUG - GoTowardsTarget(): START: Thu Feb 18 11:45:31 2010
+2010-02-18 11:45:31,272 - EpcLogger - DEBUG - TaskPoseOrientation:0.816855 Cone:0.260000
+2010-02-18 11:45:31,272 - EpcLogger - WARNING - GoErrHandler(): Unknown Quad, can't go 
+2010-02-18 11:45:31,282 - EpcLogger - DEBUG - Now Doing Translation for 1.000000 sec
+2010-02-18 11:45:31,334 - EpcLogger - INFO - 	 Proximity sensor 3 activated
+2010-02-18 11:45:32,698 - EpcLogger - DEBUG - --->Exiting DEVICE_MOVING loop.
+2010-02-18 11:45:32,698 - EpcLogger - DEBUG - Entering DEVICE_MOVING loop--->
+2010-02-18 11:45:32,698 - EpcLogger - DEBUG - 	 Timedout
+2010-02-18 11:45:32,699 - EpcLogger - INFO - @TS  ----- [Task Selection Step 3 Start ] -----
+2010-02-18 11:45:32,699 - EpcLogger - DEBUG - @TS  Robot pose x=2064.095215 y=1988.412842:
+2010-02-18 11:45:32,700 - EpcLogger - DEBUG - 	 TaskInfo: [(1, [1266493396.5699999, 950.0, 840.0, 0.0, 0.64000000000000001]), (2, [1266493396.5699999, 1797.0, 713.0, 0.0, 0.64000000000000001]), (3, [1266493396.5699999, 1848.0, 1713.0, 0.0, 0.54249999999999998]), (4, [1266493396.5699999, 535.0, 1596.0, 0.0, 0.64000000000000001])]
+2010-02-18 11:45:32,700 - EpcLogger - DEBUG - 	 task count 4:
+2010-02-18 11:45:32,700 - EpcLogger - DEBUG - Taskid -- 1:
+2010-02-18 11:45:32,700 - EpcLogger - INFO - 	Task 1 stimuli 0.305908:
+2010-02-18 11:45:32,700 - EpcLogger - DEBUG - Taskid -- 2:
+2010-02-18 11:45:32,700 - EpcLogger - INFO - 	Task 2 stimuli 0.354101:
+2010-02-18 11:45:32,700 - EpcLogger - DEBUG - Taskid -- 3:
+2010-02-18 11:45:32,701 - EpcLogger - INFO - 	Task 3 stimuli 0.988887:
+2010-02-18 11:45:32,701 - EpcLogger - DEBUG - Taskid -- 4:
+2010-02-18 11:45:32,701 - EpcLogger - INFO - 	Task 4 stimuli 0.325611:
+2010-02-18 11:45:32,701 - EpcLogger - INFO - 	 RandomWalk Stimuli: 0.300000
+2010-02-18 11:45:32,701 - EpcLogger - DEBUG - @TS Task 0 Prob 0.131897
+2010-02-18 11:45:32,701 - EpcLogger - DEBUG - @TS Task 1 Prob 0.134494
+2010-02-18 11:45:32,701 - EpcLogger - DEBUG - @TS Task 2 Prob 0.155683
+2010-02-18 11:45:32,701 - EpcLogger - DEBUG - @TS Task 3 Prob 0.434770
+2010-02-18 11:45:32,701 - EpcLogger - DEBUG - @TS Task 4 Prob 0.143157
+2010-02-18 11:45:32,701 - EpcLogger - DEBUG - @TS Task 0 prob start: 0  end: 13
+2010-02-18 11:45:32,702 - EpcLogger - DEBUG - @TS Task 1 prob start: 14  end: 26
+2010-02-18 11:45:32,702 - EpcLogger - DEBUG - @TS Task 2 prob start: 27  end: 42
+2010-02-18 11:45:32,702 - EpcLogger - DEBUG - @TS Task 3 prob start: 43  end: 85
+2010-02-18 11:45:32,702 - EpcLogger - DEBUG - @TS Task 4 prob start: 86  end: 99
+2010-02-18 11:45:32,702 - EpcLogger - DEBUG - 	Selected Randon no: 74
+2010-02-18 11:45:32,702 - EpcLogger - DEBUG - @TS Probing task 0 range 0 - 13 
+2010-02-18 11:45:32,702 - EpcLogger - DEBUG - @TS Probing task 1 range 14 - 26 
+2010-02-18 11:45:32,702 - EpcLogger - DEBUG - @TS Probing task 2 range 27 - 42 
+2010-02-18 11:45:32,702 - EpcLogger - DEBUG - @TS Probing task 3 range 43 - 85 
+2010-02-18 11:45:32,702 - EpcLogger - INFO - 	 Select task 3 
+2010-02-18 11:45:32,703 - EpcLogger - INFO - 	task 3 inc. sensitization:0.180000, timesDone:3
+2010-02-18 11:45:32,798 - EpcLogger - DEBUG - Entering DEVICE_AVAILABLE loop--->
+2010-02-18 11:45:32,798 - EpcLogger - DEBUG - 	Random walking
+2010-02-18 11:45:32,866 - EpcLogger - INFO - 	 Proximity sensor 3 activated
+2010-02-18 11:45:34,247 - EpcLogger - DEBUG - Entering DEVICE_MOVING loop--->
+2010-02-18 11:45:34,247 - EpcLogger - DEBUG - 	Moving to Task
+2010-02-18 11:45:34,248 - EpcLogger - DEBUG - 	--> Naviagtor
+2010-02-18 11:45:34,248 - EpcLogger - INFO - Updated RobotPose: x= 2020.706177 y= 2040.410645  theta:1.692969
+2010-02-18 11:45:34,248 - EpcLogger - INFO - Updated TaskLoc: x= 1848.000000 y= 1713.000000
+2010-02-18 11:45:34,248 - EpcLogger - DEBUG - NavFunc set @Q34 
+2010-02-18 11:45:34,248 - EpcLogger - DEBUG - GoTowardsTarget(): START: Thu Feb 18 11:45:34 2010
+2010-02-18 11:45:34,248 - EpcLogger - DEBUG - TaskPoseOrientation:1.085399 Cone:0.260000
+2010-02-18 11:45:34,249 - EpcLogger - DEBUG - 	 Rotating right for 3.019420 rad
+2010-02-18 11:45:34,249 - EpcLogger - DEBUG - Now Doing Right Rotation for 0.961685 sec
+2010-02-18 11:45:35,254 - EpcLogger - DEBUG - Now Doing Translation for 1.000000 sec
+2010-02-18 11:45:35,326 - EpcLogger - INFO - 	 Proximity sensor 4 activated
+2010-02-18 11:45:36,714 - EpcLogger - DEBUG - --->Exiting DEVICE_MOVING loop.
+2010-02-18 11:45:36,714 - EpcLogger - DEBUG - Entering DEVICE_MOVING loop--->
+2010-02-18 11:45:36,715 - EpcLogger - DEBUG - 	Random walking
+2010-02-18 11:45:36,779 - EpcLogger - INFO - 	 Proximity sensor 3 activated
+2010-02-18 11:45:38,102 - EpcLogger - DEBUG - --->Exiting DEVICE_MOVING loop.
+2010-02-18 11:45:38,102 - EpcLogger - DEBUG - Entering DEVICE_MOVING loop--->
+2010-02-18 11:45:38,103 - EpcLogger - DEBUG - 	Moving to Task
+2010-02-18 11:45:38,103 - EpcLogger - DEBUG - 	--> Naviagtor
+2010-02-18 11:45:38,103 - EpcLogger - INFO - Updated RobotPose: x= 2041.261475 y= 1978.745483  theta:4.642576
+2010-02-18 11:45:38,104 - EpcLogger - INFO - Updated TaskLoc: x= 1848.000000 y= 1713.000000
+2010-02-18 11:45:38,104 - EpcLogger - WARNING - UpdateNavFunc():Unknown Quad
+2010-02-18 11:45:38,104 - EpcLogger - DEBUG - GoTowardsTarget(): START: Thu Feb 18 11:45:38 2010
+2010-02-18 11:45:38,104 - EpcLogger - DEBUG - TaskPoseOrientation:0.942020 Cone:0.260000
+2010-02-18 11:45:38,104 - EpcLogger - WARNING - GoErrHandler(): Unknown Quad, can't go 
+2010-02-18 11:45:38,114 - EpcLogger - DEBUG - Now Doing Translation for 1.000000 sec
+2010-02-18 11:45:38,182 - EpcLogger - INFO - 	 Proximity sensor 3 activated
+2010-02-18 11:45:39,610 - EpcLogger - DEBUG - --->Exiting DEVICE_MOVING loop.
+2010-02-18 11:45:39,611 - EpcLogger - DEBUG - Entering DEVICE_MOVING loop--->
+2010-02-18 11:45:39,611 - EpcLogger - DEBUG - 	Random walking
+2010-02-18 11:45:39,674 - EpcLogger - INFO - 	 Proximity sensor 3 activated
+2010-02-18 11:45:41,038 - EpcLogger - DEBUG - --->Exiting DEVICE_MOVING loop.
+2010-02-18 11:45:41,038 - EpcLogger - DEBUG - Entering DEVICE_MOVING loop--->
+2010-02-18 11:45:41,039 - EpcLogger - DEBUG - 	 AtTask
+2010-02-18 11:45:41,039 - EpcLogger - DEBUG - Entering DEVICE_IDLE loop--->
+2010-02-18 11:45:41,039 - EpcLogger - DEBUG - 	 waiting for pose update
+2010-02-18 11:45:41,039 - EpcLogger - DEBUG - 	Random walking
+2010-02-18 11:45:41,090 - EpcLogger - INFO - 	 Proximity sensor 3 activated
+2010-02-18 11:45:42,514 - EpcLogger - DEBUG - 	 AtTask
+2010-02-18 11:45:42,614 - EpcLogger - DEBUG - 	 waiting for pose update
+2010-02-18 11:45:42,614 - EpcLogger - DEBUG - 	Random walking
+2010-02-18 11:45:42,666 - EpcLogger - INFO - 	 Proximity sensor 3 activated
+2010-02-18 11:45:44,014 - EpcLogger - DEBUG - 	 go out to DEVICE_MOVING
+2010-02-18 11:45:44,015 - EpcLogger - DEBUG - --->Exiting DEVICE_IDLE loop.
+2010-02-18 11:45:44,114 - EpcLogger - DEBUG - Entering DEVICE_MOVING loop--->
+2010-02-18 11:45:44,114 - EpcLogger - DEBUG - 	Random walking
+2010-02-18 11:45:44,166 - EpcLogger - INFO - 	 Proximity sensor 2 activated
+2010-02-18 11:45:45,487 - EpcLogger - DEBUG - --->Exiting DEVICE_MOVING loop.
+2010-02-18 11:45:45,487 - EpcLogger - DEBUG - Entering DEVICE_MOVING loop--->
+2010-02-18 11:45:45,487 - EpcLogger - DEBUG - 	Moving to Task
+2010-02-18 11:45:45,488 - EpcLogger - DEBUG - 	--> Naviagtor
+2010-02-18 11:45:45,488 - EpcLogger - INFO - Updated RobotPose: x= 2002.351807 y= 2041.595703  theta:5.916666
+2010-02-18 11:45:45,488 - EpcLogger - INFO - Updated TaskLoc: x= 1848.000000 y= 1713.000000
+2010-02-18 11:45:45,488 - EpcLogger - DEBUG - NavFunc set @Q34 
+2010-02-18 11:45:45,489 - EpcLogger - DEBUG - GoTowardsTarget(): START: Thu Feb 18 11:45:45 2010
+2010-02-18 11:45:45,489 - EpcLogger - DEBUG - TaskPoseOrientation:1.131655 Cone:0.260000
+2010-02-18 11:45:45,489 - EpcLogger - DEBUG - 	 Rotating left for 1.204277 rad
+2010-02-18 11:45:45,489 - EpcLogger - DEBUG - Now Doing Left Rotation for 0.383562 sec
+2010-02-18 11:45:45,938 - EpcLogger - DEBUG - Now Doing Translation for 1.000000 sec
+2010-02-18 11:45:46,014 - EpcLogger - INFO - 	 Proximity sensor 3 activated
+2010-02-18 11:45:47,449 - EpcLogger - DEBUG - --->Exiting DEVICE_MOVING loop.
+2010-02-18 11:45:47,450 - EpcLogger - DEBUG - Entering DEVICE_MOVING loop--->
+2010-02-18 11:45:47,450 - EpcLogger - DEBUG - 	Moving to Task
+2010-02-18 11:45:47,450 - EpcLogger - DEBUG - 	--> Naviagtor
+2010-02-18 11:45:47,451 - EpcLogger - INFO - Updated RobotPose: x= 2041.842651 y= 1992.992188  theta:3.700098
+2010-02-18 11:45:47,451 - EpcLogger - INFO - Updated TaskLoc: x= 1848.000000 y= 1713.000000
+2010-02-18 11:45:47,451 - EpcLogger - WARNING - UpdateNavFunc():Unknown Quad
+2010-02-18 11:45:47,451 - EpcLogger - DEBUG - GoTowardsTarget(): START: Thu Feb 18 11:45:47 2010
+2010-02-18 11:45:47,451 - EpcLogger - DEBUG - TaskPoseOrientation:0.965247 Cone:0.260000
+2010-02-18 11:45:47,451 - EpcLogger - WARNING - GoErrHandler(): Unknown Quad, can't go 
+2010-02-18 11:45:47,466 - EpcLogger - DEBUG - Now Doing Translation for 1.000000 sec
+2010-02-18 11:45:47,514 - EpcLogger - INFO - 	 Proximity sensor 3 activated
+2010-02-18 11:45:48,906 - EpcLogger - DEBUG - --->Exiting DEVICE_MOVING loop.
+2010-02-18 11:45:48,906 - EpcLogger - DEBUG - Entering DEVICE_MOVING loop--->
+2010-02-18 11:45:48,907 - EpcLogger - DEBUG - 	Moving to Task
+2010-02-18 11:45:48,907 - EpcLogger - DEBUG - 	--> Naviagtor
+2010-02-18 11:45:48,907 - EpcLogger - INFO - Updated RobotPose: x= 1960.899292 y= 2003.609863  theta:2.286381
+2010-02-18 11:45:48,908 - EpcLogger - INFO - Updated TaskLoc: x= 1848.000000 y= 1713.000000
+2010-02-18 11:45:48,908 - EpcLogger - WARNING - UpdateNavFunc():Unknown Quad
+2010-02-18 11:45:48,908 - EpcLogger - DEBUG - GoTowardsTarget(): START: Thu Feb 18 11:45:48 2010
+2010-02-18 11:45:48,908 - EpcLogger - DEBUG - TaskPoseOrientation:1.200251 Cone:0.260000
+2010-02-18 11:45:48,908 - EpcLogger - WARNING - GoErrHandler(): Unknown Quad, can't go 
+2010-02-18 11:45:48,918 - EpcLogger - DEBUG - Now Doing Translation for 1.000000 sec
+2010-02-18 11:45:48,974 - EpcLogger - INFO - 	 Proximity sensor 3 activated
+2010-02-18 11:45:50,362 - EpcLogger - DEBUG - --->Exiting DEVICE_MOVING loop.
+2010-02-18 11:45:50,362 - EpcLogger - DEBUG - Entering DEVICE_MOVING loop--->
+2010-02-18 11:45:50,363 - EpcLogger - DEBUG - 	Moving to Task
+2010-02-18 11:45:50,363 - EpcLogger - DEBUG - 	--> Naviagtor
+2010-02-18 11:45:50,364 - EpcLogger - INFO - Updated RobotPose: x= 1944.346436 y= 2042.665405  theta:1.605703
+2010-02-18 11:45:50,364 - EpcLogger - INFO - Updated TaskLoc: x= 1848.000000 y= 1713.000000
+2010-02-18 11:45:50,364 - EpcLogger - DEBUG - NavFunc set @Q34 
+2010-02-18 11:45:50,364 - EpcLogger - DEBUG - GoTowardsTarget(): START: Thu Feb 18 11:45:50 2010
+2010-02-18 11:45:50,364 - EpcLogger - DEBUG - TaskPoseOrientation:1.286460 Cone:0.260000
+2010-02-18 11:45:50,364 - EpcLogger - DEBUG - 	 Rotating right for 3.106686 rad
+2010-02-18 11:45:50,364 - EpcLogger - DEBUG - Now Doing Right Rotation for 0.989479 sec
+2010-02-18 11:45:51,422 - EpcLogger - DEBUG - Now Doing Translation for 1.000000 sec
+2010-02-18 11:45:51,490 - EpcLogger - INFO - 	 Proximity sensor 4 activated
+2010-02-18 11:45:52,890 - EpcLogger - DEBUG - --->Exiting DEVICE_MOVING loop.
+2010-02-18 11:45:52,890 - EpcLogger - DEBUG - Entering DEVICE_MOVING loop--->
+2010-02-18 11:45:52,890 - EpcLogger - DEBUG - 	Random walking
+2010-02-18 11:45:52,958 - EpcLogger - INFO - 	 Proximity sensor 3 activated
+2010-02-18 11:45:54,346 - EpcLogger - DEBUG - --->Exiting DEVICE_MOVING loop.
+2010-02-18 11:45:54,346 - EpcLogger - DEBUG - Entering DEVICE_MOVING loop--->
+2010-02-18 11:45:54,347 - EpcLogger - DEBUG - 	Moving to Task
+2010-02-18 11:45:54,347 - EpcLogger - DEBUG - 	--> Naviagtor
+2010-02-18 11:45:54,347 - EpcLogger - INFO - Updated RobotPose: x= 1973.819580 y= 1997.913086  theta:5.096362
+2010-02-18 11:45:54,348 - EpcLogger - INFO - Updated TaskLoc: x= 1848.000000 y= 1713.000000
+2010-02-18 11:45:54,348 - EpcLogger - WARNING - UpdateNavFunc():Unknown Quad
+2010-02-18 11:45:54,348 - EpcLogger - DEBUG - GoTowardsTarget(): START: Thu Feb 18 11:45:54 2010
+2010-02-18 11:45:54,348 - EpcLogger - DEBUG - TaskPoseOrientation:1.154944 Cone:0.260000
+2010-02-18 11:45:54,348 - EpcLogger - WARNING - GoErrHandler(): Unknown Quad, can't go 
+2010-02-18 11:45:54,358 - EpcLogger - DEBUG - Now Doing Translation for 1.000000 sec
+2010-02-18 11:45:54,402 - EpcLogger - INFO - 	 Proximity sensor 3 activated
+2010-02-18 11:45:55,818 - EpcLogger - DEBUG - --->Exiting DEVICE_MOVING loop.
+2010-02-18 11:45:55,818 - EpcLogger - DEBUG - Entering DEVICE_MOVING loop--->
+2010-02-18 11:45:55,819 - EpcLogger - DEBUG - 	 AtTask
+2010-02-18 11:45:55,819 - EpcLogger - DEBUG - Entering DEVICE_IDLE loop--->
+2010-02-18 11:45:55,819 - EpcLogger - DEBUG - 	 waiting for pose update
+2010-02-18 11:45:55,819 - EpcLogger - DEBUG - 	Random walking
+2010-02-18 11:45:55,886 - EpcLogger - INFO - 	 Proximity sensor 3 activated
+2010-02-18 11:45:57,266 - EpcLogger - DEBUG - 	 AtTask
+2010-02-18 11:45:57,366 - EpcLogger - DEBUG - 	 waiting for pose update
+2010-02-18 11:45:57,366 - EpcLogger - DEBUG - 	Random walking
+2010-02-18 11:45:57,418 - EpcLogger - INFO - 	 Proximity sensor 3 activated
+2010-02-18 11:45:58,786 - EpcLogger - DEBUG - 	 AtTask
+2010-02-18 11:45:58,886 - EpcLogger - DEBUG - 	 waiting for pose update
+2010-02-18 11:45:58,886 - EpcLogger - DEBUG - 	Random walking
+2010-02-18 11:45:58,938 - EpcLogger - INFO - 	 Proximity sensor 3 activated
+2010-02-18 11:46:00,298 - EpcLogger - DEBUG - 	 go out to DEVICE_MOVING
+2010-02-18 11:46:00,298 - EpcLogger - DEBUG - --->Exiting DEVICE_IDLE loop.
+2010-02-18 11:46:00,398 - EpcLogger - DEBUG - Entering DEVICE_MOVING loop--->
+2010-02-18 11:46:00,398 - EpcLogger - DEBUG - 	Random walking
+2010-02-18 11:46:00,442 - EpcLogger - INFO - 	 Proximity sensor 3 activated
+2010-02-18 11:46:01,790 - EpcLogger - DEBUG - --->Exiting DEVICE_MOVING loop.
+2010-02-18 11:46:01,790 - EpcLogger - DEBUG - Entering DEVICE_MOVING loop--->
+2010-02-18 11:46:01,791 - EpcLogger - DEBUG - 	Random walking
+2010-02-18 11:46:01,838 - EpcLogger - INFO - 	 Proximity sensor 3 activated
+2010-02-18 11:46:03,191 - EpcLogger - DEBUG - --->Exiting DEVICE_MOVING loop.
+2010-02-18 11:46:03,191 - EpcLogger - DEBUG - Entering DEVICE_MOVING loop--->
+2010-02-18 11:46:03,192 - EpcLogger - DEBUG - 	Moving to Task
+2010-02-18 11:46:03,192 - EpcLogger - DEBUG - 	--> Naviagtor
+2010-02-18 11:46:03,192 - EpcLogger - INFO - Updated RobotPose: x= 1971.737427 y= 2002.614258  theta:5.201081
+2010-02-18 11:46:03,193 - EpcLogger - INFO - Updated TaskLoc: x= 1848.000000 y= 1713.000000
+2010-02-18 11:46:03,193 - EpcLogger - WARNING - UpdateNavFunc():Unknown Quad
+2010-02-18 11:46:03,193 - EpcLogger - DEBUG - GoTowardsTarget(): START: Thu Feb 18 11:46:03 2010
+2010-02-18 11:46:03,193 - EpcLogger - DEBUG - TaskPoseOrientation:1.167022 Cone:0.260000
+2010-02-18 11:46:03,193 - EpcLogger - WARNING - GoErrHandler(): Unknown Quad, can't go 
+2010-02-18 11:46:03,202 - EpcLogger - DEBUG - Now Doing Translation for 1.000000 sec
+2010-02-18 11:46:03,274 - EpcLogger - INFO - 	 Proximity sensor 3 activated
+2010-02-18 11:46:04,642 - EpcLogger - DEBUG - --->Exiting DEVICE_MOVING loop.
+2010-02-18 11:46:04,642 - EpcLogger - DEBUG - Entering DEVICE_MOVING loop--->
+2010-02-18 11:46:04,642 - EpcLogger - DEBUG - 	 Timedout
+2010-02-18 11:46:04,643 - EpcLogger - INFO - @TS  ----- [Task Selection Step 4 Start ] -----
+2010-02-18 11:46:04,643 - EpcLogger - DEBUG - @TS  Robot pose x=1952.603882 y=1920.326660:
+2010-02-18 11:46:04,643 - EpcLogger - DEBUG - 	 TaskInfo: [(1, [1266493396.5699999, 950.0, 840.0, 0.0, 0.66500000000000004]), (2, [1266493396.5699999, 1797.0, 713.0, 0.0, 0.66500000000000004]), (3, [1266493396.5699999, 1848.0, 1713.0, 0.0, 0.53000000000000003]), (4, [1266493396.5699999, 535.0, 1596.0, 0.0, 0.66500000000000004])]
+2010-02-18 11:46:04,644 - EpcLogger - DEBUG - 	 task count 4:
+2010-02-18 11:46:04,644 - EpcLogger - DEBUG - Taskid -- 1:
+2010-02-18 11:46:04,644 - EpcLogger - INFO - 	Task 1 stimuli 0.295694:
+2010-02-18 11:46:04,644 - EpcLogger - DEBUG - Taskid -- 2:
+2010-02-18 11:46:04,644 - EpcLogger - INFO - 	Task 2 stimuli 0.338103:
+2010-02-18 11:46:04,644 - EpcLogger - DEBUG - Taskid -- 3:
+2010-02-18 11:46:04,644 - EpcLogger - INFO - 	Task 3 stimuli 0.999752:
+2010-02-18 11:46:04,644 - EpcLogger - DEBUG - Taskid -- 4:
+2010-02-18 11:46:04,645 - EpcLogger - INFO - 	Task 4 stimuli 0.315994:
+2010-02-18 11:46:04,645 - EpcLogger - INFO - 	 RandomWalk Stimuli: 0.300000
+2010-02-18 11:46:04,645 - EpcLogger - DEBUG - @TS Task 0 Prob 0.133360
+2010-02-18 11:46:04,645 - EpcLogger - DEBUG - @TS Task 1 Prob 0.131446
+2010-02-18 11:46:04,645 - EpcLogger - DEBUG - @TS Task 2 Prob 0.150298
+2010-02-18 11:46:04,645 - EpcLogger - DEBUG - @TS Task 3 Prob 0.444424
+2010-02-18 11:46:04,645 - EpcLogger - DEBUG - @TS Task 4 Prob 0.140470
+2010-02-18 11:46:04,645 - EpcLogger - DEBUG - @TS Task 0 prob start: 0  end: 13
+2010-02-18 11:46:04,646 - EpcLogger - DEBUG - @TS Task 1 prob start: 14  end: 26
+2010-02-18 11:46:04,646 - EpcLogger - DEBUG - @TS Task 2 prob start: 27  end: 41
+2010-02-18 11:46:04,646 - EpcLogger - DEBUG - @TS Task 3 prob start: 42  end: 85
+2010-02-18 11:46:04,646 - EpcLogger - DEBUG - @TS Task 4 prob start: 86  end: 99
+2010-02-18 11:46:04,646 - EpcLogger - DEBUG - 	Selected Randon no: 31
+2010-02-18 11:46:04,646 - EpcLogger - DEBUG - @TS Probing task 0 range 0 - 13 
+2010-02-18 11:46:04,646 - EpcLogger - DEBUG - @TS Probing task 1 range 14 - 26 
+2010-02-18 11:46:04,646 - EpcLogger - DEBUG - @TS Probing task 2 range 27 - 41 
+2010-02-18 11:46:04,646 - EpcLogger - INFO - 	 Select task 2 
+2010-02-18 11:46:04,647 - EpcLogger - INFO - 	task 2 inc. sensitization:0.090000, timesDone:1
+2010-02-18 11:46:04,742 - EpcLogger - DEBUG - Entering DEVICE_AVAILABLE loop--->
+2010-02-18 11:46:04,742 - EpcLogger - DEBUG - 	Random walking
+2010-02-18 11:46:04,810 - EpcLogger - INFO - 	 Proximity sensor 3 activated
+2010-02-18 11:46:06,186 - EpcLogger - DEBUG - Entering DEVICE_MOVING loop--->
+2010-02-18 11:46:06,187 - EpcLogger - DEBUG - 	Moving to Task
+2010-02-18 11:46:06,188 - EpcLogger - DEBUG - 	--> Naviagtor
+2010-02-18 11:46:06,188 - EpcLogger - INFO - Updated RobotPose: x= 1877.136597 y= 1921.120483  theta:2.460914
+2010-02-18 11:46:06,188 - EpcLogger - INFO - Updated TaskLoc: x= 1797.000000 y= 713.000000
+2010-02-18 11:46:06,188 - EpcLogger - DEBUG - NavFunc set @Q34 
+2010-02-18 11:46:06,188 - EpcLogger - DEBUG - GoTowardsTarget(): START: Thu Feb 18 11:46:06 2010
+2010-02-18 11:46:06,188 - EpcLogger - DEBUG - TaskPoseOrientation:1.504562 Cone:0.260000
+2010-02-18 11:46:06,188 - EpcLogger - DEBUG - 	 Rotating right for 2.251475 rad
+2010-02-18 11:46:06,189 - EpcLogger - DEBUG - Now Doing Right Rotation for 0.717095 sec
+2010-02-18 11:46:06,986 - EpcLogger - DEBUG - Now Doing Translation for 1.000000 sec
+2010-02-18 11:46:07,050 - EpcLogger - INFO - 	 Proximity sensor 3 activated
+2010-02-18 11:46:08,386 - EpcLogger - DEBUG - --->Exiting DEVICE_MOVING loop.
+2010-02-18 11:46:08,386 - EpcLogger - DEBUG - Entering DEVICE_MOVING loop--->
+2010-02-18 11:46:08,386 - EpcLogger - DEBUG - 	Moving to Task
+2010-02-18 11:46:08,387 - EpcLogger - DEBUG - 	--> Naviagtor
+2010-02-18 11:46:08,387 - EpcLogger - INFO - Updated RobotPose: x= 1837.857056 y= 1915.812256  theta:3.717551
+2010-02-18 11:46:08,387 - EpcLogger - INFO - Updated TaskLoc: x= 1797.000000 y= 713.000000
+2010-02-18 11:46:08,387 - EpcLogger - DEBUG - NavFunc set @Q34 
+2010-02-18 11:46:08,387 - EpcLogger - DEBUG - GoTowardsTarget(): START: Thu Feb 18 11:46:08 2010
+2010-02-18 11:46:08,387 - EpcLogger - DEBUG - TaskPoseOrientation:1.536841 Cone:0.260000
+2010-02-18 11:46:08,388 - EpcLogger - DEBUG - 	 Rotating right for 0.994838 rad
+2010-02-18 11:46:08,388 - EpcLogger - DEBUG - Now Doing Right Rotation for 0.316856 sec
+2010-02-18 11:46:08,746 - EpcLogger - DEBUG - Now Doing Translation for 1.000000 sec
+2010-02-18 11:46:08,794 - EpcLogger - INFO - 	 Proximity sensor 3 activated
+2010-02-18 11:46:10,154 - EpcLogger - DEBUG - --->Exiting DEVICE_MOVING loop.
+2010-02-18 11:46:10,154 - EpcLogger - DEBUG - Entering DEVICE_MOVING loop--->
+2010-02-18 11:46:10,155 - EpcLogger - DEBUG - 	Moving to Task
+2010-02-18 11:46:10,155 - EpcLogger - DEBUG - 	--> Naviagtor
+2010-02-18 11:46:10,155 - EpcLogger - INFO - Updated RobotPose: x= 1799.896240 y= 1885.816772  theta:3.961898
+2010-02-18 11:46:10,155 - EpcLogger - INFO - Updated TaskLoc: x= 1797.000000 y= 713.000000
+2010-02-18 11:46:10,155 - EpcLogger - DEBUG - NavFunc set @Q34 
+2010-02-18 11:46:10,155 - EpcLogger - DEBUG - GoTowardsTarget(): START: Thu Feb 18 11:46:10 2010
+2010-02-18 11:46:10,156 - EpcLogger - DEBUG - TaskPoseOrientation:1.568327 Cone:0.260000
+2010-02-18 11:46:10,156 - EpcLogger - DEBUG - 	 Rotating right for 0.750491 rad
+2010-02-18 11:46:10,156 - EpcLogger - DEBUG - Now Doing Right Rotation for 0.239032 sec
+2010-02-18 11:46:10,486 - EpcLogger - DEBUG - Now Doing Translation for 1.000000 sec
+2010-02-18 11:46:10,558 - EpcLogger - INFO - 	 Proximity sensor 3 activated
+2010-02-18 11:46:11,946 - EpcLogger - DEBUG - --->Exiting DEVICE_MOVING loop.
+2010-02-18 11:46:11,946 - EpcLogger - DEBUG - Entering DEVICE_MOVING loop--->
+2010-02-18 11:46:11,947 - EpcLogger - DEBUG - 	Moving to Task
+2010-02-18 11:46:11,947 - EpcLogger - DEBUG - 	--> Naviagtor
+2010-02-18 11:46:11,947 - EpcLogger - INFO - Updated RobotPose: x= 1757.740967 y= 1857.379272  theta:3.996804
+2010-02-18 11:46:11,948 - EpcLogger - INFO - Updated TaskLoc: x= 1797.000000 y= 713.000000
+2010-02-18 11:46:11,948 - EpcLogger - DEBUG - NavFunc set @Q34 
+2010-02-18 11:46:11,948 - EpcLogger - DEBUG - GoTowardsTarget(): START: Thu Feb 18 11:46:11 2010
+2010-02-18 11:46:11,948 - EpcLogger - DEBUG - TaskPoseOrientation:1.536504 Cone:0.260000
+2010-02-18 11:46:11,948 - EpcLogger - DEBUG - 	 Rotating right for 0.715585 rad
+2010-02-18 11:46:11,948 - EpcLogger - DEBUG - Now Doing Right Rotation for 0.227914 sec
+2010-02-18 11:46:12,242 - EpcLogger - DEBUG - Now Doing Translation for 1.000000 sec
+2010-02-18 11:46:12,334 - EpcLogger - INFO - 	 Proximity sensor 3 activated
+2010-02-18 11:46:13,734 - EpcLogger - DEBUG - --->Exiting DEVICE_MOVING loop.
+2010-02-18 11:46:13,734 - EpcLogger - DEBUG - Entering DEVICE_MOVING loop--->
+2010-02-18 11:46:13,735 - EpcLogger - DEBUG - 	Moving to Task
+2010-02-18 11:46:13,735 - EpcLogger - DEBUG - 	--> Naviagtor
+2010-02-18 11:46:13,735 - EpcLogger - INFO - Updated RobotPose: x= 1702.152588 y= 1829.913452  theta:3.804818
+2010-02-18 11:46:13,735 - EpcLogger - INFO - Updated TaskLoc: x= 1797.000000 y= 713.000000
+2010-02-18 11:46:13,736 - EpcLogger - DEBUG - NavFunc set @Q34 
+2010-02-18 11:46:13,736 - EpcLogger - DEBUG - GoTowardsTarget(): START: Thu Feb 18 11:46:13 2010
+2010-02-18 11:46:13,736 - EpcLogger - DEBUG - TaskPoseOrientation:1.486080 Cone:0.260000
+2010-02-18 11:46:13,736 - EpcLogger - DEBUG - 	 Rotating right for 0.907571 rad
+2010-02-18 11:46:13,736 - EpcLogger - DEBUG - Now Doing Right Rotation for 0.289061 sec
+2010-02-18 11:46:14,102 - EpcLogger - DEBUG - Now Doing Translation for 1.000000 sec
+2010-02-18 11:46:14,194 - EpcLogger - INFO - 	 Proximity sensor 3 activated
+2010-02-18 11:46:15,562 - EpcLogger - DEBUG - --->Exiting DEVICE_MOVING loop.
+2010-02-18 11:46:15,562 - EpcLogger - DEBUG - Entering DEVICE_MOVING loop--->
+2010-02-18 11:46:15,563 - EpcLogger - DEBUG - 	Moving to Task
+2010-02-18 11:46:15,563 - EpcLogger - DEBUG - 	--> Naviagtor
+2010-02-18 11:46:15,563 - EpcLogger - INFO - Updated RobotPose: x= 1643.187378 y= 1816.040039  theta:3.787364
+2010-02-18 11:46:15,564 - EpcLogger - INFO - Updated TaskLoc: x= 1797.000000 y= 713.000000
+2010-02-18 11:46:15,564 - EpcLogger - DEBUG - NavFunc set @Q34 
+2010-02-18 11:46:15,564 - EpcLogger - DEBUG - GoTowardsTarget(): START: Thu Feb 18 11:46:15 2010
+2010-02-18 11:46:15,564 - EpcLogger - DEBUG - TaskPoseOrientation:1.432245 Cone:0.260000
+2010-02-18 11:46:15,564 - EpcLogger - DEBUG - 	 Rotating right for 0.925024 rad
+2010-02-18 11:46:15,564 - EpcLogger - DEBUG - Now Doing Right Rotation for 0.294620 sec
+2010-02-18 11:46:15,902 - EpcLogger - DEBUG - Now Doing Translation for 1.000000 sec
+2010-02-18 11:46:15,951 - EpcLogger - INFO - 	 Proximity sensor 3 activated
+2010-02-18 11:46:17,322 - EpcLogger - DEBUG - --->Exiting DEVICE_MOVING loop.
+2010-02-18 11:46:17,322 - EpcLogger - DEBUG - Entering DEVICE_MOVING loop--->
+2010-02-18 11:46:17,323 - EpcLogger - DEBUG - 	Moving to Task
+2010-02-18 11:46:17,323 - EpcLogger - DEBUG - 	--> Naviagtor
+2010-02-18 11:46:17,323 - EpcLogger - INFO - Updated RobotPose: x= 1580.715942 y= 1804.978882  theta:3.700098
+2010-02-18 11:46:17,323 - EpcLogger - INFO - Updated TaskLoc: x= 1797.000000 y= 713.000000
+2010-02-18 11:46:17,323 - EpcLogger - DEBUG - NavFunc set @Q34 
+2010-02-18 11:46:17,324 - EpcLogger - DEBUG - GoTowardsTarget(): START: Thu Feb 18 11:46:17 2010
+2010-02-18 11:46:17,324 - EpcLogger - DEBUG - TaskPoseOrientation:1.375261 Cone:0.260000
+2010-02-18 11:46:17,324 - EpcLogger - DEBUG - 	 Rotating right for 1.012291 rad
+2010-02-18 11:46:17,324 - EpcLogger - DEBUG - Now Doing Right Rotation for 0.322415 sec
+2010-02-18 11:46:17,722 - EpcLogger - DEBUG - Now Doing Translation for 1.000000 sec
+2010-02-18 11:46:17,806 - EpcLogger - INFO - 	 Proximity sensor 3 activated
+2010-02-18 11:46:19,178 - EpcLogger - DEBUG - --->Exiting DEVICE_MOVING loop.
+2010-02-18 11:46:19,178 - EpcLogger - DEBUG - Entering DEVICE_MOVING loop--->
+2010-02-18 11:46:19,179 - EpcLogger - DEBUG - 	Moving to Task
+2010-02-18 11:46:19,179 - EpcLogger - DEBUG - 	--> Naviagtor
+2010-02-18 11:46:19,179 - EpcLogger - INFO - Updated RobotPose: x= 1519.163086 y= 1798.643677  theta:3.769911
+2010-02-18 11:46:19,179 - EpcLogger - INFO - Updated TaskLoc: x= 1797.000000 y= 713.000000
+2010-02-18 11:46:19,179 - EpcLogger - DEBUG - NavFunc set @Q34 
+2010-02-18 11:46:19,180 - EpcLogger - DEBUG - GoTowardsTarget(): START: Thu Feb 18 11:46:19 2010
+2010-02-18 11:46:19,180 - EpcLogger - DEBUG - TaskPoseOrientation:1.320255 Cone:0.260000
+2010-02-18 11:46:19,180 - EpcLogger - DEBUG - 	 Rotating right for 0.942478 rad
+2010-02-18 11:46:19,180 - EpcLogger - DEBUG - Now Doing Right Rotation for 0.300179 sec
+2010-02-18 11:46:19,550 - EpcLogger - DEBUG - Now Doing Translation for 1.000000 sec
+2010-02-18 11:46:19,606 - EpcLogger - INFO - 	 Proximity sensor 3 activated
+2010-02-18 11:46:20,962 - EpcLogger - DEBUG - --->Exiting DEVICE_MOVING loop.
+2010-02-18 11:46:20,962 - EpcLogger - DEBUG - Entering DEVICE_MOVING loop--->
+2010-02-18 11:46:20,963 - EpcLogger - DEBUG - 	Moving to Task
+2010-02-18 11:46:20,963 - EpcLogger - DEBUG - 	--> Naviagtor
+2010-02-18 11:46:20,963 - EpcLogger - INFO - Updated RobotPose: x= 1456.725586 y= 1789.926636  theta:3.769911
+2010-02-18 11:46:20,963 - EpcLogger - INFO - Updated TaskLoc: x= 1797.000000 y= 713.000000
+2010-02-18 11:46:20,964 - EpcLogger - DEBUG - NavFunc set @Q4 
+2010-02-18 11:46:20,964 - EpcLogger - DEBUG - GoTowardsTarget(): START: Thu Feb 18 11:46:20 2010
+2010-02-18 11:46:20,964 - EpcLogger - DEBUG - TaskPoseOrientation:1.264755 Cone:0.260000
+2010-02-18 11:46:20,964 - EpcLogger - INFO - GoQ4(): Theta desired 5.018430
+2010-02-18 11:46:20,964 - EpcLogger - INFO - min_angle 1.876838 max_angle 5.018430
+2010-02-18 11:46:20,964 - EpcLogger - DEBUG - 	 Rotating right for 1.248519 rad
+2010-02-18 11:46:20,964 - EpcLogger - DEBUG - Now Doing Right Rotation for 0.397653 sec
+2010-02-18 11:46:21,446 - EpcLogger - DEBUG - Now Doing Translation for 1.000000 sec
+2010-02-18 11:46:21,510 - EpcLogger - INFO - 	 Proximity sensor 3 activated
+2010-02-18 11:46:22,898 - EpcLogger - DEBUG - --->Exiting DEVICE_MOVING loop.
+2010-02-18 11:46:22,898 - EpcLogger - DEBUG - Entering DEVICE_MOVING loop--->
+2010-02-18 11:46:22,899 - EpcLogger - DEBUG - 	Moving to Task
+2010-02-18 11:46:22,900 - EpcLogger - DEBUG - 	--> Naviagtor
+2010-02-18 11:46:22,900 - EpcLogger - INFO - Updated RobotPose: x= 1362.101318 y= 1754.791626  theta:3.438298
+2010-02-18 11:46:22,900 - EpcLogger - INFO - Updated TaskLoc: x= 1797.000000 y= 713.000000
+2010-02-18 11:46:22,900 - EpcLogger - DEBUG - NavFunc set @Q4 
+2010-02-18 11:46:22,900 - EpcLogger - DEBUG - GoTowardsTarget(): START: Thu Feb 18 11:46:22 2010
+2010-02-18 11:46:22,900 - EpcLogger - DEBUG - TaskPoseOrientation:1.175336 Cone:0.260000
+2010-02-18 11:46:22,900 - EpcLogger - INFO - GoQ4(): Theta desired 5.107850
+2010-02-18 11:46:22,900 - EpcLogger - INFO - min_angle 1.966257 max_angle 5.107850
+2010-02-18 11:46:22,900 - EpcLogger - DEBUG - 	 Rotating right for 1.669551 rad
+2010-02-18 11:46:22,900 - EpcLogger - DEBUG - Now Doing Right Rotation for 0.531752 sec
+2010-02-18 11:46:23,526 - EpcLogger - DEBUG - Now Doing Translation for 1.000000 sec
+2010-02-18 11:46:23,610 - EpcLogger - INFO - 	 Proximity sensor 3 activated
+2010-02-18 11:46:24,974 - EpcLogger - DEBUG - --->Exiting DEVICE_MOVING loop.
+2010-02-18 11:46:24,974 - EpcLogger - DEBUG - Entering DEVICE_MOVING loop--->
+2010-02-18 11:46:24,975 - EpcLogger - DEBUG - 	Moving to Task
+2010-02-18 11:46:24,975 - EpcLogger - DEBUG - 	--> Naviagtor
+2010-02-18 11:46:24,975 - EpcLogger - INFO - Updated RobotPose: x= 1340.795166 y= 1729.908325  theta:4.520403
+2010-02-18 11:46:24,975 - EpcLogger - INFO - Updated TaskLoc: x= 1797.000000 y= 713.000000
+2010-02-18 11:46:24,976 - EpcLogger - DEBUG - NavFunc set @Q4 
+2010-02-18 11:46:24,976 - EpcLogger - DEBUG - GoTowardsTarget(): START: Thu Feb 18 11:46:24 2010
+2010-02-18 11:46:24,976 - EpcLogger - DEBUG - TaskPoseOrientation:1.149091 Cone:0.260000
+2010-02-18 11:46:24,976 - EpcLogger - INFO - GoQ4(): Theta desired 5.134094
+2010-02-18 11:46:24,976 - EpcLogger - INFO - min_angle 1.992502 max_angle 5.134094
+2010-02-18 11:46:24,976 - EpcLogger - DEBUG - 	 Rotating right for 0.613691 rad
+2010-02-18 11:46:24,976 - EpcLogger - DEBUG - Now Doing Right Rotation for 0.195461 sec
+2010-02-18 11:46:25,222 - EpcLogger - DEBUG - Now Doing Translation for 1.000000 sec
+2010-02-18 11:46:25,270 - EpcLogger - INFO - 	 Proximity sensor 3 activated
+2010-02-18 11:46:26,630 - EpcLogger - DEBUG - --->Exiting DEVICE_MOVING loop.
+2010-02-18 11:46:26,630 - EpcLogger - DEBUG - Entering DEVICE_MOVING loop--->
+2010-02-18 11:46:26,631 - EpcLogger - DEBUG - 	Moving to Task
+2010-02-18 11:46:26,631 - EpcLogger - DEBUG - 	--> Naviagtor
+2010-02-18 11:46:26,631 - EpcLogger - INFO - Updated RobotPose: x= 1305.830566 y= 1664.995605  theta:3.996804
+2010-02-18 11:46:26,631 - EpcLogger - INFO - Updated TaskLoc: x= 1797.000000 y= 713.000000
+2010-02-18 11:46:26,632 - EpcLogger - DEBUG - NavFunc set @Q4 
+2010-02-18 11:46:26,632 - EpcLogger - DEBUG - GoTowardsTarget(): START: Thu Feb 18 11:46:26 2010
+2010-02-18 11:46:26,632 - EpcLogger - DEBUG - TaskPoseOrientation:1.094481 Cone:0.260000
+2010-02-18 11:46:26,632 - EpcLogger - INFO - GoQ4(): Theta desired 5.188704
+2010-02-18 11:46:26,632 - EpcLogger - INFO - min_angle 2.047112 max_angle 5.188704
+2010-02-18 11:46:26,632 - EpcLogger - DEBUG - 	 Rotating right for 1.191900 rad
+2010-02-18 11:46:26,632 - EpcLogger - DEBUG - Now Doing Right Rotation for 0.379620 sec
+2010-02-18 11:46:27,082 - EpcLogger - DEBUG - Now Doing Translation for 1.000000 sec
+2010-02-18 11:46:27,126 - EpcLogger - INFO - 	 Proximity sensor 3 activated
+2010-02-18 11:46:28,478 - EpcLogger - DEBUG - --->Exiting DEVICE_MOVING loop.
+2010-02-18 11:46:28,478 - EpcLogger - DEBUG - Entering DEVICE_MOVING loop--->
+2010-02-18 11:46:28,479 - EpcLogger - DEBUG - 	Moving to Task
+2010-02-18 11:46:28,479 - EpcLogger - DEBUG - 	--> Naviagtor
+2010-02-18 11:46:28,479 - EpcLogger - INFO - Updated RobotPose: x= 1273.473999 y= 1621.025269  theta:4.363323
+2010-02-18 11:46:28,479 - EpcLogger - INFO - Updated TaskLoc: x= 1797.000000 y= 713.000000
+2010-02-18 11:46:28,480 - EpcLogger - DEBUG - NavFunc set @Q4 
+2010-02-18 11:46:28,480 - EpcLogger - DEBUG - GoTowardsTarget(): START: Thu Feb 18 11:46:28 2010
+2010-02-18 11:46:28,480 - EpcLogger - DEBUG - TaskPoseOrientation:1.047795 Cone:0.260000
+2010-02-18 11:46:28,480 - EpcLogger - INFO - GoQ4(): Theta desired 5.235391
+2010-02-18 11:46:28,480 - EpcLogger - INFO - min_angle 2.093798 max_angle 5.235391
+2010-02-18 11:46:28,480 - EpcLogger - DEBUG - 	 Rotating right for 0.872068 rad
+2010-02-18 11:46:28,480 - EpcLogger - DEBUG - Now Doing Right Rotation for 0.277754 sec
+2010-02-18 11:46:28,830 - EpcLogger - DEBUG - Now Doing Translation for 1.000000 sec
+2010-02-18 11:46:28,882 - EpcLogger - INFO - 	 Proximity sensor 3 activated
+2010-02-18 11:46:30,250 - EpcLogger - DEBUG - --->Exiting DEVICE_MOVING loop.
+2010-02-18 11:46:30,250 - EpcLogger - DEBUG - Entering DEVICE_MOVING loop--->
+2010-02-18 11:46:30,251 - EpcLogger - DEBUG - 	Moving to Task
+2010-02-18 11:46:30,251 - EpcLogger - DEBUG - 	--> Naviagtor
+2010-02-18 11:46:30,251 - EpcLogger - INFO - Updated RobotPose: x= 1242.288452 y= 1564.580811  theta:4.241150
+2010-02-18 11:46:30,251 - EpcLogger - INFO - Updated TaskLoc: x= 1797.000000 y= 713.000000
+2010-02-18 11:46:30,251 - EpcLogger - DEBUG - NavFunc set @Q4 
+2010-02-18 11:46:30,252 - EpcLogger - DEBUG - GoTowardsTarget(): START: Thu Feb 18 11:46:30 2010
+2010-02-18 11:46:30,252 - EpcLogger - DEBUG - TaskPoseOrientation:0.993444 Cone:0.260000
+2010-02-18 11:46:30,252 - EpcLogger - INFO - GoQ4(): Theta desired 5.289741
+2010-02-18 11:46:30,252 - EpcLogger - INFO - min_angle 2.148148 max_angle 5.289741
+2010-02-18 11:46:30,252 - EpcLogger - DEBUG - 	 Rotating right for 1.048591 rad
+2010-02-18 11:46:30,252 - EpcLogger - DEBUG - Now Doing Right Rotation for 0.333976 sec
+2010-02-18 11:46:30,650 - EpcLogger - DEBUG - Now Doing Translation for 1.000000 sec
+2010-02-18 11:46:30,718 - EpcLogger - INFO - 	 Proximity sensor 3 activated
+2010-02-18 11:46:32,066 - EpcLogger - DEBUG - --->Exiting DEVICE_MOVING loop.
+2010-02-18 11:46:32,066 - EpcLogger - DEBUG - Entering DEVICE_MOVING loop--->
+2010-02-18 11:46:32,067 - EpcLogger - DEBUG - 	Moving to Task
+2010-02-18 11:46:32,067 - EpcLogger - DEBUG - 	--> Naviagtor
+2010-02-18 11:46:32,067 - EpcLogger - INFO - Updated RobotPose: x= 1209.137573 y= 1515.427490  theta:4.328416
+2010-02-18 11:46:32,068 - EpcLogger - INFO - Updated TaskLoc: x= 1797.000000 y= 713.000000
+2010-02-18 11:46:32,068 - EpcLogger - DEBUG - NavFunc set @Q4 
+2010-02-18 11:46:32,068 - EpcLogger - DEBUG - GoTowardsTarget(): START: Thu Feb 18 11:46:32 2010
+2010-02-18 11:46:32,068 - EpcLogger - DEBUG - TaskPoseOrientation:0.938521 Cone:0.260000
+2010-02-18 11:46:32,068 - EpcLogger - INFO - GoQ4(): Theta desired 5.344664
+2010-02-18 11:46:32,068 - EpcLogger - INFO - min_angle 2.203071 max_angle 5.344664
+2010-02-18 11:46:32,068 - EpcLogger - DEBUG - 	 Rotating right for 1.016248 rad
+2010-02-18 11:46:32,068 - EpcLogger - DEBUG - Now Doing Right Rotation for 0.323675 sec
+2010-02-18 11:46:32,438 - EpcLogger - DEBUG - Now Doing Translation for 1.000000 sec
+2010-02-18 11:46:32,515 - EpcLogger - INFO - 	 Proximity sensor 3 activated
+2010-02-18 11:46:33,898 - EpcLogger - DEBUG - --->Exiting DEVICE_MOVING loop.
+2010-02-18 11:46:33,898 - EpcLogger - DEBUG - Entering DEVICE_MOVING loop--->
+2010-02-18 11:46:33,899 - EpcLogger - DEBUG - 	Moving to Task
+2010-02-18 11:46:33,899 - EpcLogger - DEBUG - 	--> Naviagtor
+2010-02-18 11:46:33,899 - EpcLogger - INFO - Updated RobotPose: x= 1178.369995 y= 1465.034424  theta:4.433136
+2010-02-18 11:46:33,899 - EpcLogger - INFO - Updated TaskLoc: x= 1797.000000 y= 713.000000
+2010-02-18 11:46:33,900 - EpcLogger - DEBUG - NavFunc set @Q4 
+2010-02-18 11:46:33,900 - EpcLogger - DEBUG - GoTowardsTarget(): START: Thu Feb 18 11:46:33 2010
+2010-02-18 11:46:33,900 - EpcLogger - DEBUG - TaskPoseOrientation:0.882421 Cone:0.260000
+2010-02-18 11:46:33,900 - EpcLogger - INFO - GoQ4(): Theta desired 5.400764
+2010-02-18 11:46:33,900 - EpcLogger - INFO - min_angle 2.259172 max_angle 5.400764
+2010-02-18 11:46:33,900 - EpcLogger - DEBUG - 	 Rotating right for 0.967628 rad
+2010-02-18 11:46:33,900 - EpcLogger - DEBUG - Now Doing Right Rotation for 0.308190 sec
+2010-02-18 11:46:34,258 - EpcLogger - DEBUG - Now Doing Translation for 1.000000 sec
+2010-02-18 11:46:34,334 - EpcLogger - INFO - 	 Proximity sensor 3 activated
+2010-02-18 11:46:35,722 - EpcLogger - DEBUG - --->Exiting DEVICE_MOVING loop.
+2010-02-18 11:46:35,722 - EpcLogger - DEBUG - Entering DEVICE_MOVING loop--->
+2010-02-18 11:46:35,723 - EpcLogger - DEBUG - 	Moving to Task
+2010-02-18 11:46:35,723 - EpcLogger - DEBUG - 	--> Naviagtor
+2010-02-18 11:46:35,724 - EpcLogger - INFO - Updated RobotPose: x= 1148.594849 y= 1413.995361  theta:4.485496
+2010-02-18 11:46:35,724 - EpcLogger - INFO - Updated TaskLoc: x= 1797.000000 y= 713.000000
+2010-02-18 11:46:35,724 - EpcLogger - DEBUG - NavFunc set @Q4 
+2010-02-18 11:46:35,724 - EpcLogger - DEBUG - GoTowardsTarget(): START: Thu Feb 18 11:46:35 2010
+2010-02-18 11:46:35,724 - EpcLogger - DEBUG - TaskPoseOrientation:0.824351 Cone:0.260000
+2010-02-18 11:46:35,724 - EpcLogger - INFO - GoQ4(): Theta desired 5.458834
+2010-02-18 11:46:35,724 - EpcLogger - INFO - min_angle 2.317241 max_angle 5.458834
+2010-02-18 11:46:35,724 - EpcLogger - DEBUG - 	 Rotating right for 0.973338 rad
+2010-02-18 11:46:35,724 - EpcLogger - DEBUG - Now Doing Right Rotation for 0.310008 sec
+2010-02-18 11:46:36,090 - EpcLogger - DEBUG - Now Doing Translation for 1.000000 sec
+2010-02-18 11:46:36,162 - EpcLogger - INFO - 	 Proximity sensor 3 activated
+2010-02-18 11:46:37,502 - EpcLogger - DEBUG - --->Exiting DEVICE_MOVING loop.
+2010-02-18 11:46:37,502 - EpcLogger - DEBUG - Entering DEVICE_MOVING loop--->
+2010-02-18 11:46:37,503 - EpcLogger - DEBUG - 	 Timedout
+2010-02-18 11:46:37,503 - EpcLogger - INFO - @TS  ----- [Task Selection Step 5 Start ] -----
+2010-02-18 11:46:37,503 - EpcLogger - DEBUG - @TS  Robot pose x=1117.047607 y=1359.847656:
+2010-02-18 11:46:37,504 - EpcLogger - DEBUG - 	 TaskInfo: [(1, [1266493396.5699999, 950.0, 840.0, 0.0, 0.66500000000000004]), (2, [1266493396.5699999, 1797.0, 713.0, 0.0, 0.66500000000000004]), (3, [1266493396.5699999, 1848.0, 1713.0, 0.0, 0.53000000000000003]), (4, [1266493396.5699999, 535.0, 1596.0, 0.0, 0.66500000000000004])]
+2010-02-18 11:46:37,504 - EpcLogger - DEBUG - 	 task count 4:
+2010-02-18 11:46:37,504 - EpcLogger - DEBUG - Taskid -- 1:
+2010-02-18 11:46:37,504 - EpcLogger - INFO - 	Task 1 stimuli 0.577719:
+2010-02-18 11:46:37,504 - EpcLogger - DEBUG - Taskid -- 2:
+2010-02-18 11:46:37,504 - EpcLogger - INFO - 	Task 2 stimuli 0.618789:
+2010-02-18 11:46:37,504 - EpcLogger - DEBUG - Taskid -- 3:
+2010-02-18 11:46:37,504 - EpcLogger - INFO - 	Task 3 stimuli 0.861995:
+2010-02-18 11:46:37,504 - EpcLogger - DEBUG - Taskid -- 4:
+2010-02-18 11:46:37,505 - EpcLogger - INFO - 	Task 4 stimuli 0.554006:
+2010-02-18 11:46:37,505 - EpcLogger - INFO - 	 RandomWalk Stimuli: 0.300000
+2010-02-18 11:46:37,505 - EpcLogger - DEBUG - @TS Task 0 Prob 0.103004
+2010-02-18 11:46:37,505 - EpcLogger - DEBUG - @TS Task 1 Prob 0.198358
+2010-02-18 11:46:37,505 - EpcLogger - DEBUG - @TS Task 2 Prob 0.212459
+2010-02-18 11:46:37,505 - EpcLogger - DEBUG - @TS Task 3 Prob 0.295963
+2010-02-18 11:46:37,505 - EpcLogger - DEBUG - @TS Task 4 Prob 0.190216
+2010-02-18 11:46:37,505 - EpcLogger - DEBUG - @TS Task 0 prob start: 0  end: 10
+2010-02-18 11:46:37,505 - EpcLogger - DEBUG - @TS Task 1 prob start: 11  end: 30
+2010-02-18 11:46:37,505 - EpcLogger - DEBUG - @TS Task 2 prob start: 31  end: 51
+2010-02-18 11:46:37,506 - EpcLogger - DEBUG - @TS Task 3 prob start: 52  end: 81
+2010-02-18 11:46:37,506 - EpcLogger - DEBUG - @TS Task 4 prob start: 82  end: 100
+2010-02-18 11:46:37,506 - EpcLogger - DEBUG - 	Selected Randon no: 34
+2010-02-18 11:46:37,506 - EpcLogger - DEBUG - @TS Probing task 0 range 0 - 10 
+2010-02-18 11:46:37,506 - EpcLogger - DEBUG - @TS Probing task 1 range 11 - 30 
+2010-02-18 11:46:37,506 - EpcLogger - DEBUG - @TS Probing task 2 range 31 - 51 
+2010-02-18 11:46:37,506 - EpcLogger - INFO - 	 Select task 2 
+2010-02-18 11:46:37,506 - EpcLogger - INFO - 	task 2 inc. sensitization:0.120000, timesDone:2
+2010-02-18 11:46:37,602 - EpcLogger - DEBUG - Entering DEVICE_AVAILABLE loop--->
+2010-02-18 11:46:37,602 - EpcLogger - DEBUG - 	Random walking
+2010-02-18 11:46:37,670 - EpcLogger - INFO - 	 Proximity sensor 3 activated
+2010-02-18 11:46:39,011 - EpcLogger - DEBUG - Entering DEVICE_MOVING loop--->
+2010-02-18 11:46:39,011 - EpcLogger - DEBUG - 	Moving to Task
+2010-02-18 11:46:39,012 - EpcLogger - DEBUG - 	--> Naviagtor
+2010-02-18 11:46:39,012 - EpcLogger - INFO - Updated RobotPose: x= 1057.430054 y= 1308.607544  theta:3.193953
+2010-02-18 11:46:39,012 - EpcLogger - INFO - Updated TaskLoc: x= 1797.000000 y= 713.000000
+2010-02-18 11:46:39,012 - EpcLogger - DEBUG - NavFunc set @Q4 
+2010-02-18 11:46:39,012 - EpcLogger - DEBUG - GoTowardsTarget(): START: Thu Feb 18 11:46:39 2010
+2010-02-18 11:46:39,012 - EpcLogger - DEBUG - TaskPoseOrientation:0.677990 Cone:0.260000
+2010-02-18 11:46:39,012 - EpcLogger - INFO - GoQ4(): Theta desired 5.605195
+2010-02-18 11:46:39,013 - EpcLogger - INFO - min_angle 2.463602 max_angle 5.605195
+2010-02-18 11:46:39,013 - EpcLogger - DEBUG - 	 Rotating right for 2.411242 rad
+2010-02-18 11:46:39,013 - EpcLogger - DEBUG - Now Doing Right Rotation for 0.767981 sec

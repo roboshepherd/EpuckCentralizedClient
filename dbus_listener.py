@@ -42,7 +42,8 @@ def save_pose_from_swistrack(x, y, theta):
         datamgr_proxy.mRobotPose[ROBOT_POSE_Y] = eval(str(y))
         datamgr_proxy.mRobotPose[ROBOT_POSE_THETA] = eval(str(theta))
         datamgr_proxy.mRobotPose[ROBOT_POSE_TS] = time.time()
-        datamgr_proxy.mRobotPoseAvailable.set()
+        if (not datamgr_proxy.mRobotPoseAvailable.is_set()):
+            datamgr_proxy.mRobotPoseAvailable.set()
         #print datamgr_proxy.mRobotPose
         #logger.info("RobotPose-x %f",  datamgr_proxy.mRobotPose[1])
         #logger.info("@DBC RobotPose recvd. len logged: %d" ,\
@@ -59,7 +60,8 @@ def save_taskinfo(taskinfo):
             key = eval(str(k))
             value = extract_objects(v)
             datamgr_proxy.mTaskInfo[key] = value 
-        datamgr_proxy.mTaskInfoAvailable.set()
+        if (not datamgr_proxy.mTaskInfoAvailable.is_set()):
+            datamgr_proxy.mTaskInfoAvailable.set()
         #print datamgr_proxy.mTaskInfo
     except:
        print "Err in save_taskinfo()"

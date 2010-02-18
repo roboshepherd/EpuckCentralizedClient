@@ -17,6 +17,7 @@ LOG_TYPE_STIMULUS = "stimulus"
 LOG_TYPE_DIST = "dist"
 LOG_TYPE_SENSITIZATION = "sensitization"
 LOG_TYPE_URGENCY = "urgency"
+RW_TH = RW_MAX_URGENCY # Attempt 1: 0.5
 
 class TaskProbRange():
     def __init__(self,  id):
@@ -62,22 +63,26 @@ class TaskSelector():
     
     def CalculateRandomWalkStimuli(self,  taskstimulus,  taskcount):
         stimuli = math.tanh( 1 - (taskstimulus /  (taskcount + 1)))
-        return math.fabs(stimuli)
+        stimuli = math.fabs(stimuli)
+        if (stimuli > RW_TH):
+            stimuli = RW_TH
+        return stimuli
 
     def CalculateProbabilities(self):
         r = self.robot
         dm = self.datamgr
+        self.stimulus = []
         #logger.debug("@TS Robot pose %s:" , dm.mRobotPose.items() )
         r.pose.UpdateFromList(dm.mRobotPose)
         logger.debug("@TS  Robot pose x=%f y=%f:" , r.pose.x,  r.pose.y )
         ti = self.taskinfo
         logger.debug("\t TaskInfo: %s",  ti.items() )
         taskCount = len(ti)
-        #logger.debug("\t task count %d:" , taskCount)
+        logger.debug("\t task count %d:" , taskCount)
         try:
             for index,  info in ti.items():
                 taskid = index 
-                #logger.debug("Taskid -- %i:" ,  taskid)
+                logger.debug("Taskid -- %i:" ,  taskid)
                 tx,  ty = info[TASK_INFO_X],  info[TASK_INFO_Y]
                 dist = self.CalculateDist(r.pose,  tx, ty)
                 #logger.debug("\tTask dist %f:" ,  dist)
@@ -86,7 +91,7 @@ class TaskSelector():
                 urg = info[TASK_INFO_URGENCY ]
                 #logger.debug("\tTask urg %f:" ,  urg)
                 stimuli = self.CalculateTaskStimuli(learn, dist, self.deltadist, urg)
-                #logger.info("\tTask %d stimuli %f:" , taskid,  stimuli)
+                logger.info("\tTask %d stimuli %f:" , taskid,  stimuli)
                 self.stimulus.append(stimuli)
                 # save claculation for logging and using in next step
                 r.taskrec[taskid].id = taskid
@@ -99,42 +104,50 @@ class TaskSelector():
         tsSum = math.fsum(self.stimulus)
         #logger.debug("@TS Task Stimulus sum: %f",  tsSum)
         rwStimuli = self.CalculateRandomWalkStimuli(tsSum,  taskCount)
-        #logger.info("\t RandomWalk Stimuli: %f",  rwStimuli)
+        logger.info("\t RandomWalk Stimuli: %f",  rwStimuli)
         taskid = 0
         r.taskrec[taskid].stimuli = rwStimuli
         stimulusSum = tsSum +  rwStimuli
-        while taskid <= taskCount:
+        while taskid <= MAX_SHOPTASK:
             pb =  r.taskrec[taskid].stimuli / stimulusSum
-            r.taskrec[taskid].probability =pb
-            #logger.debug("@TS Task %d Prob %f",  taskid,  pb )
+            r.taskrec[taskid].probability = pb
+            logger.debug("@TS Task %d Prob %f",  taskid,  pb )
             taskid = taskid + 1
     
     def ConvertProbbToRange(self):
-     robot = self.robot
-     tasks = len(robot.taskrec)
-     startup = 0
-     endsave = 0
-     for taskid in range (tasks):
-         end = robot.taskrec[taskid].probability * PROB_SCALE
-         end = int(round(end)) + endsave
-         r =  TaskProbRange(taskid)
-         r.start = startup
-         r.end = end
-         startup = end + 1
-         endsave = end
-         #logger.debug("@TS Task %d prob start: %d  end: %d",  r.id, r.start,
-         # r.end )
-         self.taskranges.append(r)
+        self.taskranges = []
+        robot = self.robot
+        tasks = len(robot.taskrec)
+        startup = 0
+        endsave = 0
+        for taskid in range (tasks):
+            pb = robot.taskrec[taskid].probability
+            if (pb > 0):
+                e = pb * PROB_SCALE
+                end = int(round(e)) + endsave
+            else:
+                continue
+            r =  TaskProbRange(taskid)
+            r.start = startup
+            r.end = end
+            startup = end + 1
+            endsave = end
+            logger.debug("@TS Task %d prob start: %d  end: %d",  r.id, r.start,
+            r.end )
+            self.taskranges.append(r)
+        return end
     
-    def GetRandomSelection(self):
+    def GetRandomSelection(self, end):
         ranges =  self.taskranges
         #logger.debug("@TS Task Count including RW: %d",  len(ranges))
-        n = random.randrange(0, 100, 1)
-        #logger.debug("\tSelected Randon no: %d",  n)
+        n = random.randrange(0, end, 1)
+        logger.debug("\tSelected Randon no: %d",  n)
         for r in ranges:
-            #logger.debug("@TS Probing task %d range",  r.id)
+            logger.debug("@TS Probing task %d range %d - %d ",  r.id, r.start,\
+            r.end)
             if(n >= r.start and n <= r.end):
                 logger.info("\t Select task %d ",  r.id)
+                print "\t Select task %d "  %r.id
                 self.selected_taskid = r.id
                 break
 
@@ -153,7 +166,12 @@ class TaskSelector():
         
         self.datamgr.mSelectedTaskAvailable.set() # Trigger Device Controller
         #time.sleep(1)
-        self.datamgr.mTaskTimedOut.clear() # delay next task selection
+        if self.datamgr.mTaskTimedOut.is_set():
+            self.datamgr.mTaskTimedOut.clear() # delay next task selection
+        if self.datamgr.mRobotPoseAvailable.is_set():
+            self.datamgr.mRobotPoseAvailable.clear()
+        if self.datamgr.mTaskInfoAvailable.is_set():
+            self.datamgr.mTaskInfoAvailable.clear()
 
 
     def InitLogFiles(self):
@@ -162,8 +180,8 @@ class TaskSelector():
         now = time.strftime("%Y%b%d-%H%M%S", time.gmtime()) 
         desc = "logged in centralized communication mode from: " + now +"\n"
         # prepare label
-        label = "TimeStamp;StepCounter;SelectedTask"
-        for x in xrange(1,  MAX_SHOPTASK+1):
+        label = "TimeStamp;HH:MM:SS;StepCounter;SelectedTask"
+        for x in xrange(0,  MAX_SHOPTASK+1):
             label += "; "
             label += "Task"
             label += str(x)
@@ -185,13 +203,13 @@ class TaskSelector():
         
         # raw pose  
         ctx.name = "PoseAtTS"
-        ctx.label = "TimeStamp;StepCounter;SelectedTask;X;Y;Theta \n"
+        ctx.label = "TimeStamp;HH:MM:SS;StepCounter;SelectedTask;X;Y;Theta \n"
         self.pose_writer = DataWriter("Robot", ctx, now, robotid)
     
     def GetCommonHeader(self):
-        ts = time.strftime("%H:%M:%S", time.gmtime())
         sep = self.data_ctx.sep
-        header = str(ts) + sep + str(self.step) + sep +\
+        ts = str(time.time()) + sep + time.strftime("%H:%M:%S", time.gmtime())
+        header = ts  + sep + str(self.step) + sep +\
          str(self.selected_taskid)
         return header
 
@@ -243,8 +261,8 @@ class TaskSelector():
     
     def SelectTask(self):
         self.CalculateProbabilities()
-        self.ConvertProbbToRange()
-        self.GetRandomSelection()
+        end = self.ConvertProbbToRange()
+        self.GetRandomSelection(end)
 
 # main process function
 def  selector_main(dataManager, robot):
@@ -262,6 +280,7 @@ def  selector_main(dataManager, robot):
             ts.AppendTaskLogs()
             ts.AppendPoseLog()
             dataManager.mTaskTimedOut.wait() # when task done == timedout
+            #time.sleep(5)
     except (KeyboardInterrupt, SystemExit):
             print "User requested exit... TaskSelector shutting down now"
             sys.exit(0)

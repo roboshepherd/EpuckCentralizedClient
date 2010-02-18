@@ -2,7 +2,7 @@ import  time
 import sys
 from math import fabs, atan2, atan
 
-from myro import Epuck
+from myro import *
 from RILCommonModules.RILSetup import *
 from RILCommonModules.pose import *
 from RILCommonModules.LiveGraph import *
@@ -20,9 +20,9 @@ ROTATE_CONST = 0.637/2 # mutiplying this with desired angle gives time(rotate)
 # typical value: 0.637  max val = 0.411
 FORWARD_STEP_TIME = 1
 # Obstacle Avoidance params
-BACKWARD_SPEED1 = -0.8 # orig: -0.4
-BACKWARD_TURN = 0.5 # orig: 0 , no turn
-TINY_SLEEP = 0.05 # orig: 0.05
+BACKWARD_SPEED1 = -0.4 # orig: -0.4
+BACKWARD_TURN = 0.3 # orig: 0 , no turn
+TINY_SLEEP = 0.01 # orig: 0.05
 
 class NavFunc :
     NOTSET = -1
@@ -82,17 +82,17 @@ class EpuckNavigator:
         desc += "#" + "RotateDir:  Left== -1,  Right== 1 \n"
         desc += "#" + "Obstacle sensed: -1 : None, (0-7): Sensor#, 8: All"
         # prepare label
-        label = "TimeStamp;Step#;Coordinate;Translated;RotateDir;Angle(rad);\
+        label = "TimeStamp;HH:MM:SS;Step;Coordinate;Translated;RotateDir;Angle(rad);\
          ObstacleSensor# \n"
         # Data context
         ctx = DataCtx(name, label, desc)
         self.motion_writer = DataWriter("Robot", ctx, now)
 
     def GetCommonHeader(self):
-        ts = time.strftime("%H:%M:%S", time.gmtime())
         sep = DATA_SEP
+        ts = str(time.time()) + sep + time.strftime("%H:%M:%S", time.gmtime())
         self.step = self.step + 1
-        header = str(ts) + sep + str(self.step)
+        header = ts + sep + str(self.step)
         return header
     
     def AppendMotionLog(self):        
@@ -179,7 +179,7 @@ class EpuckNavigator:
         # Trasnslation is fixed
         time.sleep(TINY_SLEEP)
         self.Translate(epuck)
-        time.sleep(TINY_SLEEP) # to stabilize pose
+        #time.sleep(TINY_SLEEP) # to stabilize pose
         
     def SetupTaskLoc(self, x, y, r=TASK_RADIUS, ca=TASK_CONE_ANGLE):
         self.mTaskPose.x = x
