@@ -1,6 +1,7 @@
 import time
 from multiprocessing import *
 from multiprocessing.managers import BaseManager
+from RILCommonModules.RILSetup import *
 
 class DataManager(object):
     def __init__(self,  id=-1):
@@ -90,15 +91,22 @@ class DataManager(object):
             self.mSelectedTask[k] = v
     def SetSelectedTaskAvailable(self):
         self.mSelectedTaskAvailable.set()
+    def WaitSelectedTaskAvailable(self):
+        self.mSelectedTaskAvailable.wait()
     def ClearSelectedTaskAvailable(self):
         self.mSelectedTaskAvailable.clear()
     
     def SetSelectedTaskStarted(self):
         self.mSelectedTaskStarted.set()
+    def WaitSelectedTaskStarted(self):
+        self.mSelectedTaskStarted.wait()
     def ClearSelectedTaskStarted(self):
         self.mSelectedTaskStarted.clear()
+    
     def SetTaskTimedOut(self):
         self.mTaskTimedOut.set()
+    def WaitTaskTimedOut(self):
+        self.mTaskTimedOut.wait()
     def ClearTaskTimedOut(self):
         self.mTaskTimedOut.clear()
 
@@ -107,8 +115,9 @@ class RemoteManager(BaseManager):
   
 def datamgr_main(dm):
     tgt = dm
+    port = EXPT_SERVER_PORT_BASE  + int(dm.mRobotID)
     RemoteManager.register('get_target', callable=lambda:tgt)
-    mgr = RemoteManager(address=('localhost', 50000), authkey="123")
+    mgr = RemoteManager(address=(EXPT_SERVER_IP, port), authkey="123")
     srv = mgr.get_server()
     srv.serve_forever()
 

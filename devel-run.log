@@ -1,31 +1,62 @@
-2010-03-15 15:43:49,770 - root - DEBUG - --- Start EPC---
-2010-03-15 15:44:39,788 - EpcLogger - INFO - @TS  ----- [Task Selection Step 0 Start ] -----
-2010-03-15 15:44:39,789 - EpcLogger - DEBUG - @TS  Robot pose x=1376.270508 y=1320.692261:
-2010-03-15 15:44:39,789 - EpcLogger - DEBUG - 	 TaskInfo: [(1, [1268667879.73, 950.0, 840.0, 0.0, 0.505]), (2, [1268667879.73, 1797.0, 713.0, 0.0, 0.505]), (3, [1268667879.73, 1848.0, 1713.0, 0.0, 0.505]), (4, [1268667879.73, 535.0, 1596.0, 0.0, 0.505])]
-2010-03-15 15:44:39,789 - EpcLogger - DEBUG - 	 task count 4:
-2010-03-15 15:44:39,789 - EpcLogger - DEBUG - Taskid -- 1:
-2010-03-15 15:44:39,789 - EpcLogger - INFO - 	Task 1 stimuli 0.707798:
-2010-03-15 15:44:39,789 - EpcLogger - DEBUG - Taskid -- 2:
-2010-03-15 15:44:39,790 - EpcLogger - INFO - 	Task 2 stimuli 0.639680:
-2010-03-15 15:44:39,790 - EpcLogger - DEBUG - Taskid -- 3:
-2010-03-15 15:44:39,790 - EpcLogger - INFO - 	Task 3 stimuli 0.735335:
-2010-03-15 15:44:39,790 - EpcLogger - DEBUG - Taskid -- 4:
-2010-03-15 15:44:39,790 - EpcLogger - INFO - 	Task 4 stimuli 0.589157:
-2010-03-15 15:44:39,790 - EpcLogger - INFO - 	 RandomWalk Stimuli: 0.300000
-2010-03-15 15:44:39,790 - EpcLogger - DEBUG - @TS Task 0 Prob 0.100943
-2010-03-15 15:44:39,790 - EpcLogger - DEBUG - @TS Task 1 Prob 0.238158
-2010-03-15 15:44:39,790 - EpcLogger - DEBUG - @TS Task 2 Prob 0.215238
-2010-03-15 15:44:39,791 - EpcLogger - DEBUG - @TS Task 3 Prob 0.247423
-2010-03-15 15:44:39,791 - EpcLogger - DEBUG - @TS Task 4 Prob 0.198238
-2010-03-15 15:44:39,791 - EpcLogger - DEBUG - @TS Task 0 prob start: 0  end: 10
-2010-03-15 15:44:39,791 - EpcLogger - DEBUG - @TS Task 1 prob start: 11  end: 34
-2010-03-15 15:44:39,791 - EpcLogger - DEBUG - @TS Task 2 prob start: 35  end: 56
-2010-03-15 15:44:39,791 - EpcLogger - DEBUG - @TS Task 3 prob start: 57  end: 81
-2010-03-15 15:44:39,791 - EpcLogger - DEBUG - @TS Task 4 prob start: 82  end: 101
-2010-03-15 15:44:39,791 - EpcLogger - DEBUG - 	Selected Randon no: 50
-2010-03-15 15:44:39,791 - EpcLogger - DEBUG - @TS Probing task 0 range 0 - 10 
-2010-03-15 15:44:39,791 - EpcLogger - DEBUG - @TS Probing task 1 range 11 - 34 
-2010-03-15 15:44:39,792 - EpcLogger - DEBUG - @TS Probing task 2 range 35 - 56 
-2010-03-15 15:44:39,792 - EpcLogger - INFO - 	 Select task 2 
-2010-03-15 15:44:39,792 - EpcLogger - INFO - 	task 2 inc. sensitization:0.130000, timesDone:1
-2010-03-15 15:48:00,545 - root - DEBUG - --- End EPC---
+2010-03-15 16:51:47,714 - root - DEBUG - --- Start EPC---
+2010-03-15 16:52:04,018 - EpcLogger - DEBUG - Entering DEVICE_NOT_RESPONDING loop--->
+2010-03-15 16:52:04,019 - EpcLogger - DEBUG - Entering DEVICE_AVAILABLE loop--->
+2010-03-15 16:52:04,019 - EpcLogger - DEBUG - 	Random walking
+2010-03-15 16:52:04,066 - EpcLogger - INFO - 	 Proximity sensor 0 activated
+2010-03-15 16:52:05,420 - EpcLogger - WARNING - @TaskSelected not available: string indices must be integers, not str
+2010-03-15 16:52:05,421 - EpcLogger - DEBUG - 	Random walking
+2010-03-15 16:52:05,478 - EpcLogger - INFO - 	 Proximity sensor 0 activated
+2010-03-15 16:52:06,847 - EpcLogger - DEBUG - Entering DEVICE_AVAILABLE loop--->
+2010-03-15 16:52:06,847 - EpcLogger - DEBUG - 	Random walking
+2010-03-15 16:52:06,902 - EpcLogger - INFO - 	 Proximity sensor 0 activated
+2010-03-15 16:52:08,215 - EpcLogger - WARNING - @TaskSelected not available: string indices must be integers, not str
+2010-03-15 16:52:08,215 - EpcLogger - DEBUG - 	Random walking
+2010-03-15 16:52:08,274 - EpcLogger - INFO - 	 Proximity sensor 0 activated
+2010-03-15 16:52:09,634 - EpcLogger - DEBUG - Entering DEVICE_AVAILABLE loop--->
+2010-03-15 16:52:09,634 - EpcLogger - DEBUG - 	Random walking
+2010-03-15 16:52:09,678 - EpcLogger - INFO - 	 Proximity sensor 0 activated
+2010-03-15 16:52:11,023 - EpcLogger - WARNING - @TaskSelected not available: string indices must be integers, not str
+2010-03-15 16:52:11,023 - EpcLogger - DEBUG - 	Random walking
+2010-03-15 16:52:11,070 - EpcLogger - INFO - 	 Proximity sensor 0 activated
+2010-03-15 16:52:12,430 - EpcLogger - DEBUG - Entering DEVICE_AVAILABLE loop--->
+2010-03-15 16:52:12,431 - EpcLogger - DEBUG - 	Random walking
+2010-03-15 16:52:12,494 - EpcLogger - INFO - 	 Proximity sensor 0 activated
+2010-03-15 16:52:13,851 - EpcLogger - WARNING - @TaskSelected not available: string indices must be integers, not str
+2010-03-15 16:52:13,851 - EpcLogger - DEBUG - 	Random walking
+2010-03-15 16:52:13,902 - EpcLogger - INFO - 	 Proximity sensor 0 activated
+2010-03-15 16:52:15,262 - EpcLogger - DEBUG - Entering DEVICE_AVAILABLE loop--->
+2010-03-15 16:52:15,262 - EpcLogger - DEBUG - 	Random walking
+2010-03-15 16:52:15,334 - EpcLogger - INFO - 	 Proximity sensor 0 activated
+2010-03-15 16:52:16,723 - EpcLogger - WARNING - @TaskSelected not available: string indices must be integers, not str
+2010-03-15 16:52:16,724 - EpcLogger - DEBUG - 	Random walking
+2010-03-15 16:52:16,798 - EpcLogger - INFO - 	 Proximity sensor 0 activated
+2010-03-15 16:52:18,146 - EpcLogger - DEBUG - Entering DEVICE_AVAILABLE loop--->
+2010-03-15 16:52:18,146 - EpcLogger - DEBUG - 	Random walking
+2010-03-15 16:52:18,194 - EpcLogger - INFO - 	 Proximity sensor 0 activated
+2010-03-15 16:52:19,566 - EpcLogger - WARNING - @TaskSelected not available: string indices must be integers, not str
+2010-03-15 16:52:19,567 - EpcLogger - DEBUG - 	Random walking
+2010-03-15 16:52:19,622 - EpcLogger - INFO - 	 Proximity sensor 0 activated
+2010-03-15 16:52:20,986 - EpcLogger - DEBUG - Entering DEVICE_AVAILABLE loop--->
+2010-03-15 16:52:20,986 - EpcLogger - DEBUG - 	Random walking
+2010-03-15 16:52:21,038 - EpcLogger - INFO - 	 Proximity sensor 0 activated
+2010-03-15 16:52:22,396 - EpcLogger - WARNING - @TaskSelected not available: string indices must be integers, not str
+2010-03-15 16:52:22,396 - EpcLogger - DEBUG - 	Random walking
+2010-03-15 16:52:22,446 - EpcLogger - INFO - 	 Proximity sensor 0 activated
+2010-03-15 16:52:23,826 - EpcLogger - DEBUG - Entering DEVICE_AVAILABLE loop--->
+2010-03-15 16:52:23,826 - EpcLogger - DEBUG - 	Random walking
+2010-03-15 16:52:23,874 - EpcLogger - INFO - 	 Proximity sensor 0 activated
+2010-03-15 16:52:25,243 - EpcLogger - WARNING - @TaskSelected not available: string indices must be integers, not str
+2010-03-15 16:52:25,243 - EpcLogger - DEBUG - 	Random walking
+2010-03-15 16:52:25,314 - EpcLogger - INFO - 	 Proximity sensor 0 activated
+2010-03-15 16:52:26,646 - EpcLogger - DEBUG - Entering DEVICE_AVAILABLE loop--->
+2010-03-15 16:52:26,646 - EpcLogger - DEBUG - 	Random walking
+2010-03-15 16:52:26,708 - EpcLogger - INFO - 	 Proximity sensor 0 activated
+2010-03-15 16:52:28,059 - EpcLogger - WARNING - @TaskSelected not available: string indices must be integers, not str
+2010-03-15 16:52:28,059 - EpcLogger - DEBUG - 	Random walking
+2010-03-15 16:52:28,110 - EpcLogger - INFO - 	 Proximity sensor 0 activated
+2010-03-15 16:52:29,454 - EpcLogger - DEBUG - Entering DEVICE_AVAILABLE loop--->
+2010-03-15 16:52:29,454 - EpcLogger - DEBUG - 	Random walking
+2010-03-15 16:52:29,498 - EpcLogger - INFO - 	 Proximity sensor 0 activated
+2010-03-15 16:52:30,855 - EpcLogger - WARNING - @TaskSelected not available: string indices must be integers, not str
+2010-03-15 16:52:30,855 - EpcLogger - DEBUG - 	Random walking
+2010-03-15 16:52:30,902 - EpcLogger - INFO - 	 Proximity sensor 0 activated

@@ -164,7 +164,7 @@ class TaskSelector():
 
         self.robot.UpdateTaskRecords(self.selected_taskid)
         
-        self.datamgr.mSelectedTaskAvailable.set() # Trigger Device Controller
+        self.datamgr.SetSelectedTaskAvailable() # Trigger Device Controller
         #time.sleep(1)
         if self.datamgr.mTaskTimedOut.is_set():
             self.datamgr.mTaskTimedOut.clear() # delay next task selection
