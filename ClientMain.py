@@ -7,9 +7,10 @@ import  logging,  logging.config,  logging.handlers
 logging.config.fileConfig("\
 /home/newport-ril/centralized-expt/EpuckCentralizedClient/logging.conf")
 logger = logging.getLogger("EpcLogger")
-multiprocessing.log_to_stderr(logging.DEBUG)
+#multiprocessing.log_to_stderr(logging.DEBUG)
 
 from RILCommonModules import *
+from RILCommonModules.RILSetup import *
 from EpuckCentralizedClient import *
 from EpuckCentralizedClient.data_manager import *
 from EpuckCentralizedClient.ril_robot import *
@@ -23,16 +24,18 @@ from EpuckCentralizedClient.device_controller import *
 def main():
 	logging.debug("--- Start EPC---")
 	#dbus_server.start()
+	data_mgr.start()
 	dbus_listener.start()
-	device_controller.start()
+	#device_controller.start()
 	taskselector.start()
 	dbus_emitter.start()
 	# Ending....
 	time.sleep(2)
 	#dbus_server.join()
 	try:
+		data_mgr.join()
 		dbus_listener.join()
-		device_controller.join()
+		#device_controller.join()
 		taskselector.join()
 		dbus_emitter.join()
 	except (KeyboardInterrupt, SystemExit):
@@ -52,12 +55,6 @@ if __name__ == '__main__':
 	# setup processes
 	dbus_shared_path = DBUS_PATH_BASE + robotid
 	dm = DataManager(int(robotid))
-	##----------START TEST CODE ----#
-	#dm.mSelectedTask[SELECTED_TASK_ID] = 1
-	#dm.mSelectedTask[SELECTED_TASK_STATUS] = TASK_SELECTED
-	#dm.mSelectedTask[SELECTED_TASK_INFO] = [1200000, 1507, 944, 0.0, 0.5]
-	#dm.mTaskInfo[1] = [1200000, 1507, 944, 0.0, 0.5]
-	## -- END TEST CODE --------#
 	
 	robot = RILRobot(int(robotid))
 	robot.InitTaskRecords(MAX_SHOPTASK)
@@ -69,6 +66,10 @@ if __name__ == '__main__':
 		#target=dbus_server.server_main,
 		#name="SwisTrackProxy",\
 		#args=(DBUS_IFACE_TRACKER, dbus_shared_path,  sig1,  delay,))
+	data_mgr = multiprocessing.Process(\
+		target=datamgr_main,
+		name="DataMgrServer",\
+		args=(dm,))
 	dbus_listener = multiprocessing.Process(\
 		target=listener_main,\
 		name="DBusListener",\
