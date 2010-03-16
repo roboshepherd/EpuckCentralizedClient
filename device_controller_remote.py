@@ -24,22 +24,8 @@ DEVICE_IDLE = 3
 _packet_loss = ''
 EXIT_COND = True 
 # may be changed later to set as time duration 
-SMALL_DELAY = 0.1 # orig : 3
+SMALL_DELAY = 3 # orig : 3
 TASK_STEP_DURATION = 30
-
-def process_ping_output(output):
-    global _packet_loss
-    pct = re.findall(r"\d\%", output)
-    if(pct):
-        #print "%loss: ", pct[0]
-        _packet_loss = pct[0]
-    if (_packet_loss == '0%'):
-        #print "Device Alive"
-        return True
-    if (_packet_loss == '100%' or  (not _packet_loss)): 
-        print "Device Dead"
-        return False
-    _packet_loss = ''
 
 class DeviceController():
     def __init__(self,  dm, task_period = TASK_STEP_DURATION):
@@ -91,7 +77,8 @@ class DeviceController():
     
     def AppendPoseLog(self):        
         sep = DATA_SEP
-        self.pose.UpdateFromList(self.datamgr_proxy.GetRobotPose())
+        pl = eval(self.datamgr_proxy.GetRobotPose()) 
+        self.pose.UpdateFromList(pl)
         p = self.pose
         log = self.GetCommonHeader()\
          + sep + str(p.x) + sep + str(p.y) + sep + str(p.theta) + "\n"
@@ -118,16 +105,17 @@ class DeviceController():
         self.task_selected = False
         try:
             #self.datamgr_proxy.WaitSelectedTaskAvailable()
-            taskdict = self.datamgr_proxy.GetSelectedTask()
-            print taskdict
-            taskid = taskdict[SELECTED_TASK_ID]
+            taskdict = eval(self.datamgr_proxy.GetSelectedTask())
+            #print type(td)
+            print taskdict[SELECTED_TASK_ID]
+            taskid = int(taskdict[SELECTED_TASK_ID])
             status = taskdict[SELECTED_TASK_STATUS]
             print "From TaskDict got %i %s"  %(taskid,  status)
             #self.datamgr_proxy.ClearSelectedTaskAvailable() # read complete        
             if status == TASK_SELECTED:
                 self.task_selected = True
-            #if taskid is RANDOM_WALK_TASK_ID:
-                #self.task_is_rw = True
+            if taskid is RANDOM_WALK_TASK_ID:
+                self.task_is_rw = True
         except Exception, e:
             logger.warn("@TaskSelected not available: %s", e)
         return self.task_selected
@@ -158,13 +146,15 @@ class DeviceController():
     
     def PoseUpdated(self):
         updated = False
-        self.pose.UpdateFromList(self.datamgr_proxy.GetRobotPose())
+        pl = eval(self.datamgr_proxy.GetRobotPose())
+        self.pose.UpdateFromList(pl)
         if int(self.last_pose_ts) < int(self.pose.ts):
             updated = True
         return updated
 
     def GetUpdatedRobotPose(self):
-        self.pose.UpdateFromList(self.datamgr_proxy.GetRobotPose())
+        p = eval(self.datamgr_proxy.GetRobotPose())
+        self.pose.UpdateFromList(p)
         x = self.pose.x
         y = self.pose.y
         theta = self.pose.theta
@@ -176,7 +166,7 @@ class DeviceController():
         x = 0
         y = 0 
         try:
-            td = self.datamgr_proxy.GetSelectedTask()
+            td = eval(self.datamgr_proxy.GetSelectedTask())
             st = td[SELECTED_TASK_INFO]
             x = st[TASK_INFO_X]
             y= st[TASK_INFO_Y]
@@ -250,7 +240,7 @@ class DeviceController():
                self.status = DEVICE_AVAILABLE # stay in-loop
                print "@DEVICE_AVAILABLE loop"
                self.DoRandomWalk() ## To improve id-pose detection
-               #time.sleep(SMALL_DELAY)
+               time.sleep(SMALL_DELAY)
    
     def RunDeviceMovingLoop(self):
         while self.status is DEVICE_MOVING:

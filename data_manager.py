@@ -39,7 +39,7 @@ class DataManager(object):
             val = True
         return val
     def GetTaskInfo(self):
-        val = self.mTaskInfo
+        val = self.mTaskInfo.copy()
         return str(val)
     def IsTaskInfoAvailable(self):
         val = self.mTaskInfoAvailable

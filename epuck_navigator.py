@@ -12,7 +12,7 @@ import  logging,  logging.config,  logging.handlers
 logger = logging.getLogger("EpcLogger")
 
 PROXIMITY_THRESHOLD = 200
-TRANSLATE_SPEED = 0.5
+TRANSLATE_SPEED = 0.31 # initial 0.5
 ROTATE_SPEED = 0.644 # 1.0 == 3.14 rev/s, 0.644 == 2.04 rev/s
 STEP_DIST = 40 # pixel
 TRANSLATE_CONST = 40 # dividing desired px-dist by this gives time(translate) 
@@ -20,8 +20,8 @@ ROTATE_CONST = 0.637/2 # mutiplying this with desired angle gives time(rotate)
 # typical value: 0.637  max val = 0.411
 FORWARD_STEP_TIME = 1
 # Obstacle Avoidance params
-BACKWARD_SPEED1 = -0.4 # orig: -0.4
-BACKWARD_TURN = 0.3 # orig: 0 , no turn
+BACKWARD_SPEED1 = -0.31 # orig: -0.4
+BACKWARD_TURN = 0.15 # orig: 0.3  
 TINY_SLEEP = 0.01 # orig: 0.05
 
 class NavFunc :
