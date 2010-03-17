@@ -8,6 +8,7 @@ logging.config.fileConfig("./logging-remote.conf")
 logger = logging.getLogger("EpcLogger")
 from EpuckCentralizedClient.data_manager import *
 from EpuckCentralizedClient.device_controller_remote import *
+from RILCommonModules.RILSetup import *
 
 class RemoteManager(BaseManager):
   pass
