@@ -4,7 +4,8 @@ from multiprocessing import *
 import time
 import sys
 import  logging,  logging.config,  logging.handlers
-logging.config.fileConfig("./logging-remote.conf")
+logging.config.fileConfig("\
+/home/newport-ril/centralized-expt/EpuckCentralizedClient/logging.conf")
 logger = logging.getLogger("EpcLogger")
 from EpuckCentralizedClient.data_manager import *
 from EpuckCentralizedClient.device_controller_remote import *

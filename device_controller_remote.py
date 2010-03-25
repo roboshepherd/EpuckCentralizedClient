@@ -4,16 +4,17 @@ import time
 import math
 import sys
 import  logging,  logging.config,  logging.handlers
-#logging.config.fileConfig("logging.conf")
 logger = logging.getLogger("EpcLogger")
-
-
 from myro import *
 from RILCommonModules.RILSetup import *
 from RILCommonModules.LiveGraph import *
 from RILCommonModules.pose import *
 from EpuckCentralizedClient.data_manager import *
 from EpuckCentralizedClient.epuck_navigator import *
+
+# BT link setup/reset
+BT_CONF_FILE =\
+ '/home/newport-ril/centralized-expt/btconfig/hci-bdaddr-remote.conf'
 
 # Device status alias
 DEVICE_NOT_RESPONDING = 0
@@ -56,6 +57,11 @@ class DeviceController():
         # data logger
         self.step = 0
         self.pose_writer = None
+        # BT link setup
+        self.bt_up = False        
+        self.bdaddr = None
+        self.hciID = None
+        self.dev_rfcomm = None
     
     def InitLogFiles(self):
         # -- Init Stimuli writer --
@@ -77,7 +83,7 @@ class DeviceController():
     
     def AppendPoseLog(self):        
         sep = DATA_SEP
-        pl = eval(self.datamgr_proxy.GetRobotPose()) 
+        pl = eval(self.robotid) 
         self.pose.UpdateFromList(pl)
         p = self.pose
         log = self.GetCommonHeader()\
@@ -86,6 +92,36 @@ class DeviceController():
             self.pose_writer.AppendData(log)
         except:
             print "Pose logging failed"
+            
+    def ResetBTLink(self):
+        print "BT Resetting..."
+        logger.debug("BT Resetting...")
+        f = open(BT_CONF_FILE, 'r')
+        for line in f.readlines():
+            if (line.split("/")[0] == str(self.robotid)):
+                self.hciID = line.split("/")[1]
+                self.bdaddr = line.split("/")[2]                
+        self.dev_rfcomm = "/dev/rfcomm" + str(self.robotid)
+        # release dev
+        if self.bt_up:
+            cmd = 'rfcomm release ' + self.dev_rfcomm
+            print ">>>>>> Doing: ", cmd
+            subproc = subprocess.Popen([cmd, ], stderr=subprocess.PIPE,\
+             stdout=subprocess.PIPE, shell=True)
+            stdout_value = subproc.communicate()
+            print stdout_value[0]
+            logger.debug("Releasing rfcomm dev: %s",stdout_value[0])            
+        # bind dev        
+        cmd = 'rfcomm ' + '-i ' + self.hciID + ' bind ' + self.dev_rfcomm\
+         + ' ' + self.bdaddr + '1'  # channel is always 1
+        print ">>>>>> Doing: ", cmd
+        subproc = subprocess.Popen([cmd, ], stderr=subprocess.PIPE,\
+         stdout=subprocess.PIPE, shell=True)
+        stdout_value = subproc.communicate()
+        print stdout_value[0]
+        logger.debug("Binding rfcomm dev: %s",stdout_value[0])
+        # set status
+        self.bt_up = True
 
     def InitEpuck(self):
         self.epuck_ready = False
@@ -213,10 +249,10 @@ class DeviceController():
         self.task_timedout = False 
         self.task_selected = False
 
- 
     def RunDeviceUnavailableLoop(self):
         while self.status is DEVICE_NOT_RESPONDING:
             logger.debug ("Entering DEVICE_NOT_RESPONDING loop--->")
+            self.ResetBTLink()
             if self.EpuckReady():
                 self.status = DEVICE_AVAILABLE # go out loop
                 break
@@ -328,6 +364,7 @@ class DeviceController():
 def controller_main(data_mgr):
         dc = DeviceController(data_mgr)
         dc.InitLogFiles()
+        dc.ResetBTLink()
         dc.InitEpuck()
         dc.RunMainLoop()
 
