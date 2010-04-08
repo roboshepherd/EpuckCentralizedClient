@@ -5,11 +5,46 @@ import dbus, dbus.service, dbus.mainloop.glib
 import multiprocessing,  logging
 
 from RILCommonModules.RILSetup import *
+from RILCommonModules.LiveGraph import *
 from EpuckCentralizedClient.data_manager import *
 from EpuckCentralizedClient.utils import *
 
 schedule = sched.scheduler(time.time, time.sleep)
 loop = None
+# ------------ Log signal emission
+class CommLogger():
+    def __init__(self, dm):
+        self.datamgr_proxy = dm
+        self.robotid = dm.GetRobotID()
+        self.log_writer1 = None  # for logging emitted robot status signal      
+        self.step = 0
+
+    def InitLogFiles(self):
+        name = "DBusEmitter"
+        now = time.strftime("%Y%b%d-%H%M%S", time.gmtime())
+        desc = "logged in centralized communication mode from: " + now
+        # prepare label
+        label = "TimeStamp;HH:MM:SS;StepCounter;TaskID\n"
+        # Data context
+        ctx = DataCtx(name, label, desc)
+        # Signal Logger
+        self.log_writer1 = DataWriter("Robot", ctx, now, str(self.robotid))
+
+    def _GetCommonHeader(self):
+        sep = DATA_SEP
+        ts = str(time.time()) + sep + time.strftime("%H:%M:%S", time.gmtime())
+        self.step = self.step + 1
+        header = ts + sep + str(self.step)
+        return header
+    
+    def AppendCommLog(self, taskid):        
+        sep = DATA_SEP        
+        log = self._GetCommonHeader()\
+         + sep + str(taskid) + sep + "\n"
+        try: 
+            self.log_writer1.AppendData(log)
+        except:
+            print "RobotStatus signal logging failed"
 
 #------------------ Signal Despatch ---------------------------------
 class TaskStatusSignal(dbus.service.Object):
@@ -27,7 +62,7 @@ class TaskStatusSignal(dbus.service.Object):
 
     
 def emit_task_signal(delay,  sig1):
-    global task_signal,  datamgr_proxy
+    global task_signal,  datamgr_proxy, comm_logger
     schedule.enter(delay, 0, emit_task_signal, (delay, sig1  ) )
     try:
         datamgr_proxy.mSelectedTaskStarted.wait()
@@ -41,6 +76,7 @@ def emit_task_signal(delay,  sig1):
 #            status = str(v)
         print "From TaskDict got %i %s"  %(taskid,  status)
         task_signal.TaskStatus(sig1,  robotid,  taskid)
+        comm_logger.AppendCommLog(taskid)
     except:
         print "Emitting TaskStatus signal failed"
    
@@ -50,8 +86,11 @@ def emitter_main(dm,  dbus_iface= DBUS_IFACE_EPUCK,  dbus_path =\
     DBUS_PATH_BASE, sig1 = "TaskStatus",   delay = 3):
     dbus.mainloop.glib.DBusGMainLoop(set_as_default=True)
     session_bus = dbus.SessionBus()
-    global task_signal,  datamgr_proxy
+    global task_signal,  datamgr_proxy, comm_logger
     datamgr_proxy = dm
+    # setup logging status emission
+    comm_logger = CommLogger(dm)
+    comm_logger.InitLogFiles()
     try:
         name = dbus.service.BusName(dbus_iface, session_bus)
         task_signal = TaskStatusSignal(dbus_path)

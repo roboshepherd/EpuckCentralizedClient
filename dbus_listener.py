@@ -19,7 +19,6 @@ class CommLogger():
         self.step = 0
 
     def InitLogFiles(self):
-        # -- Init Stimuli writer --
         name = "DBusListener"
         now = time.strftime("%Y%b%d-%H%M%S", time.gmtime())
         desc = "logged in centralized communication mode from: " + now
