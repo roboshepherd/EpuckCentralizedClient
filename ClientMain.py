@@ -84,10 +84,10 @@ if __name__ == '__main__':
 		target=emitter_main,\
 		name="DBusEmitter",\
 		args=(dm,  DBUS_IFACE_EPUCK, dbus_shared_path,  sig3,   delay,))
-	device_controller =  multiprocessing.Process(\
-		target=controller_main,\
-		name="DeviceController",  
-		args=(dm,))
+	#device_controller =  multiprocessing.Process(\
+		#target=controller_main,\
+		#name="DeviceController",  
+		#args=(dm,))
 	main()
       
 

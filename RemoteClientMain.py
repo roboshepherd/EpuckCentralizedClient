@@ -5,7 +5,7 @@ import time
 import sys
 import  logging,  logging.config,  logging.handlers
 logging.config.fileConfig("\
-/home/newport-ril/centralized-expt/EpuckCentralizedClient/logging.conf")
+/home/newport-ril/centralized-expt/EpuckCentralizedClient/logging-remote.conf")
 logger = logging.getLogger("EpcLogger")
 from EpuckCentralizedClient.data_manager import *
 from EpuckCentralizedClient.device_controller_remote import *

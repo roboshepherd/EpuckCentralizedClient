@@ -38,11 +38,11 @@ class CommLogger():
     
     def AppendCommLog(self, taskinfo):        
         sep = DATA_SEP
-        len = len(taskinfo)
+        length = len(taskinfo)
         task_ids = taskinfo.keys()
         task_ids.sort() 
         log = self._GetCommonHeader()\
-         + sep + str(len) + sep + str(task_ids) + "\n"
+         + sep + str(length) + sep + str(task_ids) + "\n"
         try: 
             self.log_writer1.AppendData(log)
         except:
@@ -137,7 +137,7 @@ def listener_main(data_mgr,  dbus_if1= DBUS_IFACE_TRACKER,\
         bus = dbus.SessionBus()
         print "%s, %s, %s" %(dbus_if1, dbus_path1, sig1)
         # setup logging signals
-        comm_logger = CommLogger()
+        comm_logger = CommLogger(data_mgr)
         comm_logger.InitLogFiles()
         try:
             bus.add_signal_receiver(pose_signal_handler, dbus_interface =\
