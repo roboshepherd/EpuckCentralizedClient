@@ -287,13 +287,13 @@ class DeviceController():
                 break
             else: 
                 self.status = DEVICE_NOT_RESPONDING # stay here in loop
-                self.status_writer.AppendStatusLog(str(DEVICE_NOT_RESPONDING))
+                self.AppendStatusLog(str(DEVICE_NOT_RESPONDING))
                 time.sleep(LONG_TIME_X*SMALL_DELAY)
 
     def RunDeviceAvailableLoop(self):
         while self.status is DEVICE_AVAILABLE:
             logger.debug ("Entering DEVICE_AVAILABLE loop--->")
-            self.status_writer.AppendStatusLog(str(DEVICE_AVAILABLE * STATUS_SCALE))
+            self.AppendStatusLog(str(DEVICE_AVAILABLE * STATUS_SCALE))
             self.DoRandomWalk() ## To find task
             if self.TaskSelected():
                 self.task_start = time.time()
@@ -306,7 +306,7 @@ class DeviceController():
             else:
                self.status = DEVICE_AVAILABLE # stay in-loop
                print "@DEVICE_AVAILABLE loop"
-               self.status_writer.AppendStatusLog(str(DEVICE_AVAILABLE * STATUS_SCALE))
+               self.AppendStatusLog(str(DEVICE_AVAILABLE * STATUS_SCALE))
                self.DoRandomWalk() ## To improve id-pose detection
                time.sleep(SMALL_DELAY)
    
@@ -328,7 +328,7 @@ class DeviceController():
                 # do random walking ...
                 logger.debug ("\t RandomWalking")
                 self.AppendPoseLog()
-                self.status_writer.AppendStatusLog(str(DEVICE_MOVING * STATUS_SCALE) )
+                self.AppendStatusLog(str(DEVICE_MOVING * STATUS_SCALE) )
                 self.DoRandomWalk()
             elif self.PoseUpdated(): # task is move to target
                 if self.ArrivedAtTask():
@@ -340,12 +340,12 @@ class DeviceController():
                     self.status = DEVICE_MOVING # stay in-loop
                     # go to navigation routines for MoveToTarget
                     self.AppendPoseLog()
-                    self.status_writer.AppendStatusLog(str(DEVICE_MOVING * STATUS_SCALE +\
+                    self.AppendStatusLog(str(DEVICE_MOVING * STATUS_SCALE +\
                      self.target_task * TASK_SCALE))
                     self.MoveToTarget()
             else:
                 self.status = DEVICE_MOVING # stay in-loop
-                self.status_writer.AppendStatusLog(str(DEVICE_MOVING * STATUS_SCALE))
+                self.AppendStatusLog(str(DEVICE_MOVING * STATUS_SCALE))
                 self.DoRandomWalk()
             logger.debug ("--->Exiting DEVICE_MOVING loop.")    
         
@@ -367,7 +367,7 @@ class DeviceController():
                         logger.debug ("\t AtTask")
                         # stay in loop
                         self.status = DEVICE_IDLE
-                        self.status_writer.AppendStatusLog(str(DEVICE_IDLE * STATUS_SCALE +\
+                        self.AppendStatusLog(str(DEVICE_IDLE * STATUS_SCALE +\
                          self.target_task * TASK_SCALE))
                         time.sleep(SMALL_DELAY)
                     else:
@@ -379,7 +379,7 @@ class DeviceController():
                     # stay in loop
                     self.status = DEVICE_IDLE 
                     # but do random walk to be seen by camera
-                    self.status_writer.AppendStatusLog(str(DEVICE_MOVING * STATUS_SCALE))
+                    self.AppendStatusLog(str(DEVICE_MOVING * STATUS_SCALE))
                     self.DoRandomWalk()
             logger.debug ("--->Exiting DEVICE_IDLE loop.")              
 
